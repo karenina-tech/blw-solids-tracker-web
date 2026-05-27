@@ -7,7 +7,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest --config jest.config.cjs",
-    "test:watch": "jest --config jest.config.cjs --watch"
+    "test:watch": "jest --config jest.config.cjs --watch",
+    "typecheck": "tsc --noEmit && echo Types are correct",
+    "typecheck:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
     "react": "^18.3.1",
