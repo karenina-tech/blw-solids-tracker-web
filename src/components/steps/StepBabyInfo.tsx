@@ -1,3 +1,5 @@
+import { DatePicker } from '../DatePicker';
+
 interface StepBabyInfoProps {
   name: string;
   startDate: string;
@@ -31,12 +33,7 @@ export function StepBabyInfo({ name, startDate, onChange, onNext }: StepBabyInfo
           <label className="block text-sm font-medium text-slate-700 mb-1.5">
             Planned start date
           </label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => onChange('startDate', e.target.value)}
-            className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-slate-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
-          />
+          <DatePicker value={startDate} onChange={(iso) => onChange('startDate', iso)} />
           <p className="text-xs text-slate-400 mt-1">This is used to generate your 30-day calendar.</p>
         </div>
       </div>

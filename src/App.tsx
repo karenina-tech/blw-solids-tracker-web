@@ -96,7 +96,7 @@ export default function App() {
           <span className="text-3xl">🥑</span>
           <h1 className="text-lg font-bold text-slate-700 mt-1">BLW Solids Tracker</h1>
           <div className="flex justify-center gap-2 mt-2 flex-wrap">
-            {['Free', 'No account needed', 'No AI required'].map((label) => (
+            {['Free', 'No account needed'].map((label) => (
               <span
                 key={label}
                 className="bg-emerald-100 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full"

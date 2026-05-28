@@ -41,11 +41,11 @@ export function getSafeFoodsTool(input: ToolInput) {
     const note =
       `Thank you for taking the time to go through this with me.\n\n` +
       `Based on what you shared, it looks like ${profile.name} might need just a little more time before starting solid foods. ` +
-      `This is completely normal — every baby develops at their own pace, and there is no rush!\n\n` +
+      `This is completely normal, every baby develops at their own pace, and there is no rush!\n\n` +
       `Here is what we noticed:\n${markerList}\n\n` +
       `The good news is that most babies reach these milestones within the next few weeks. ` +
       `Starting solids at the right moment makes the whole experience safer and more enjoyable for both of you.\n\n` +
-      `Come back whenever ${profile.name} is ready — we will be here!`;
+      `Come back whenever ${profile.name} is ready, we will be here!`;
 
     return {
       success: false,
