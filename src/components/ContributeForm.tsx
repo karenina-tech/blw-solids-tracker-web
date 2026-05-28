@@ -114,19 +114,14 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
   if (submission.status === 'success') {
     return (
       <div className="text-center py-8">
-        <div className="text-4xl mb-4">🎉</div>
-        <h2 className="text-xl font-bold text-slate-800 mb-2">Submission received!</h2>
-        <p className="text-slate-500 text-sm mb-6">
-          Your contribution has been sent for review. A maintainer will look it over shortly.
+        <div className="text-4xl mb-4">🥦</div>
+        <h2 className="text-xl font-bold text-slate-800 mb-2">Thank you so much!</h2>
+        <p className="text-slate-500 text-sm mb-2">
+          Your suggestion has been received and I'll review it personally.
         </p>
-        <a
-          href={submission.issueUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-semibold text-emerald-600 hover:text-emerald-700 underline"
-        >
-          View your submission on GitHub →
-        </a>
+        <p className="text-slate-400 text-sm">
+          If it's a good fit, it'll show up in the tracker soon. Every contribution helps families feed their babies better!
+        </p>
         <div className="mt-8">
           <button
             onClick={() => { setSubmission({ status: 'idle' }); setFields(EMPTY); setSlugTouched(false); }}
