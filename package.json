@@ -9,7 +9,8 @@
     "test": "jest --config jest.config.cjs",
     "test:watch": "jest --config jest.config.cjs --watch",
     "types": "tsc --noEmit && echo ✨ Types are correct",
-    "typecheck:watch": "tsc --noEmit --watch"
+    "typecheck:watch": "tsc --noEmit --watch",
+    "verify": "npm audit --audit-level=high && tsc --noEmit && jest --config jest.config.cjs && tsc && vite build"
   },
   "dependencies": {
     "react": "^18.3.1",
