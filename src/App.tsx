@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import foodPatternUrl from './assets/food-pattern.svg?url';
 import { ProgressBar } from './components/ProgressBar';
 import { StepBabyInfo } from './components/steps/StepBabyInfo';
 import { StepAge } from './components/steps/StepAge';
@@ -7,6 +8,7 @@ import { StepMilestones } from './components/steps/StepMilestones';
 import { StepAllergies } from './components/steps/StepAllergies';
 import { StepDietType } from './components/steps/StepDietType';
 import { StepResult } from './components/steps/StepResult';
+import { GreetingCard } from './components/GreetingCard';
 
 export type FormData = {
   name: string;
@@ -50,6 +52,7 @@ const initialFormData: FormData = {
 };
 
 export default function App() {
+  const [showGreeting, setShowGreeting] = useState(true);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -84,102 +87,120 @@ export default function App() {
   const isResultStep = currentStep === 'result';
 
   return (
-    <div className="min-h-screen bg-emerald-50 flex flex-col items-center justify-center p-4">
+    <div
+      className="min-h-screen bg-emerald-50 flex flex-col items-center justify-center p-4"
+      style={{ backgroundImage: `url(${foodPatternUrl})`, backgroundSize: '500px 400px' }}
+    >
       <div className="w-full max-w-lg">
         <div className="text-center mb-6">
           <span className="text-3xl">🥑</span>
           <h1 className="text-lg font-bold text-slate-700 mt-1">BLW Solids Tracker</h1>
-          <p className="text-xs text-slate-400">Free · No account needed · No AI required</p>
+          <div className="flex justify-center gap-2 mt-2 flex-wrap">
+            {['Free', 'No account needed', 'No AI required'].map((label) => (
+              <span
+                key={label}
+                className="bg-emerald-100 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-md p-8">
-          {!isResultStep && (
-            <ProgressBar current={stepIndex + 1} total={totalSteps - 1} />
-          )}
+        {showGreeting ? (
+          <GreetingCard onStart={() => setShowGreeting(false)} />
+        ) : (
+          <>
+            <div className="bg-white rounded-2xl shadow-md p-8">
+              {!isResultStep && (
+                <ProgressBar current={stepIndex + 1} total={totalSteps - 1} />
+              )}
 
-          {currentStep === 'baby-info' && (
-            <StepBabyInfo
-              name={formData.name}
-              startDate={formData.startDate}
-              onChange={(field, value) => setFormData((prev) => ({ ...prev, [field]: value }))}
-              onNext={goNext}
-            />
-          )}
+              {currentStep === 'baby-info' && (
+                <StepBabyInfo
+                  name={formData.name}
+                  startDate={formData.startDate}
+                  onChange={(field, value) => setFormData((prev) => ({ ...prev, [field]: value }))}
+                  onNext={goNext}
+                />
+              )}
 
-          {currentStep === 'age' && (
-            <StepAge
-              ageMonths={formData.ageMonths}
-              onChange={setAge}
-              onNext={goNext}
-              onBack={goBack}
-            />
-          )}
+              {currentStep === 'age' && (
+                <StepAge
+                  ageMonths={formData.ageMonths}
+                  onChange={setAge}
+                  onNext={goNext}
+                  onBack={goBack}
+                />
+              )}
 
-          {currentStep === 'feeding-type' && (
-            <StepFeedingType
-              feedingType={formData.feedingType}
-              onChange={(value) => setFormData((prev) => ({ ...prev, feedingType: value }))}
-              onNext={goNext}
-              onBack={goBack}
-            />
-          )}
+              {currentStep === 'feeding-type' && (
+                <StepFeedingType
+                  feedingType={formData.feedingType}
+                  onChange={(value) => setFormData((prev) => ({ ...prev, feedingType: value }))}
+                  onNext={goNext}
+                  onBack={goBack}
+                />
+              )}
 
-          {currentStep === 'milestones' && (
-            <StepMilestones
-              milestones={formData.milestones}
-              onChange={(field, value) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  milestones: { ...prev.milestones, [field]: value },
-                }))
-              }
-              onNext={goNext}
-              onBack={goBack}
-            />
-          )}
+              {currentStep === 'milestones' && (
+                <StepMilestones
+                  milestones={formData.milestones}
+                  onChange={(field, value) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      milestones: { ...prev.milestones, [field]: value },
+                    }))
+                  }
+                  onNext={goNext}
+                  onBack={goBack}
+                />
+              )}
 
-          {currentStep === 'allergies' && (
-            <StepAllergies
-              knownAllergies={formData.knownAllergies}
-              allergicFoods={formData.allergicFoods}
-              onChangeKnownAllergies={(value) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  knownAllergies: value,
-                  allergicFoods: value ? prev.allergicFoods : [],
-                }))
-              }
-              onToggleAllergen={toggleAllergen}
-              onNext={goNext}
-              onBack={goBack}
-            />
-          )}
+              {currentStep === 'allergies' && (
+                <StepAllergies
+                  knownAllergies={formData.knownAllergies}
+                  allergicFoods={formData.allergicFoods}
+                  onChangeKnownAllergies={(value) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      knownAllergies: value,
+                      allergicFoods: value ? prev.allergicFoods : [],
+                    }))
+                  }
+                  onToggleAllergen={toggleAllergen}
+                  onNext={goNext}
+                  onBack={goBack}
+                />
+              )}
 
-          {currentStep === 'diet-type' && (
-            <StepDietType
-              dietType={formData.dietType}
-              onChange={(value) => setFormData((prev) => ({ ...prev, dietType: value }))}
-              onNext={goNext}
-              onBack={goBack}
-            />
-          )}
+              {currentStep === 'diet-type' && (
+                <StepDietType
+                  dietType={formData.dietType}
+                  onChange={(value) => setFormData((prev) => ({ ...prev, dietType: value }))}
+                  onNext={goNext}
+                  onBack={goBack}
+                />
+              )}
 
-          {currentStep === 'result' && (
-            <StepResult formData={formData} onReset={reset} />
-          )}
-        </div>
+              {currentStep === 'result' && (
+                <StepResult formData={formData} onReset={reset} />
+              )}
+            </div>
 
-        <p className="text-center text-xs text-slate-400 mt-4">
-          Open source ·{' '}
-          <a
-            href="https://github.com/KareninaTech/blw-solids-tracker-skill"
-            className="underline hover:text-slate-600"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-        </p>
+            <p className="text-center text-xs text-slate-400 mt-4">
+              Open source ·{' '}
+              <a
+                href="https://github.com/karenina-tech/blw-solids-tracker-web"
+                className="underline hover:text-slate-600"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

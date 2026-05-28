@@ -1,5 +1,5 @@
 const AGE_LABELS: Record<number, string> = {
-  1: '1 mo', 2: '2 mo', 3: '3 mo', 4: '4 mo',
+
   5: '5 mo', 6: '6 mo', 7: '7 mo', 8: '8 mo',
   9: '9 mo', 10: '10 mo', 11: '11 mo', 12: '12 mo',
 };
