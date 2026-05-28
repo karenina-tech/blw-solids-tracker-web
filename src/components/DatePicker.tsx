@@ -100,7 +100,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
 
       {/* Dropdown calendar — opens upward */}
       {open && (
-        <div className="absolute z-50 bottom-full mb-1.5 w-full bg-white border border-slate-200 rounded-xl shadow-lg p-3 select-none">
+        <div className="absolute z-50 bottom-full mb-1.5 right-0 w-64 bg-white border border-slate-200 rounded-xl shadow-lg p-3 select-none">
           <div className="flex items-center justify-between mb-2">
             <button
               type="button"
