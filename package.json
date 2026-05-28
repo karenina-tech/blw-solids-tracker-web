@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "test": "jest --config jest.config.cjs",
     "test:watch": "jest --config jest.config.cjs --watch",
-    "typecheck": "tsc --noEmit && echo Types are correct",
+    "types": "tsc --noEmit && echo ✨ Types are correct",
     "typecheck:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

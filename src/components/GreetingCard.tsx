@@ -17,8 +17,10 @@ export function GreetingCard({ onStart }: Props) {
         Let's get started
       </button>
       <p className="text-xs text-slate-400 mt-4">
-        Made with 💚 ·{' '}
-        <a
+        Made with 💚 by Karenina{' '}
+        
+      </p>
+      <p className="text-xs text-slate-400 mt-4"><a
           href="https://buymeacoffee.com/yourusername"
           target="_blank"
           rel="noopener noreferrer"
