@@ -9,6 +9,9 @@ import { StepAllergies } from './components/steps/StepAllergies';
 import { StepDietType } from './components/steps/StepDietType';
 import { StepResult } from './components/steps/StepResult';
 import { GreetingCard } from './components/GreetingCard';
+import { ContributeForm } from './components/ContributeForm';
+
+const WORKER_URL = import.meta.env.VITE_WORKER_URL ?? 'http://localhost:8787/submit';
 
 export type FormData = {
   name: string;
@@ -53,6 +56,7 @@ const initialFormData: FormData = {
 
 export default function App() {
   const [showGreeting, setShowGreeting] = useState(true);
+  const [showContribute, setShowContribute] = useState(false);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -92,7 +96,7 @@ export default function App() {
       style={{ backgroundImage: `url(${foodPatternUrl})`, backgroundSize: '500px 400px' }}
     >
       <div className="w-full max-w-lg">
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <span className="text-3xl">🥑</span>
           <h1 className="text-lg font-bold text-slate-700 mt-1">BLW Solids Tracker</h1>
           <div className="flex justify-center gap-2 mt-2 flex-wrap">
@@ -107,8 +111,43 @@ export default function App() {
           </div>
         </div>
 
+        {!showGreeting && (
+          <div className="flex justify-center mb-4">
+            <div className="inline-flex bg-white/60 backdrop-blur-sm rounded-full p-1 gap-1 shadow-sm">
+              <button
+                onClick={() => setShowContribute(false)}
+                className={`px-5 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+                  !showContribute
+                    ? 'bg-emerald-500 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-slate-600'
+                }`}
+              >
+                Tracker
+              </button>
+              <button
+                onClick={() => setShowContribute(true)}
+                className={`px-5 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+                  showContribute
+                    ? 'bg-emerald-500 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-slate-600'
+                }`}
+              >
+                🥦 Contribute
+              </button>
+            </div>
+          </div>
+        )}
+
         {showGreeting ? (
           <GreetingCard onStart={() => setShowGreeting(false)} />
+        ) : showContribute ? (
+          <div className="bg-white rounded-2xl shadow-md p-8">
+            <h2 className="text-xl font-bold text-slate-800 mb-1">Suggest a new food</h2>
+            <p className="text-slate-500 text-sm mb-6">
+              Fill in the form below. A maintainer will review your suggestion before it goes live.
+            </p>
+            <ContributeForm workerUrl={WORKER_URL} />
+          </div>
         ) : (
           <>
             <div className="bg-white rounded-2xl shadow-md p-8">
