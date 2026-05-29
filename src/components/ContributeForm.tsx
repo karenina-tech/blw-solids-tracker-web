@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FoodItemSchema } from '../schemas/foodDatasetSchema';
 import type { SubmissionState } from '../types/contribution';
+import { FoodCatalog } from './FoodCatalog';
 
 interface ContributeFormProps {
   workerUrl: string;
@@ -61,6 +62,7 @@ function FieldError({ msg }: { msg?: string }) {
 }
 
 export function ContributeForm({ workerUrl }: ContributeFormProps) {
+  const [view, setView] = useState<'suggest' | 'browse'>('suggest');
   const [fields, setFields] = useState<FormFields>(EMPTY);
   const [slugTouched, setSlugTouched] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -114,7 +116,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
   if (submission.status === 'success') {
     return (
       <div className="text-center py-8">
-        <div className="text-4xl mb-4">🥦</div>
+        <div className="text-4xl mb-4">🙌</div>
         <h2 className="text-xl font-bold text-slate-800 mb-2">Thank you so much!</h2>
         <p className="text-slate-500 text-sm mb-2">
           Your suggestion has been received and I'll review it personally.
@@ -124,7 +126,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
         </p>
         <div className="mt-8">
           <button
-            onClick={() => { setSubmission({ status: 'idle' }); setFields(EMPTY); setSlugTouched(false); }}
+            onClick={() => { setSubmission({ status: 'idle' }); setFields(EMPTY); setSlugTouched(false); setView('suggest'); }}
             className="text-sm text-slate-400 hover:text-slate-600 underline"
           >
             Submit another food
@@ -134,14 +136,29 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
     );
   }
 
+  const pillBase = 'flex-1 px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200';
+  const pillActive = 'bg-white text-slate-700 shadow-sm';
+  const pillInactive = 'text-slate-400 hover:text-slate-600';
+
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-slate-800 mb-1">Suggest a new food</h2>
-        <p className="text-slate-500 text-sm">
-          Fill in the form below. I'll review your suggestion personally before it goes live.
-        </p>
+    <>
+      <div className="flex bg-slate-100 rounded-full p-1 gap-1 mb-6">
+        <button type="button" onClick={() => setView('suggest')} className={`${pillBase} ${view === 'suggest' ? pillActive : pillInactive}`}>
+          Suggest a food
+        </button>
+        <button type="button" onClick={() => setView('browse')} className={`${pillBase} ${view === 'browse' ? pillActive : pillInactive}`}>
+          Browse foods
+        </button>
       </div>
+
+      {view === 'browse' ? <FoodCatalog /> : (
+      <form onSubmit={handleSubmit} noValidate className="space-y-5">
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-slate-800 mb-1">Suggest a new food</h2>
+          <p className="text-slate-500 text-sm">
+            Fill in the form below. I'll review your suggestion personally before it goes live.
+          </p>
+        </div>
       <div className="grid grid-cols-2 gap-4">
         {/* Name */}
         <div className="col-span-2 sm:col-span-1">
@@ -290,6 +307,8 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
           {submission.status === 'loading' ? 'Submitting…' : 'Submit contribution'}
         </button>
       </div>
-    </form>
+      </form>
+      )}
+    </>
   );
 }

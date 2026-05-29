@@ -132,7 +132,7 @@ export default function App() {
                     : 'text-slate-400 hover:text-slate-600'
                 }`}
               >
-                🥦 Contribute
+                ✨ Contribute
               </button>
             </div>
           </div>
