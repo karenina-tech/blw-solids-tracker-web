@@ -122,7 +122,7 @@ export function FoodCatalog() {
                   <Fragment key={food.id}>
                     <tr
                       onClick={() => toggle(food.id)}
-                      className={`cursor-pointer border-b border-slate-100 transition-colors hover:bg-slate-50 ${isExpanded ? 'bg-slate-50' : ''}`}
+                      className={`cursor-pointer border-b border-slate-100 transition-colors hover:bg-slate-50 ${isExpanded ? 'bg-white' : ''}`}
                     >
                       <td className="px-4 py-3 font-medium text-slate-800">{food.name}</td>
                       <td className="px-3 py-3 text-center">
@@ -150,9 +150,9 @@ export function FoodCatalog() {
                       </td>
                     </tr>
                     {isExpanded && (
-                    <tr className="bg-slate-50">
+                    <tr className="bg-white border-b border-slate-200">
                       <td colSpan={4} className="px-4 pb-4 pt-0">
-                        <div className="space-y-3 pt-3 border-t border-slate-100 mt-1">
+                        <div className="space-y-3 pt-3 border-t border-emerald-200 mt-1">
                           {Object.entries(food.preparationByAge).map(([range, instruction]) => (
                             <div key={range}>
                               <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">

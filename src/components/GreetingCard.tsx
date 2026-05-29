@@ -20,15 +20,7 @@ export function GreetingCard({ onStart }: Props) {
         Made with 💚 by Karenina{' '}
         
       </p>
-      <p className="text-xs text-slate-400 mt-4"><a
-          href="https://buymeacoffee.com/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-slate-600"
-        >
-          Buy me a coffee
-        </a>
-      </p>
+     
     </div>
   );
 }

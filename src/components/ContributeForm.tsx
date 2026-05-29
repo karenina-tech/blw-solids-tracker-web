@@ -136,17 +136,22 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
     );
   }
 
-  const pillBase = 'flex-1 px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200';
-  const pillActive = 'bg-white text-slate-700 shadow-sm';
-  const pillInactive = 'text-slate-400 hover:text-slate-600';
-
   return (
     <>
-      <div className="flex bg-slate-100 rounded-full p-1 gap-1 mb-6">
-        <button type="button" onClick={() => setView('suggest')} className={`${pillBase} ${view === 'suggest' ? pillActive : pillInactive}`}>
+      <div className="flex items-center justify-center gap-2.5 mb-6 text-sm">
+        <button
+          type="button"
+          onClick={() => setView('suggest')}
+          className={`transition-colors ${view === 'suggest' ? 'font-semibold text-slate-700' : 'text-slate-400 hover:text-slate-500'}`}
+        >
           Suggest a food
         </button>
-        <button type="button" onClick={() => setView('browse')} className={`${pillBase} ${view === 'browse' ? pillActive : pillInactive}`}>
+        <span className="text-slate-300 select-none">/</span>
+        <button
+          type="button"
+          onClick={() => setView('browse')}
+          className={`transition-colors ${view === 'browse' ? 'font-semibold text-slate-700' : 'text-slate-400 hover:text-slate-500'}`}
+        >
           Browse foods
         </button>
       </div>

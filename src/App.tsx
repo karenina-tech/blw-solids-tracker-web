@@ -222,20 +222,30 @@ export default function App() {
                 <StepResult formData={formData} onReset={reset} />
               )}
             </div>
-
-            <p className="text-center text-xs text-slate-400 mt-4">
-              Open source ·{' '}
-              <a
-                href="https://github.com/karenina-tech/blw-solids-tracker-web"
-                className="underline hover:text-slate-600"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </p>
           </>
         )}
+        <p className="flex justify-center items-center gap-2 text-xs text-slate-400 mt-4">
+          Open source ·{' '}
+          <a
+            href="https://github.com/karenina-tech/blw-solids-tracker-web"
+            className="underline hover:text-slate-600"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          {/* TODO: Add buy me a coffee link */}
+          {/* <span className="text-lg">·</span>
+          <a
+            href="https://buymeacoffee.com/karenina.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-slate-600"
+          >
+            ☕ Buy me a coffee
+          </a> */}
+        </p>
+        
       </div>
     </div>
   );
