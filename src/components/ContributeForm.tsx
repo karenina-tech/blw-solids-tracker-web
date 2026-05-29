@@ -136,6 +136,12 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-slate-800 mb-1">Suggest a new food</h2>
+        <p className="text-slate-500 text-sm">
+          Fill in the form below. I'll review your suggestion personally before it goes live.
+        </p>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         {/* Name */}
         <div className="col-span-2 sm:col-span-1">
@@ -195,7 +201,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
       {/* Dietary type */}
       <div>
         <label className="block text-sm font-medium text-slate-700 mb-1.5">
-          Dietary type <span className="text-red-400">*</span>
+          What is this food? <span className="text-red-400">*</span>
         </label>
         <select
           value={fields.dietaryType}
@@ -203,9 +209,9 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
           className={inputClass}
         >
           <option value="" disabled>Select one…</option>
-          <option value="standard">Standard (includes meat)</option>
-          <option value="vegetarian">Vegetarian</option>
-          <option value="vegan">Vegan</option>
+          <option value="vegan">Plant-based — fruit, vegetable, grain, legume</option>
+          <option value="vegetarian">Animal product, not meat — egg, dairy</option>
+          <option value="standard">Meat or fish — chicken, beef, salmon…</option>
         </select>
         <FieldError msg={errors.dietaryType} />
       </div>

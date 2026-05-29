@@ -142,10 +142,6 @@ export default function App() {
           <GreetingCard onStart={() => setShowGreeting(false)} />
         ) : showContribute ? (
           <div className="bg-white rounded-2xl shadow-md p-8">
-            <h2 className="text-xl font-bold text-slate-800 mb-1">Suggest a new food</h2>
-            <p className="text-slate-500 text-sm mb-6">
-              Fill in the form below. A maintainer will review your suggestion before it goes live.
-            </p>
             <ContributeForm workerUrl={WORKER_URL} />
           </div>
         ) : (
