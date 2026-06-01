@@ -6,7 +6,7 @@ Starting complementary feeding can be overwhelming for first-time parents, espec
 
 This tool helps parents track the introduction of solid foods in a safe, suggested order. It places special emphasis on tracking **potentially allergenic foods**. By using this tool, parents gain peace of mind and clear visibility into which foods have been offered, which were rejected, and which caused allergic reactions.
 
-👉 **[Try it live](https://karenina-tech.github.io/blw-solids-tracker-web)**
+👉 **[Try it live](https://blw.kareninatech.com/)**
 
 <details>
   <summary>📸 Click to view the printable checklist design</summary>
