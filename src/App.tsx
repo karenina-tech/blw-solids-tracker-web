@@ -234,8 +234,8 @@ export default function App() {
           >
             GitHub
           </a>
-          {/* TODO: Add buy me a coffee link */}
-          {/* <span className="text-lg">·</span>
+          
+          <span className="text-lg">·</span>
           <a
             href="https://buymeacoffee.com/karenina.tech"
             target="_blank"
@@ -243,7 +243,7 @@ export default function App() {
             className="hover:text-slate-600"
           >
             ☕ Buy me a coffee
-          </a> */}
+          </a>
         </p>
         
       </div>
