@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FoodItemSchema } from '../schemas/foodDatasetSchema';
-import type { SubmissionState } from '../types/contribution';
+import { useSubmission } from '../hooks/useSubmission';
 import { FoodCatalog } from './FoodCatalog';
+import { Tooltip } from './Tooltip';
 
 interface ContributeFormProps {
   workerUrl: string;
@@ -66,7 +67,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
   const [fields, setFields] = useState<FormFields>(EMPTY);
   const [slugTouched, setSlugTouched] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submission, setSubmission] = useState<SubmissionState>({ status: 'idle' });
+  const { submission, submit, reset } = useSubmission(workerUrl);
 
   const set = (key: keyof FormFields, value: string) =>
     setFields((prev) => {
@@ -90,27 +91,11 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
     e.preventDefault();
     if (!validate()) return;
 
-    setSubmission({ status: 'loading' });
-    try {
-      const payload = {
-        entry: buildEntry(fields),
-        ...(fields.submitterNotes.trim() ? { submitterNotes: fields.submitterNotes.trim() } : {}),
-      };
-      const res = await fetch(workerUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({ message: 'Unknown error' })) as { message?: string };
-        setSubmission({ status: 'error', message: body.message ?? `Request failed (${res.status})` });
-        return;
-      }
-      const data = await res.json() as { issueUrl: string };
-      setSubmission({ status: 'success', issueUrl: data.issueUrl });
-    } catch {
-      setSubmission({ status: 'error', message: 'Network error. Please check your connection and try again.' });
-    }
+    const payload = {
+      entry: buildEntry(fields),
+      ...(fields.submitterNotes.trim() ? { submitterNotes: fields.submitterNotes.trim() } : {}),
+    };
+    await submit(payload);
   };
 
   if (submission.status === 'success') {
@@ -126,7 +111,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
         </p>
         <div className="mt-8">
           <button
-            onClick={() => { setSubmission({ status: 'idle' }); setFields(EMPTY); setSlugTouched(false); setView('suggest'); }}
+            onClick={() => { reset(); setFields(EMPTY); setSlugTouched(false); setView('suggest'); }}
             className="text-sm text-slate-400 hover:text-slate-600 underline"
           >
             Submit another food
@@ -204,7 +189,8 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
         </label>
         <div className="flex gap-6">
           {(['Standard', 'Allergen'] as const).map((cat) => (
-            <label key={cat} className="flex items-center gap-2 cursor-pointer text-sm text-slate-700">
+            <label key={cat} className="relative group flex items-center gap-2 cursor-pointer text-sm text-slate-700">
+               <Tooltip text={cat === 'Standard'? 'A food that is generally safe for most babies to eat.' : 'A food that may cause allergic reactions in some babies.'} width="w-36" />
               <input
                 type="radio"
                 name="category"
@@ -215,6 +201,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
               />
               {cat}
             </label>
+           
           ))}
         </div>
         <FieldError msg={errors.category} />
@@ -298,7 +285,11 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
       </div>
 
       {submission.status === 'error' && (
-        <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+        <p className={`text-sm rounded-lg px-4 py-3 border ${
+          submission.kind === 'rateLimit'
+            ? 'text-amber-700 bg-amber-50 border-amber-200'
+            : 'text-red-700 bg-red-50 border-red-200'
+        }`}>
           {submission.message}
         </p>
       )}

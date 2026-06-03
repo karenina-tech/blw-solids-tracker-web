@@ -8,8 +8,10 @@ export const ContributionPayloadSchema = z.object({
 
 export type ContributionPayload = z.infer<typeof ContributionPayloadSchema>;
 
+export type ErrorKind = 'rateLimit' | 'server' | 'validation' | 'network' | 'unknown';
+
 export type SubmissionState =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'success'; issueUrl: string }
-  | { status: 'error'; message: string };
+  | { status: 'error'; message: string; kind: ErrorKind };
