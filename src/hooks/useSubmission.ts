@@ -55,7 +55,8 @@ export function useSubmission(workerUrl: string) {
         setSubmission(errorState('rateLimit'));
         break;
 
-      case 400: {
+      case 400:
+      case 422: {
         // The worker may return a specific validation message — prefer it over the generic fallback.
         const body = await res.json().catch(() => ({} as { message?: string })) as { message?: string };
         setSubmission(errorState('validation', body.message));
@@ -63,6 +64,7 @@ export function useSubmission(workerUrl: string) {
       }
 
       case 500:
+      case 502:
       case 503:
         setSubmission(errorState('server'));
         break;

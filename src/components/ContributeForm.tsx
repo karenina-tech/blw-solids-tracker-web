@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FoodItemSchema } from '../schemas/foodDatasetSchema';
+import { FOOD_DATASET } from '../data/foodDataset';
 import { useSubmission } from '../hooks/useSubmission';
 import { FoodCatalog } from './FoodCatalog';
 import { Tooltip } from './Tooltip';
@@ -54,6 +55,13 @@ function buildEntry(f: FormFields) {
   };
 }
 
+const PREP_MIN = 20;
+const PREP_MAX = 150;
+const HAZARD_MIN = 30;
+const HAZARD_MAX = 150;
+const NOTES_MIN = 20;
+const NOTES_MAX = 500;
+
 const inputClass =
   'w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 bg-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500';
 
@@ -76,12 +84,48 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
       return next;
     });
 
+  const duplicateFood = fields.name.trim().length > 0
+    ? FOOD_DATASET.find(
+        (f) =>
+          f.name.toLowerCase() === fields.name.trim().toLowerCase() ||
+          f.id.toLowerCase() === fields.id.trim().toLowerCase()
+      )
+    : undefined;
+
+  const validatePrepField = (value: string): string | undefined => {
+    const len = value.trim().length;
+    if (len === 0) return undefined;
+    if (len < PREP_MIN) return `At least ${PREP_MIN} characters (${len}/${PREP_MIN})`;
+    if (len > PREP_MAX) return `At most ${PREP_MAX} characters (${len}/${PREP_MAX})`;
+  };
+
   const validate = (): boolean => {
     const errs: Record<string, string> = {};
     if (!fields.dietaryType) errs.dietaryType = 'Please select a dietary type';
+
+    const prep6_9Err = validatePrepField(fields.prep6_9);
+    if (prep6_9Err) errs['prep6_9'] = prep6_9Err;
+    const prep9_12Err = validatePrepField(fields.prep9_12);
+    if (prep9_12Err) errs['prep9_12'] = prep9_12Err;
+
+    const validateOptional = (value: string, min: number, max: number): string | undefined => {
+      const len = value.trim().length;
+      if (len === 0) return undefined;
+      if (len < min) return `At least ${min} characters (${len}/${min})`;
+      if (len > max) return `At most ${max} characters (${len}/${max})`;
+    };
+
+    const hazardErr = validateOptional(fields.chokingHazardWarning, HAZARD_MIN, HAZARD_MAX);
+    if (hazardErr) errs['chokingHazardWarning'] = hazardErr;
+    const notesErr = validateOptional(fields.submitterNotes, NOTES_MIN, NOTES_MAX);
+    if (notesErr) errs['submitterNotes'] = notesErr;
+
     const result = FoodItemSchema.safeParse(buildEntry(fields));
     if (!result.success) {
-      result.error.errors.forEach((e) => { errs[e.path.join('.')] = e.message; });
+      result.error.errors.forEach((e) => {
+        const key = e.path.join('.');
+        if (!errs[key]) errs[key] = e.message;
+      });
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -162,7 +206,10 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
             placeholder="e.g. Mango"
             className={inputClass}
           />
-          <FieldError msg={errors.name} />
+          {duplicateFood
+            ? <p className="text-xs text-amber-600 mt-1">"{duplicateFood.name}" is already in the dataset.</p>
+            : <FieldError msg={errors.name} />
+          }
         </div>
 
         {/* ID slug */}
@@ -190,7 +237,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
         <div className="flex gap-6">
           {(['Standard', 'Allergen'] as const).map((cat) => (
             <label key={cat} className="relative group flex items-center gap-2 cursor-pointer text-sm text-slate-700">
-               <Tooltip text={cat === 'Standard'? 'A food that is generally safe for most babies to eat.' : 'A food that may cause allergic reactions in some babies.'} width="w-36" />
+               <Tooltip text={cat === 'Standard'? 'A food that is generally safe for most babies to eat.' : 'A food that may cause allergic reactions in some babies.'} width="w-36" side="right" />
               <input
                 type="radio"
                 name="category"
@@ -227,61 +274,89 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
 
       {/* Preparation 6-9 */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
-          Preparation — 6 to 9 months <span className="text-red-400">*</span>
-        </label>
+        <div className="flex justify-between items-baseline mb-1.5">
+          <label className="block text-sm font-medium text-slate-700">
+            Preparation — 6 to 9 months <span className="text-red-400">*</span>
+          </label>
+          <span className={`text-xs ${fields.prep6_9.trim().length > PREP_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+            {fields.prep6_9.trim().length}/{PREP_MAX}
+          </span>
+        </div>
         <textarea
           value={fields.prep6_9}
           onChange={(e) => set('prep6_9', e.target.value)}
           rows={3}
+          maxLength={PREP_MAX + 20}
           placeholder="How to safely prepare this food for a 6–9 month old..."
           className={`${inputClass} resize-none`}
         />
-        <FieldError msg={errors['preparationByAge']} />
+        <FieldError msg={errors['prep6_9'] ?? errors['preparationByAge']} />
       </div>
 
       {/* Preparation 9-12 */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
-          Preparation — 9 to 12 months <span className="text-red-400">*</span>
-        </label>
+        <div className="flex justify-between items-baseline mb-1.5">
+          <label className="block text-sm font-medium text-slate-700">
+            Preparation — 9 to 12 months{' '}
+            <span className="text-xs font-normal text-slate-400">(optional)</span>
+          </label>
+          <span className={`text-xs ${fields.prep9_12.trim().length > PREP_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+            {fields.prep9_12.trim().length > 0 ? `${fields.prep9_12.trim().length}/${PREP_MAX}` : ''}
+          </span>
+        </div>
         <textarea
           value={fields.prep9_12}
           onChange={(e) => set('prep9_12', e.target.value)}
           rows={3}
+          maxLength={PREP_MAX + 20}
           placeholder="How to safely prepare this food for a 9–12 month old..."
           className={`${inputClass} resize-none`}
         />
+        <FieldError msg={errors['prep9_12']} />
       </div>
 
       {/* Choking hazard warning */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
-          Choking hazard warning{' '}
-          <span className="text-xs font-normal text-slate-400">(optional)</span>
-        </label>
+        <div className="flex justify-between items-baseline mb-1.5">
+          <label className="block text-sm font-medium text-slate-700">
+            Choking hazard warning{' '}
+            <span className="text-xs font-normal text-slate-400">(optional)</span>
+          </label>
+          <span className={`text-xs ${fields.chokingHazardWarning.trim().length > HAZARD_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+            {fields.chokingHazardWarning.trim().length > 0 ? `${fields.chokingHazardWarning.trim().length}/${HAZARD_MAX}` : ''}
+          </span>
+        </div>
         <textarea
           value={fields.chokingHazardWarning}
           onChange={(e) => set('chokingHazardWarning', e.target.value)}
           rows={2}
+          maxLength={HAZARD_MAX + 20}
           placeholder="Describe any specific choking risks..."
           className={`${inputClass} resize-none`}
         />
+        <FieldError msg={errors['chokingHazardWarning']} />
       </div>
 
       {/* Reviewer notes */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
-          Notes for the reviewer{' '}
-          <span className="text-xs font-normal text-slate-400">(optional — sources, context)</span>
-        </label>
+        <div className="flex justify-between items-baseline mb-1.5">
+          <label className="block text-sm font-medium text-slate-700">
+            Notes for the reviewer{' '}
+            <span className="text-xs font-normal text-slate-400">(optional — sources, context)</span>
+          </label>
+          <span className={`text-xs ${fields.submitterNotes.trim().length > NOTES_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+            {fields.submitterNotes.trim().length > 0 ? `${fields.submitterNotes.trim().length}/${NOTES_MAX}` : ''}
+          </span>
+        </div>
         <textarea
           value={fields.submitterNotes}
           onChange={(e) => set('submitterNotes', e.target.value)}
           rows={2}
+          maxLength={NOTES_MAX + 20}
           placeholder="e.g. Based on WHO infant feeding guidelines..."
           className={`${inputClass} resize-none`}
         />
+        <FieldError msg={errors['submitterNotes']} />
       </div>
 
       {submission.status === 'error' && (
@@ -297,7 +372,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
       <div className="flex items-center justify-end pt-1">
         <button
           type="submit"
-          disabled={submission.status === 'loading'}
+          disabled={submission.status === 'loading' || !!duplicateFood}
           className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors text-sm"
         >
           {submission.status === 'loading' ? 'Submitting…' : 'Submit contribution'}

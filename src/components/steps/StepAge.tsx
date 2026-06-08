@@ -31,7 +31,8 @@ export function StepAge({ ageMonths, onChange, onNext, onBack }: StepAgeProps) {
                   : 'border-slate-200 text-slate-500 hover:border-emerald-300 hover:text-emerald-600'
               }`}
             >
-              {label}
+              <span className="sm:hidden">{m}</span>
+              <span className="hidden sm:inline">{label}</span>
             </button>
           );
         })}
