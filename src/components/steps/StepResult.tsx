@@ -78,16 +78,18 @@ export function StepResult({ formData, onReset, onBack }: StepResultProps) {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => iframeRef.current?.contentWindow?.print()}
+            onClick={() => downloadHtml(checklistHtml!, `${slug}-blw-checklist.html`)}
             className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            title="Download as HTML file"
           >
-            Print
+            HTML
           </button>
           <button
-            onClick={() => downloadHtml(checklistHtml!, `${slug}-blw-checklist.html`)}
+            onClick={() => iframeRef.current?.contentWindow?.print()}
             className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            title="Opens print dialog — choose 'Save as PDF'"
           >
-            Download
+            Save as PDF
           </button>
         </div>
       </div>
