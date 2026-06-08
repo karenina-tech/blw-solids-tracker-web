@@ -8,6 +8,7 @@ import type { FoodItem } from '../../schemas/foodDatasetSchema';
 interface StepResultProps {
   formData: FormData;
   onReset: () => void;
+  onBack: () => void;
 }
 
 function downloadHtml(html: string, filename: string) {
@@ -22,7 +23,7 @@ function downloadHtml(html: string, filename: string) {
   URL.revokeObjectURL(url);
 }
 
-export function StepResult({ formData, onReset }: StepResultProps) {
+export function StepResult({ formData, onReset, onBack }: StepResultProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const { result, checklistHtml } = useMemo(() => {
@@ -67,7 +68,7 @@ export function StepResult({ formData, onReset }: StepResultProps) {
     <div className="fixed inset-0 z-50 bg-white flex flex-col">
       <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-white shadow-sm shrink-0">
         <button
-          onClick={onReset}
+          onClick={onBack}
           className="flex items-center gap-1 text-slate-500 hover:text-slate-800 text-sm font-medium transition-colors"
         >
           ← Back

@@ -219,7 +219,7 @@ export default function App() {
               )}
 
               {currentStep === 'result' && (
-                <StepResult formData={formData} onReset={reset} />
+                <StepResult formData={formData} onReset={reset} onBack={goBack} />
               )}
             </div>
           </>
