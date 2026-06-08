@@ -103,10 +103,11 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
     const errs: Record<string, string> = {};
     if (!fields.dietaryType) errs.dietaryType = 'Please select a dietary type';
 
-    const prep6_9Err = validatePrepField(fields.prep6_9);
-    if (prep6_9Err) errs['prep6_9'] = prep6_9Err;
-    const prep9_12Err = validatePrepField(fields.prep9_12);
-    if (prep9_12Err) errs['prep9_12'] = prep9_12Err;
+    if (!fields.prep6_9.trim()) errs['prep6_9'] = 'This field is required';
+    else { const e = validatePrepField(fields.prep6_9); if (e) errs['prep6_9'] = e; }
+
+    if (!fields.prep9_12.trim()) errs['prep9_12'] = 'This field is required';
+    else { const e = validatePrepField(fields.prep9_12); if (e) errs['prep9_12'] = e; }
 
     const validateOptional = (value: string, min: number, max: number): string | undefined => {
       const len = value.trim().length;
@@ -279,7 +280,7 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
             Preparation — 6 to 9 months <span className="text-red-400">*</span>
           </label>
           <span className={`text-xs ${fields.prep6_9.trim().length > PREP_MAX ? 'text-red-400' : 'text-slate-400'}`}>
-            {fields.prep6_9.trim().length}/{PREP_MAX}
+            {fields.prep6_9.trim().length > 0 ? `${fields.prep6_9.trim().length}/${PREP_MAX}` : ''}
           </span>
         </div>
         <textarea
@@ -290,15 +291,17 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
           placeholder="How to safely prepare this food for a 6–9 month old..."
           className={`${inputClass} resize-none`}
         />
-        <FieldError msg={errors['prep6_9'] ?? errors['preparationByAge']} />
+        {!errors['prep6_9'] && fields.prep6_9.trim().length > 0 && fields.prep6_9.trim().length < PREP_MIN
+          ? <p className="text-xs text-amber-500 mt-1">Minimum {PREP_MIN} characters — {PREP_MIN - fields.prep6_9.trim().length} more to go</p>
+          : <FieldError msg={errors['prep6_9']} />
+        }
       </div>
 
       {/* Preparation 9-12 */}
       <div>
         <div className="flex justify-between items-baseline mb-1.5">
           <label className="block text-sm font-medium text-slate-700">
-            Preparation — 9 to 12 months{' '}
-            <span className="text-xs font-normal text-slate-400">(optional)</span>
+            Preparation — 9 to 12 months <span className="text-red-400">*</span>
           </label>
           <span className={`text-xs ${fields.prep9_12.trim().length > PREP_MAX ? 'text-red-400' : 'text-slate-400'}`}>
             {fields.prep9_12.trim().length > 0 ? `${fields.prep9_12.trim().length}/${PREP_MAX}` : ''}
@@ -312,7 +315,11 @@ export function ContributeForm({ workerUrl }: ContributeFormProps) {
           placeholder="How to safely prepare this food for a 9–12 month old..."
           className={`${inputClass} resize-none`}
         />
-        <FieldError msg={errors['prep9_12']} />
+        {!errors['prep9_12'] && fields.prep9_12.trim().length > 0 && fields.prep9_12.trim().length < PREP_MIN
+          ? <p className="text-xs text-amber-500 mt-1">Minimum {PREP_MIN} characters — {PREP_MIN - fields.prep9_12.trim().length} more to go</p>
+          : <FieldError msg={errors['prep9_12']} />
+        }
+
       </div>
 
       {/* Choking hazard warning */}
