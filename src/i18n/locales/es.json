@@ -1,211 +1,224 @@
 {
-  "app": {
-    "title": "Rastreador BLW de Sólidos",
-    "badges": {
-      "free": "Gratis",
-      "noAccount": "Sin cuenta"
-    },
-    "nav": {
-      "tracker": "Rastreador",
-      "contribute": "✨ Contribuir"
-    },
-    "footer": {
-      "openSource": "Código abierto"
-    }
-  },
-  "greeting": {
-    "welcome": "¡Bienvenida!",
-    "body": "Cuando empecé a introducir sólidos a mi hija, busqué una herramienta para ayudarme a crear un plan, pero no encontré ninguna. Ahora que tengo tiempo, decidí construirla yo misma para ayudarte en tu propio camino BLW.",
-    "cta": "¡Empecemos!",
-    "madeBy": "Hecho con 💚 por Karenina"
-  },
-  "common": {
-    "next": "Siguiente →",
-    "back": "← Atrás",
-    "startOver": "Empezar de nuevo",
-    "optional": "opcional",
-    "stepOf": "Paso {{current}} de {{total}}"
-  },
-  "steps": {
-    "babyInfo": {
-      "title": "¡Empecemos!",
-      "subtitle": "Cuéntanos un poco sobre tu bebé.",
-      "nameLabel": "Nombre del bebé",
-      "namePlaceholder": "ej. Sofía",
-      "dateLabel": "Fecha de inicio planeada",
-      "dateHint": "Se usa para generar tu calendario de 30 días."
-    },
-    "age": {
-      "title": "¿Cuántos meses tiene tu bebé?",
-      "subtitle": "Selecciona la edad actual en meses.",
-      "tooYoungWarning": "La OMS y la AAP recomiendan esperar al menos 5–6 meses. Puedes continuar y te diremos lo que encontramos."
-    },
-    "feedingType": {
-      "title": "Tipo de alimentación actual",
-      "subtitle": "A los 5 meses, el tipo de alimentación afecta la elegibilidad para iniciar sólidos.",
-      "formula": {
-        "label": "Fórmula",
-        "description": "El bebé se alimenta con fórmula infantil (completa o parcialmente)."
-      },
-      "breastfeeding": {
-        "label": "Lactancia materna exclusiva",
-        "description": "El bebé recibe solo leche materna, sin fórmula."
-      }
-    },
-    "milestones": {
-      "title": "Preparación física",
-      "subtitle": "Marca todo lo que aplique a tu bebé ahora mismo.",
-      "headControl": {
-        "label": "Control de cabeza",
-        "description": "El bebé puede mantener la cabeza firme y erguida sin apoyo."
-      },
-      "sitting": {
-        "label": "Se sienta con apoyo mínimo",
-        "description": "El bebé puede sentarse erguido con poca ayuda."
-      },
-      "reachAndGrab": {
-        "label": "Alcanza y agarra",
-        "description": "El bebé alcanza activamente objetos y los lleva a su boca."
-      },
-      "foodInterest": {
-        "label": "Muestra interés en la comida",
-        "description": "El bebé te observa comer, abre la boca o intenta agarrar comida."
-      },
-      "hint": "Los primeros tres indicadores son requisitos de seguridad. \"Muestra interés\" es solo informativo."
-    },
-    "allergies": {
-      "title": "Alergias conocidas",
-      "subtitle": "Eliminaremos cualquier alérgeno de la lista de alimentos seguros.",
-      "noAllergies": {
-        "label": "Sin alergias conocidas",
-        "description": "Incluir todos los alimentos alérgenos en el plan."
-      },
-      "hasAllergies": {
-        "label": "Sí, hay alergias conocidas",
-        "description": "Selecciona qué alimentos excluir."
-      },
-      "selectFoods": "Selecciona los alimentos a excluir:",
-      "selectAtLeastOne": "Selecciona al menos un alérgeno para excluir."
-    },
-    "dietType": {
-      "title": "La dieta de tu familia",
-      "subtitle": "Filtraremos la lista de alimentos según las preferencias de tu familia.",
-      "standard": {
-        "label": "Estándar",
-        "description": "Incluye todos los alimentos: carne, pescado, lácteos y huevos."
-      },
-      "vegetarian": {
-        "label": "Vegetariana",
-        "description": "Sin carne ni pescado. Se incluyen lácteos y huevos."
-      },
-      "vegan": {
-        "label": "Vegana",
-        "description": "Solo plantas. Sin productos de origen animal."
-      },
-      "generatePlan": "Generar plan →"
-    },
-    "result": {
-      "planTitle": "Plan de 30 días de {{name}}",
-      "html": "HTML",
-      "pdf": "Guardar como PDF",
-      "foodInterestNote": "No todos los bebés muestran interés obvio en la comida antes de introducir sólidos — esto es completamente normal. La curiosidad alimentaria suele desarrollarse naturalmente una vez que empiezan a explorar sabores y texturas.",
-      "notReady": {
-        "title": "Aún en procesos de desarrollo",
-        "exclusive_breastfeeding": "La lactancia materna exclusiva proporciona nutrición completa para bebés menores de 6 meses y es fuertemente recomendada por la OMS y la AAP. Regresa cuando tu bebé cumpla los 6 meses — ¡estaremos aquí para guiarte en cada paso!",
-        "age_too_young": "¡Gracias por compartir eso! Según las guías actuales de la OMS y la AAP, la edad mínima recomendada para comenzar con sólidos es de 6 meses. Regresa cuando tu bebé esté más cerca de los 6 meses — ¡estaremos aquí para guiarte en cada paso!",
-        "milestones_intro": "Gracias por tomarte el tiempo de compartir esto conmigo.\n\nSegún lo que compartiste, parece que {{name}} puede necesitar un poco más de tiempo antes de comenzar con los sólidos. ¡Esto es completamente normal — cada bebé se desarrolla a su propio ritmo!\n\nEsto es lo que notamos:",
-        "milestones_outro": "La buena noticia es que la mayoría de los bebés alcanzan estos hitos en las próximas semanas.\n\n¡Regresa cuando {{name}} esté lista — estaremos aquí!",
-        "missing_headControl": "aún no ha desarrollado control total de la cabeza",
-        "missing_canSitWithMinimalSupport": "aún no se sienta erguida / erguido con apoyo mínimo",
-        "missing_reachAndGrab": "aún no ha comenzado a alcanzar y agarrar objetos"
-      }
-    }
-  },
-  "contribute": {
-    "suggestFood": "Sugerir un alimento",
-    "browseFoods": "Ver alimentos",
-    "form": {
-      "title": "Sugerir un nuevo alimento",
-      "subtitle": "Completa el formulario. Revisaré tu sugerencia personalmente antes de publicarla.",
-      "nameLabel": "Nombre del alimento",
-      "required": "*",
-      "idLabel": "ID",
-      "idHint": "auto-completado · editable",
-      "categoryLabel": "Categoría",
-      "categoryOptions": {
-        "Standard": "Estándar",
-        "Allergen": "Alérgeno"
-      },
-      "categoryTooltip": {
-        "Standard": "Un alimento generalmente seguro para la mayoría de los bebés.",
-        "Allergen": "Un alimento que puede causar reacciones alérgicas en algunos bebés."
-      },
-      "dietaryTypeLabel": "¿Qué tipo de alimento es?",
-      "dietaryTypeOptions": {
-        "placeholder": "Selecciona uno…",
-        "vegan": "Vegetal — fruta, verdura, cereal, legumbre",
-        "vegetarian": "Producto animal (no carne) — huevo, lácteo",
-        "standard": "Carne o pescado — pollo, res, salmón…"
-      },
-      "prep6_9Label": "Preparación — 6 a 9 meses",
-      "prep9_12Label": "Preparación — 9 a 12 meses",
-      "prep6_9Placeholder": "Cómo preparar este alimento de forma segura para un bebé de 6–9 meses...",
-      "prep9_12Placeholder": "Cómo preparar este alimento de forma segura para un bebé de 9–12 meses...",
-      "chokingWarningLabel": "Advertencia de riesgo de asfixia",
-      "chokingOptional": "(opcional)",
-      "chokingWarningPlaceholder": "Describe los riesgos específicos de asfixia...",
-      "notesLabel": "Notas",
-      "notesHint": "(opcional — fuentes, contexto, sugerencias)",
-      "notesPlaceholder": "ej. Basado en las guías de alimentación de la OMS...",
-      "submit": "Enviar contribución",
-      "submitting": "Enviando…",
-      "duplicate": "\"{{name}}\" ya existe.",
-      "minChars": "Al menos {{min}} caracteres ({{len}}/{{min}})",
-      "maxChars": "Como máximo {{max}} caracteres ({{len}}/{{max}})",
-      "minProgress": "Mínimo {{min}} caracteres — {{remaining}} más",
-      "required_field": "Este campo es obligatorio",
-      "required_selection": "Por favor selecciona {{field}}"
-    },
-    "success": {
-      "title": "¡Muchas gracias!",
-      "body": "Tu sugerencia ha sido recibida y la revisaré personalmente.",
-      "note": "Si encaja bien, aparecerá en el rastreador pronto. ¡Cada contribución ayuda a las familias a alimentar mejor a sus bebés!",
-      "viewIssue": "Ver tu contribución en GitHub →",
-      "submitAnother": "Enviar otro alimento"
-    },
-    "errors": {
-      "rateLimit": "¡Vaya! Estamos recibiendo muchas contribuciones ahora mismo. Por favor espera unos minutos antes de intentarlo de nuevo.",
-      "server": "Tenemos problemas para conectar con nuestro servidor. Tu contribución es importante — por favor inténtalo más tarde.",
-      "validation": "Algo no está bien con los datos enviados. Por favor revisa el formulario e inténtalo de nuevo.",
-      "network": "Por favor verifica tu conexión a internet e inténtalo de nuevo.",
-      "unknown": "Algo inesperado ocurrió. Por favor inténtalo de nuevo."
-    }
-  },
-  "catalog": {
-    "title": "Alimentos existentes",
-    "subtitle": "Revisa lo que ya existe antes de sugerir algo nuevo. Haz clic en un alimento para ver los detalles.",
-    "searchPlaceholder": "Buscar alimentos…",
-    "noResults": "Ningún alimento coincide con tu búsqueda.",
-    "columns": {
-      "food": "Alimento",
-      "category": "Categoría",
-      "type": "Tipo",
-      "hazard": "Riesgo de asfixia"
-    },
-    "months": "{{range}} meses",
-    "count_one": "{{count}} alimento",
-    "count_other": "{{count}} alimentos",
-    "page": "página {{current}} de {{total}}"
-  },
-  "language": {
-    "en": "EN",
-    "es": "ES"
-  },
-  "datePicker": {
-    "months": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-    "days": ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"],
-    "placeholder": "Selecciona una fecha",
-    "clear": "Limpiar",
-    "today": "Hoy"
-  }
+	"app": {
+		"title": "Rastreador BLW de Sólidos",
+		"badges": {
+			"free": "Gratis",
+			"noAccount": "Sin cuenta"
+		},
+		"nav": {
+			"tracker": "Rastreador",
+			"contribute": "✨ Contribuir"
+		},
+		"footer": {
+			"openSource": "Código abierto"
+		}
+	},
+	"greeting": {
+		"welcome": "¡Bienvenida!",
+		"body": "Cuando empecé a introducir sólidos a mi hija, busqué una herramienta para ayudarme a crear un plan, pero no encontré ninguna. Ahora que tengo tiempo, decidí construirla yo misma para ayudarte en tu propio camino BLW.",
+		"cta": "¡Empecemos!",
+		"madeBy": "Hecho con 💚 por Karenina"
+	},
+	"common": {
+		"next": "Siguiente →",
+		"back": "← Atrás",
+		"startOver": "Empezar de nuevo",
+		"optional": "opcional",
+		"stepOf": "Paso {{current}} de {{total}}"
+	},
+	"steps": {
+		"babyInfo": {
+			"title": "¡Empecemos!",
+			"subtitle": "Cuéntanos un poco sobre tu bebé.",
+			"nameLabel": "Nombre del bebé",
+			"namePlaceholder": "ej. Sofía",
+			"dateLabel": "Fecha de inicio planeada",
+			"dateHint": "Se usa para generar tu calendario de 30 días."
+		},
+		"age": {
+			"title": "¿Cuántos meses tiene tu bebé?",
+			"subtitle": "Selecciona la edad actual en meses.",
+			"tooYoungWarning": "La OMS y la AAP recomiendan esperar al menos 5–6 meses. Puedes continuar y te diremos lo que encontramos."
+		},
+		"feedingType": {
+			"title": "Tipo de alimentación actual",
+			"subtitle": "A los 5 meses, el tipo de alimentación afecta la elegibilidad para iniciar sólidos.",
+			"formula": {
+				"label": "Fórmula",
+				"description": "El bebé se alimenta con fórmula infantil (completa o parcialmente)."
+			},
+			"breastfeeding": {
+				"label": "Lactancia materna exclusiva",
+				"description": "El bebé recibe solo leche materna, sin fórmula."
+			}
+		},
+		"milestones": {
+			"title": "Preparación física",
+			"subtitle": "Marca todo lo que aplique a tu bebé ahora mismo.",
+			"headControl": {
+				"label": "Control de cabeza",
+				"description": "El bebé puede mantener la cabeza firme y erguida sin apoyo."
+			},
+			"sitting": {
+				"label": "Se sienta con apoyo mínimo",
+				"description": "El bebé puede sentarse erguido con poca ayuda."
+			},
+			"reachAndGrab": {
+				"label": "Alcanza y agarra",
+				"description": "El bebé alcanza activamente objetos y los lleva a su boca."
+			},
+			"foodInterest": {
+				"label": "Muestra interés en la comida",
+				"description": "El bebé te observa comer, abre la boca o intenta agarrar comida."
+			},
+			"hint": "Los primeros tres indicadores son requisitos de seguridad. \"Muestra interés\" es solo informativo."
+		},
+		"allergies": {
+			"title": "Alergias conocidas",
+			"subtitle": "Eliminaremos cualquier alérgeno de la lista de alimentos seguros.",
+			"noAllergies": {
+				"label": "Sin alergias conocidas",
+				"description": "Incluir todos los alimentos alérgenos en el plan."
+			},
+			"hasAllergies": {
+				"label": "Sí, hay alergias conocidas",
+				"description": "Selecciona qué alimentos excluir."
+			},
+			"selectFoods": "Selecciona los alimentos a excluir:",
+			"selectAtLeastOne": "Selecciona al menos un alérgeno para excluir."
+		},
+		"dietType": {
+			"title": "La dieta de tu familia",
+			"subtitle": "Filtraremos la lista de alimentos según las preferencias de tu familia.",
+			"standard": {
+				"label": "Estándar",
+				"description": "Incluye todos los alimentos: carne, pescado, lácteos y huevos."
+			},
+			"vegetarian": {
+				"label": "Vegetariana",
+				"description": "Sin carne ni pescado. Se incluyen lácteos y huevos."
+			},
+			"vegan": {
+				"label": "Vegana",
+				"description": "Solo plantas. Sin productos de origen animal."
+			},
+			"generatePlan": "Generar plan →"
+		},
+		"result": {
+			"planTitle": "Plan de 30 días de {{name}}",
+			"html": "HTML",
+			"pdf": "Guardar como PDF",
+			"foodInterestNote": "No todos los bebés muestran interés obvio en la comida antes de introducir sólidos — esto es completamente normal. La curiosidad alimentaria suele desarrollarse naturalmente una vez que empiezan a explorar sabores y texturas.",
+			"notReady": {
+				"title": "Aún en procesos de desarrollo",
+				"exclusive_breastfeeding": "La lactancia materna exclusiva proporciona nutrición completa para bebés menores de 6 meses y es fuertemente recomendada por la OMS y la AAP. Regresa cuando tu bebé cumpla los 6 meses — ¡estaremos aquí para guiarte en cada paso!",
+				"age_too_young": "¡Gracias por compartir eso! Según las guías actuales de la OMS y la AAP, la edad mínima recomendada para comenzar con sólidos es de 6 meses. Regresa cuando tu bebé esté más cerca de los 6 meses — ¡estaremos aquí para guiarte en cada paso!",
+				"milestones_intro": "Gracias por tomarte el tiempo de compartir esto conmigo.\n\nSegún lo que compartiste, parece que {{name}} puede necesitar un poco más de tiempo antes de comenzar con los sólidos. ¡Esto es completamente normal — cada bebé se desarrolla a su propio ritmo!\n\nEsto es lo que notamos:",
+				"milestones_outro": "La buena noticia es que la mayoría de los bebés alcanzan estos hitos en las próximas semanas.\n\n¡Regresa cuando {{name}} esté lista — estaremos aquí!",
+				"missing_headControl": "aún no ha desarrollado control total de la cabeza",
+				"missing_canSitWithMinimalSupport": "aún no se sienta erguida / erguido con apoyo mínimo",
+				"missing_reachAndGrab": "aún no ha comenzado a alcanzar y agarrar objetos"
+			}
+		}
+	},
+	"contribute": {
+		"suggestFood": "Sugerir un alimento",
+		"browseFoods": "Ver alimentos",
+		"form": {
+			"title": "Sugerir un nuevo alimento",
+			"subtitle": "Completa el formulario. Revisaré tu sugerencia personalmente antes de publicarla.",
+			"nameLabel": "Nombre del alimento",
+			"required": "*",
+			"idLabel": "ID",
+			"idHint": "auto-completado · editable",
+			"categoryLabel": "Categoría",
+			"categoryOptions": {
+				"Standard": "Estándar",
+				"Allergen": "Alérgeno"
+			},
+			"categoryTooltip": {
+				"Standard": "Un alimento generalmente seguro para la mayoría de los bebés.",
+				"Allergen": "Un alimento que puede causar reacciones alérgicas en algunos bebés."
+			},
+			"dietaryTypeLabel": "¿Qué tipo de alimento es?",
+			"dietaryTypeOptions": {
+				"placeholder": "Selecciona uno…",
+				"vegan": "Vegetal — fruta, verdura, cereal, legumbre",
+				"vegetarian": "Producto animal (no carne) — huevo, lácteo",
+				"standard": "Carne o pescado — pollo, res, salmón…"
+			},
+			"prep6_9Label": "Preparación — 6 a 9 meses",
+			"prep9_12Label": "Preparación — 9 a 12 meses",
+			"prep6_9Placeholder": "Cómo preparar este alimento de forma segura para un bebé de 6–9 meses...",
+			"prep9_12Placeholder": "Cómo preparar este alimento de forma segura para un bebé de 9–12 meses...",
+			"chokingWarningLabel": "Advertencia de riesgo de asfixia",
+			"chokingOptional": "(opcional)",
+			"chokingWarningPlaceholder": "Describe los riesgos específicos de asfixia...",
+			"notesLabel": "Notas",
+			"notesHint": "(opcional — fuentes, contexto, sugerencias)",
+			"notesPlaceholder": "ej. Basado en las guías de alimentación de la OMS...",
+			"submit": "Enviar contribución",
+			"submitting": "Enviando…",
+			"duplicate": "\"{{name}}\" ya existe.",
+			"minChars": "Al menos {{min}} caracteres ({{len}}/{{min}})",
+			"maxChars": "Como máximo {{max}} caracteres ({{len}}/{{max}})",
+			"minProgress": "Mínimo {{min}} caracteres — {{remaining}} más",
+			"required_field": "Este campo es obligatorio",
+			"required_selection": "Por favor selecciona {{field}}"
+		},
+		"success": {
+			"title": "¡Muchas gracias!",
+			"body": "Tu sugerencia ha sido recibida y la revisaré personalmente.",
+			"note": "Si encaja bien, aparecerá en el rastreador pronto. ¡Cada contribución ayuda a las familias a alimentar mejor a sus bebés!",
+
+			"submitAnother": "Enviar otro alimento"
+		},
+		"errors": {
+			"rateLimit": "¡Vaya! Estamos recibiendo muchas contribuciones ahora mismo. Por favor espera unos minutos antes de intentarlo de nuevo.",
+			"server": "Tenemos problemas para conectar con nuestro servidor. Tu contribución es importante — por favor inténtalo más tarde.",
+			"validation": "Algo no está bien con los datos enviados. Por favor revisa el formulario e inténtalo de nuevo.",
+			"network": "Por favor verifica tu conexión a internet e inténtalo de nuevo.",
+			"unknown": "Algo inesperado ocurrió. Por favor inténtalo de nuevo."
+		}
+	},
+	"catalog": {
+		"title": "Alimentos existentes",
+		"subtitle": "Revisa lo que ya existe antes de sugerir algo nuevo. Haz clic en un alimento para ver los detalles.",
+		"searchPlaceholder": "Buscar alimentos…",
+		"noResults": "Ningún alimento coincide con tu búsqueda.",
+		"columns": {
+			"food": "Alimento",
+			"category": "Categoría",
+			"type": "Tipo",
+			"hazard": "Riesgo de asfixia"
+		},
+		"months": "{{range}} meses",
+		"count_one": "{{count}} alimento",
+		"count_other": "{{count}} alimentos",
+		"page": "página {{current}} de {{total}}"
+	},
+	"language": {
+		"en": "EN",
+		"es": "ES"
+	},
+	"datePicker": {
+		"months": [
+			"enero",
+			"febrero",
+			"marzo",
+			"abril",
+			"mayo",
+			"junio",
+			"julio",
+			"agosto",
+			"septiembre",
+			"octubre",
+			"noviembre",
+			"diciembre"
+		],
+		"days": ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"],
+		"placeholder": "Selecciona una fecha",
+		"clear": "Limpiar",
+		"today": "Hoy"
+	}
 }
