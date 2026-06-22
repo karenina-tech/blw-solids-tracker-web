@@ -168,7 +168,15 @@ export function ContributeForm() {
         <h2 className="text-xl font-bold text-slate-800 mb-2">{t('contribute.success.title')}</h2>
         <p className="text-slate-500 text-sm mb-2">{t('contribute.success.body')}</p>
         <p className="text-slate-400 text-sm">{t('contribute.success.note')}</p>
-        <div className="mt-8">
+        <a
+          href={submission.issueUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-5 text-sm text-accent-600 hover:text-accent-500 font-medium underline underline-offset-2"
+        >
+          {t('contribute.success.viewIssue')}
+        </a>
+        <div className="mt-6">
           <button
             onClick={() => { reset(); setFields(EMPTY); setSlugTouched(false); setView('suggest'); }}
             className="text-sm text-slate-400 hover:text-slate-600 underline"

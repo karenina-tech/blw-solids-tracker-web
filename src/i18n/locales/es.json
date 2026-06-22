@@ -170,6 +170,7 @@
       "title": "¡Muchas gracias!",
       "body": "Tu sugerencia ha sido recibida y la revisaré personalmente.",
       "note": "Si encaja bien, aparecerá en el rastreador pronto. ¡Cada contribución ayuda a las familias a alimentar mejor a sus bebés!",
+      "viewIssue": "Ver tu contribución en GitHub →",
       "submitAnother": "Enviar otro alimento"
     },
     "errors": {
