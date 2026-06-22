@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+:root {
+	--background: #ecfdf5;
+	--foreground: #334155;
+
+	/* Green accent — containers, text, fills */
+	--accent-50:  #fef9e7;
+	--accent-100: #52b788;
+	--accent-300: #74c69d;
+	--accent-500: #4a7c59;
+	--accent-600: #264e36;
+	--accent-700: #1a3d27;
+
+	/* Seed (avocado pit brown) — interactive elements: buttons, active states */
+	--seed-400: #a07850;
+	--seed-500: #8d6a44;
+	--seed-600: #7c5c3a;
+	--seed-700: #6b4f31;
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-accent-50: var(--accent-50);
+	--color-accent-100: var(--accent-100);
+	--color-accent-300: var(--accent-300);
+	--color-accent-500: var(--accent-500);
+	--color-accent-600: var(--accent-600);
+	--color-accent-700: var(--accent-700);
+	--color-seed-400: var(--seed-400);
+	--color-seed-500: var(--seed-500);
+	--color-seed-600: var(--seed-600);
+	--color-seed-700: var(--seed-700);
+}

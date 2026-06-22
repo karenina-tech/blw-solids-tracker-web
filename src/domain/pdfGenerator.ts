@@ -1,7 +1,7 @@
-import type { ChecklistItem } from '../@types/feeding';
-import { TOOL_MESSAGES } from '../data/toolMessages';
-import { CHECKLIST_TEMPLATE } from '../templates/checklistTemplate';
-import { formatDate, formatOrdinalDate } from '../utils/formatDate';
+import type { ChecklistItem } from '@/types/checklist';
+import { TOOL_MESSAGES } from '@/data/toolMessages';
+import { CHECKLIST_TEMPLATE } from '@/templates/checklistTemplate';
+import { formatDate, formatOrdinalDate } from '@/utils/formatDate';
 
 export function compileHtmlTemplate(babyName: string, startDate: string, items: ChecklistItem[]): string {
   const tableRowsHtml = items

@@ -1,27 +1,28 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface DatePickerProps {
   value: string;
   onChange: (iso: string) => void;
 }
 
-const MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-const DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-
 function toIso(year: number, month: number, day: number) {
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 }
 
-function formatDisplay(iso: string) {
+function formatDisplay(iso: string, months: string[]) {
   if (!iso) return '';
   const [y, m, d] = iso.split('-').map(Number);
-  return `${MONTHS[m - 1]} ${d}, ${y}`;
+  return `${months[m - 1]} ${d}, ${y}`;
 }
 
 export function DatePicker({ value, onChange }: DatePickerProps) {
+  const { t } = useTranslation();
+  const months = t('datePicker.months', { returnObjects: true }) as string[];
+  const days = t('datePicker.days', { returnObjects: true }) as string[];
+
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -73,22 +74,21 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
 
   return (
     <div ref={containerRef} className="relative">
-      {/* Input trigger */}
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
         className={[
           'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-sm transition-colors bg-white',
           open
-            ? 'border-emerald-500 ring-1 ring-emerald-500'
+            ? 'border-accent-500 ring-1 ring-accent-500'
             : 'border-slate-300 hover:border-slate-400',
         ].join(' ')}
       >
         <span className={value ? 'text-slate-700' : 'text-slate-400'}>
-          {value ? formatDisplay(value) : 'Select a date'}
+          {value ? formatDisplay(value, months) : t('datePicker.placeholder')}
         </span>
         <svg
-          className={`w-4 h-4 transition-colors ${open ? 'text-emerald-500' : 'text-slate-400'}`}
+          className={`w-4 h-4 transition-colors ${open ? 'text-accent-500' : 'text-slate-400'}`}
           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
         >
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -98,7 +98,6 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         </svg>
       </button>
 
-      {/* Dropdown calendar — opens upward */}
       {open && (
         <div className="absolute z-50 bottom-full mb-1.5 right-0 w-64 bg-white border border-slate-200 rounded-xl shadow-lg p-3 select-none">
           <div className="flex items-center justify-between mb-2">
@@ -110,7 +109,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
               ‹
             </button>
             <span className="text-xs font-semibold text-slate-800 tracking-wide">
-              {MONTHS[viewMonth]} {viewYear}
+              {months[viewMonth]} {viewYear}
             </span>
             <button
               type="button"
@@ -122,7 +121,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
           </div>
 
           <div className="grid grid-cols-7 mb-0.5">
-            {DAYS.map(d => (
+            {days.map(d => (
               <div key={d} className="text-center text-[10px] font-semibold text-slate-400 tracking-wider py-0.5">
                 {d}
               </div>
@@ -143,9 +142,9 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
                   className={[
                     'mx-auto flex h-7 w-7 items-center justify-center rounded-full text-xs transition-colors',
                     isSelected
-                      ? 'bg-emerald-500 text-white font-semibold shadow-sm'
+                      ? 'bg-seed-600 text-white font-semibold shadow-sm'
                       : isToday
-                      ? 'border-2 border-emerald-400 text-emerald-600 font-semibold hover:bg-emerald-50'
+                      ? 'border-2 border-accent-300 text-accent-600 font-semibold hover:bg-background'
                       : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
                   ].join(' ')}
                 >
@@ -161,14 +160,14 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
               onClick={() => { onChange(''); setOpen(false); }}
               className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
             >
-              Clear
+              {t('datePicker.clear')}
             </button>
             <button
               type="button"
               onClick={goToday}
-              className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+              className="text-xs font-semibold text-accent-600 hover:text-accent-500 transition-colors"
             >
-              Today
+              {t('datePicker.today')}
             </button>
           </div>
         </div>

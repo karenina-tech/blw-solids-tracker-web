@@ -1,0 +1,210 @@
+{
+  "app": {
+    "title": "BLW Solids Tracker",
+    "badges": {
+      "free": "Free",
+      "noAccount": "No account needed"
+    },
+    "nav": {
+      "tracker": "Tracker",
+      "contribute": "✨ Contribute"
+    },
+    "footer": {
+      "openSource": "Open source"
+    }
+  },
+  "greeting": {
+    "welcome": "Welcome!",
+    "body": "When I started introducing solids to my daughter, I looked for a tool to help me create a plan, but I couldn't find one. Now that I have the time, I decided to build it myself to help you on your own BLW journey!",
+    "cta": "Let's get started",
+    "madeBy": "Made with 💚 by Karenina"
+  },
+  "common": {
+    "next": "Next →",
+    "back": "← Back",
+    "startOver": "Start over",
+    "optional": "optional",
+    "stepOf": "Step {{current}} of {{total}}"
+  },
+  "steps": {
+    "babyInfo": {
+      "title": "Let's get started",
+      "subtitle": "Tell us a little about your baby.",
+      "nameLabel": "Baby's name",
+      "namePlaceholder": "e.g. Sofia",
+      "dateLabel": "Planned start date",
+      "dateHint": "This is used to generate your 30-day calendar."
+    },
+    "age": {
+      "title": "How old is your baby?",
+      "subtitle": "Select the current age in months.",
+      "tooYoungWarning": "The WHO and AAP recommend waiting until at least 5–6 months. You can still continue, and we'll let you know what we find."
+    },
+    "feedingType": {
+      "title": "Current feeding type",
+      "subtitle": "At 5 months, feeding type affects eligibility for starting solids.",
+      "formula": {
+        "label": "Formula",
+        "description": "Baby is fed with infant formula (fully or partially)."
+      },
+      "breastfeeding": {
+        "label": "Exclusive breastfeeding",
+        "description": "Baby receives only breastmilk, no formula."
+      }
+    },
+    "milestones": {
+      "title": "Physical readiness",
+      "subtitle": "Check everything that applies to your baby right now.",
+      "headControl": {
+        "label": "Head control",
+        "description": "Baby can hold their head steady and upright without support."
+      },
+      "sitting": {
+        "label": "Sits with minimal support",
+        "description": "Baby can sit upright with only a little help from you."
+      },
+      "reachAndGrab": {
+        "label": "Reaches and grabs",
+        "description": "Baby actively reaches for objects and brings them to their mouth."
+      },
+      "foodInterest": {
+        "label": "Shows interest in food",
+        "description": "Baby watches you eat, opens their mouth, or grabs for food."
+      },
+      "hint": "The first three markers are safety requirements. \"Shows interest\" is informational only."
+    },
+    "allergies": {
+      "title": "Known allergies",
+      "subtitle": "We'll remove any allergens from the safe foods list.",
+      "noAllergies": {
+        "label": "No known allergies",
+        "description": "Include all allergen foods in the plan."
+      },
+      "hasAllergies": {
+        "label": "Yes, there are known allergies",
+        "description": "Select which foods to exclude."
+      },
+      "selectFoods": "Select foods to exclude:",
+      "selectAtLeastOne": "Select at least one allergen to exclude."
+    },
+    "dietType": {
+      "title": "Your family's diet",
+      "subtitle": "We'll filter the food list to match your family's eating preferences.",
+      "standard": {
+        "label": "Standard",
+        "description": "Includes all foods: meat, fish, dairy, and eggs."
+      },
+      "vegetarian": {
+        "label": "Vegetarian",
+        "description": "No meat or fish. Dairy and eggs are included."
+      },
+      "vegan": {
+        "label": "Vegan",
+        "description": "Plant-based only. No animal products."
+      },
+      "generatePlan": "Generate plan →"
+    },
+    "result": {
+      "planTitle": "{{name}}'s 30-Day Plan",
+      "html": "HTML",
+      "pdf": "Save as PDF",
+      "foodInterestNote": "Not all babies show obvious food interest before solids are introduced — this is completely normal. Food curiosity often develops naturally once they start exploring flavors and textures. The three physical markers (head control, sitting, and reach) are the most important safety signals, and your baby has passed all of them.",
+      "notReady": {
+        "title": "Still developing",
+        "exclusive_breastfeeding": "Exclusive breastfeeding provides complete nutrition for babies under 6 months and is strongly recommended by both the WHO and the AAP as the sole source of nutrition during this period. Current evidence shows no nutritional benefit to introducing solids before 6 months for exclusively breastfed babies — in fact, early introduction can interfere with milk supply and the natural development of the digestive system. The good news is that breastmilk is doing an excellent job right now, and most babies are ready to explore solid foods right around the 6-month mark. Come back then, we will be here to guide you through every step!",
+        "age_too_young": "Thank you for sharing that! Based on current guidelines from the WHO and the AAP, the minimum recommended age to start solid foods is 6 months. At this stage, milk (breast or formula) provides everything your baby needs for healthy development. There is no nutritional benefit to starting earlier, and waiting gives your baby's digestive system the time it needs to mature safely. Come back when your baby is closer to 6 months — we will be here to guide you through every step!",
+        "milestones_intro": "Thank you for taking the time to go through this with me.\n\nBased on what you shared, it looks like {{name}} might need just a little more time before starting solid foods. This is completely normal — every baby develops at their own pace, and there is no rush!\n\nHere is what we noticed:",
+        "milestones_outro": "The good news is that most babies reach these milestones within the next few weeks. Starting solids at the right moment makes the whole experience safer and more enjoyable for both of you.\n\nCome back whenever {{name}} is ready — we will be here!",
+        "missing_headControl": "hasn't developed full head control yet",
+        "missing_canSitWithMinimalSupport": "isn't sitting upright with minimal support yet",
+        "missing_reachAndGrab": "hasn't started reaching and grabbing yet"
+      }
+    }
+  },
+  "contribute": {
+    "suggestFood": "Suggest a food",
+    "browseFoods": "Browse foods",
+    "form": {
+      "title": "Suggest a new food",
+      "subtitle": "Fill in the form below. I'll review your suggestion personally before it goes live.",
+      "nameLabel": "Food name",
+      "required": "*",
+      "idLabel": "ID",
+      "idHint": "auto-filled · editable",
+      "categoryLabel": "Category",
+      "categoryOptions": {
+        "Standard": "Standard",
+        "Allergen": "Allergen"
+      },
+      "categoryTooltip": {
+        "Standard": "A food that is generally safe for most babies to eat.",
+        "Allergen": "A food that may cause allergic reactions in some babies."
+      },
+      "dietaryTypeLabel": "What is this food?",
+      "dietaryTypeOptions": {
+        "placeholder": "Select one…",
+        "vegan": "Plant-based — fruit, vegetable, grain, legume",
+        "vegetarian": "Animal product  (not meat) — egg, dairy",
+        "standard": "Meat or fish — chicken, beef, salmon…"
+      },
+      "prep6_9Label": "Preparation — 6 to 9 months",
+      "prep9_12Label": "Preparation — 9 to 12 months",
+      "prep6_9Placeholder": "How to safely prepare this food for a 6–9 month old...",
+      "prep9_12Placeholder": "How to safely prepare this food for a 9–12 month old...",
+      "chokingWarningLabel": "Choking hazard warning",
+      "chokingOptional": "(optional)",
+      "chokingWarningPlaceholder": "Describe any specific choking risks...",
+      "notesLabel": "Notes",
+      "notesHint": "(optional — sources, context, suggestions)",
+      "notesPlaceholder": "e.g. Based on WHO infant feeding guidelines...",
+      "submit": "Submit contribution",
+      "submitting": "Submitting…",
+      "duplicate": "\"{{name}}\" already exists.",
+      "minChars": "At least {{min}} characters ({{len}}/{{min}})",
+      "maxChars": "At most {{max}} characters ({{len}}/{{max}})",
+      "minProgress": "Minimum {{min}} characters — {{remaining}} more to go",
+      "required_field": "This field is required",
+      "required_selection": "Please select {{field}}"
+    },
+    "success": {
+      "title": "Thank you so much!",
+      "body": "Your suggestion has been received and I'll review it personally.",
+      "note": "If it's a good fit, it'll show up in the tracker soon. Every contribution helps families feed their babies better!",
+      "submitAnother": "Submit another food"
+    },
+    "errors": {
+      "rateLimit": "Wow! We're receiving a lot of contributions right now. Please wait a few minutes before trying again.",
+      "server": "We're having trouble connecting to our server. Your contribution is important to us — please try again later.",
+      "validation": "Something looks off with the submitted data. Please review the form and try again.",
+      "network": "Please check your internet connection and try again.",
+      "unknown": "Something unexpected went wrong. Please try again."
+    }
+  },
+  "catalog": {
+    "title": "Foods in the dataset",
+    "subtitle": "Browse what's already covered before suggesting something new. Tap a row to see prep details.",
+    "searchPlaceholder": "Search foods…",
+    "noResults": "No foods match your search.",
+    "columns": {
+      "food": "Food",
+      "category": "Category",
+      "type": "Type",
+      "hazard": "Choking hazard"
+    },
+    "months": "{{range}} months",
+    "count_one": "{{count}} food",
+    "count_other": "{{count}} foods",
+    "page": "page {{current}} of {{total}}"
+  },
+  "language": {
+    "en": "EN",
+    "es": "ES"
+  },
+  "datePicker": {
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "days": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    "placeholder": "Select a date",
+    "clear": "Clear",
+    "today": "Today"
+  }
+}

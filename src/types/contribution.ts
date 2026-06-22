@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { FoodItemSchema } from '../schemas/foodDatasetSchema';
+import { FoodItemSchema } from '@/types/food';
 
 export const ContributionPayloadSchema = z.object({
   entry: FoodItemSchema,

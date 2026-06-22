@@ -1,3 +1,7 @@
+'use client';
+
+import { useTranslation } from 'react-i18next';
+
 type Milestones = {
   headControl: boolean;
   canSitWithMinimalSupport: boolean;
@@ -14,43 +18,42 @@ interface StepMilestonesProps {
 
 const MILESTONE_FIELDS: {
   key: keyof Milestones;
-  label: string;
-  description: string;
+  labelKey: string;
+  descriptionKey: string;
   informationalOnly?: boolean;
 }[] = [
   {
     key: 'headControl',
-    label: 'Head control',
-    description: 'Baby can hold their head steady and upright without support.',
+    labelKey: 'steps.milestones.headControl.label',
+    descriptionKey: 'steps.milestones.headControl.description',
   },
   {
     key: 'canSitWithMinimalSupport',
-    label: 'Sits with minimal support',
-    description: 'Baby can sit upright with only a little help from you.',
+    labelKey: 'steps.milestones.sitting.label',
+    descriptionKey: 'steps.milestones.sitting.description',
   },
   {
     key: 'reachAndGrab',
-    label: 'Reaches and grabs',
-    description: 'Baby actively reaches for objects and brings them to their mouth.',
+    labelKey: 'steps.milestones.reachAndGrab.label',
+    descriptionKey: 'steps.milestones.reachAndGrab.description',
   },
   {
     key: 'showsInterestInFood',
-    label: 'Shows interest in food',
-    description: 'Baby watches you eat, opens their mouth, or grabs for food.',
+    labelKey: 'steps.milestones.foodInterest.label',
+    descriptionKey: 'steps.milestones.foodInterest.description',
     informationalOnly: true,
   },
 ];
 
 export function StepMilestones({ milestones, onChange, onNext, onBack }: StepMilestonesProps) {
+  const { t } = useTranslation();
   return (
     <div>
-      <h2 className="text-2xl font-bold text-slate-800 mb-1">Physical readiness</h2>
-      <p className="text-slate-500 text-sm mb-6">
-        Check everything that applies to your baby right now.
-      </p>
+      <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('steps.milestones.title')}</h2>
+      <p className="text-slate-500 text-sm mb-6">{t('steps.milestones.subtitle')}</p>
 
       <div className="space-y-2">
-        {MILESTONE_FIELDS.map(({ key, label, description, informationalOnly }) => (
+        {MILESTONE_FIELDS.map(({ key, labelKey, descriptionKey, informationalOnly }) => (
           <label
             key={key}
             className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer select-none"
@@ -59,39 +62,37 @@ export function StepMilestones({ milestones, onChange, onNext, onBack }: StepMil
               type="checkbox"
               checked={milestones[key]}
               onChange={(e) => onChange(key, e.target.checked)}
-              className="mt-0.5 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer flex-shrink-0"
+              className="mt-0.5 h-5 w-5 rounded border-slate-300 text-accent-600 focus:ring-accent-500 cursor-pointer shrink-0"
             />
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-slate-800">{label}</span>
+                <span className="text-sm font-semibold text-slate-800">{t(labelKey)}</span>
                 {informationalOnly && (
                   <span className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">
-                    optional
+                    {t('common.optional')}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">{description}</p>
+              <p className="text-xs text-slate-500 mt-0.5">{t(descriptionKey)}</p>
             </div>
           </label>
         ))}
       </div>
 
-      <p className="text-xs text-slate-400 mt-4">
-        The first three markers are safety requirements. "Shows interest" is informational only.
-      </p>
+      <p className="text-xs text-slate-400 mt-4">{t('steps.milestones.hint')}</p>
 
       <div className="mt-6 flex justify-between">
         <button
           onClick={onBack}
           className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold py-2.5 px-6 rounded-lg transition-colors"
         >
-          ← Back
+          {t('common.back')}
         </button>
         <button
           onClick={onNext}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors"
+          className="bg-seed-600 hover:bg-seed-500 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors"
         >
-          Next →
+          {t('common.next')}
         </button>
       </div>
     </div>

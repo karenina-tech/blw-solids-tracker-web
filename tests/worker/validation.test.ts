@@ -1,4 +1,4 @@
-import { ContributionPayloadSchema } from '../../worker/src/validation';
+import { ContributionPayloadSchema } from '@/types/contribution';
 
 const BASE_ENTRY = {
   id: 'mango',

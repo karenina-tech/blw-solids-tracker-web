@@ -1,38 +1,48 @@
 {
-  "name": "blw-solids-tracker-web",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "deploy": "gh-pages -d dist",
-    "preview": "vite preview",
-    "test": "jest --config jest.config.cjs",
-    "test:watch": "jest --config jest.config.cjs --watch",
-    "types": "tsc --noEmit && echo ✨ Types are correct",
-    "typecheck:watch": "tsc --noEmit --watch",
-    "verify": "npm audit --audit-level=high && tsc --noEmit && jest --config jest.config.cjs && tsc && vite build"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.8",
-    "@testing-library/react": "^16.0.0",
-    "@types/jest": "^29.5.14",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.20",
-    "gh-pages": "^6.3.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "postcss": "^8.4.41",
-    "tailwindcss": "^3.4.9",
-    "ts-jest": "^29.2.4",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.1"
-  }
+	"name": "blw-solids-tracker-web",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint src/",
+		"test": "jest --config jest.config.mjs",
+		"test:watch": "jest --config jest.config.mjs --watch",
+		"types": "tsc --noEmit && echo ✨ Types are correct",
+		"typecheck:watch": "tsc --noEmit --watch",
+		"verify": "npm audit --audit-level=high && tsc --noEmit && eslint src/ && jest --config jest.config.mjs && next build",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"i18next": "^26.3.1",
+		"i18next-browser-languagedetector": "^8.0.5",
+		"lucide-react": "^1.18.0",
+		"next": "^16.2.9",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-i18next": "^17.0.8",
+		"zod": "^3.23.8"
+	},
+	"overrides": {
+		"form-data": "^4.0.6"
+	},
+	"devDependencies": {
+		"@testing-library/jest-dom": "^6.4.8",
+		"@testing-library/react": "^16.0.0",
+		"@types/jest": "^29.5.14",
+		"@types/node": "^22.0.0",
+		"@types/react": "^19.1.0",
+		"@types/react-dom": "^19.1.0",
+		"@tailwindcss/postcss": "^4",
+		"eslint": "^9.39.4",
+		"eslint-config-next": "^16.2.9",
+		"husky": "^9.1.7",
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0",
+		"postcss": "^8.4.41",
+		"tailwindcss": "^4",
+		"ts-jest": "^29.2.4",
+		"typescript": "^5.5.4"
+	}
 }

@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import type { ErrorKind, SubmissionState } from '../types/contribution';
+import type { ErrorKind, SubmissionState } from '@/types/contribution';
 
-// User-facing messages per failure mode.
-// Keep them friendly and actionable — tell the user what to do next, not what went wrong technically.
 const MESSAGES: Record<ErrorKind, string> = {
   rateLimit:
     "Wow! We're receiving a lot of contributions right now. Please wait a few minutes before trying again.",
@@ -20,7 +18,7 @@ function errorState(kind: ErrorKind, override?: string): Extract<SubmissionState
   return { status: 'error', kind, message: override ?? MESSAGES[kind] };
 }
 
-export function useSubmission(workerUrl: string) {
+export function useSubmission(url: string) {
   const [submission, setSubmission] = useState<SubmissionState>({ status: 'idle' });
 
   function reset() {
@@ -32,14 +30,12 @@ export function useSubmission(workerUrl: string) {
 
     let res: Response;
     try {
-      res = await fetch(workerUrl, {
+      res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
     } catch {
-      // fetch only throws on network-level failures: no connection, DNS error, CORS preflight blocked.
-      // 4xx/5xx responses resolve normally — they are handled in the switch below.
       setSubmission(errorState('network'));
       return;
     }
@@ -57,7 +53,6 @@ export function useSubmission(workerUrl: string) {
 
       case 400:
       case 422: {
-        // The worker may return a specific validation message — prefer it over the generic fallback.
         const body = await res.json().catch(() => ({} as { message?: string })) as { message?: string };
         setSubmission(errorState('validation', body.message));
         break;

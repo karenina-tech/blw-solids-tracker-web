@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import { useSubmission } from '../../src/hooks/useSubmission';
+import { useSubmission } from '@/hooks/useSubmission';
 
 const URL = 'https://example.com/submit';
 

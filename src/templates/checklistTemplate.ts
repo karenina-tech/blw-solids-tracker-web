@@ -1,3 +1,135 @@
-import CHECKLIST_TEMPLATE from './checklistTemplate.html?raw';
-
-export { CHECKLIST_TEMPLATE };
+export const CHECKLIST_TEMPLATE = `<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @page { size: A4; margin: 15mm 12mm; }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --warning-50: #fef9e7; --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0;
+        --slate-300: #cbd5e1; --slate-400: #94a3b8; --slate-500: #64748b; --slate-600: #475569;
+        --slate-700: #334155; --slate-800: #1e293b; --slate-900: #0f172a;
+        --accent: #264e36; --accent-light: #52b788;
+        --badge-bg: #fef9e7; --badge-text: #264e36;
+        --green-bg: #f0fdf4; --green-text: #166534; --green-border: #bbf7d0;
+        --rose-bg: #fff1f2; --rose-text: #9f1239; --rose-border: #fecdd3;
+        --danger-bg: #fef2f2; --danger-border: #fca5a5; --danger-text: #991b1b;
+      }
+      body { font-family: 'Inter', 'SF Pro Text', system-ui, -apple-system, sans-serif; font-size: 9.5pt; line-height: 1.55; color: var(--slate-800); background: var(--slate-100); }
+      .page-wrapper { max-width: 800px; margin: 28px auto; background: #ffffff; padding: 28px 32px; border: 1px solid var(--slate-200); border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
+      @media print {
+        body { background: #ffffff; }
+        .page-wrapper { margin: 0; padding: 0; max-width: none; border: none; border-radius: 0; box-shadow: none; }
+        thead { display: table-header-group; } thead th { border-top: 1px solid var(--slate-200); }
+        tbody tr { page-break-inside: avoid; break-inside: avoid; }
+        table { overflow: visible; border-radius: 0; border-collapse: collapse; border: none; }
+      }
+      .header-banner { display: flex; align-items: flex-start; justify-content: space-between; border-bottom: 1.5px solid var(--slate-200); padding-bottom: 14px; margin-bottom: 18px; gap: 12px; }
+      .header-left { display: flex; align-items: center; gap: 14px; }
+      .header-icon { width: 42px; height: 42px; background: var(--accent-light); border: none; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+      .header-title { font-size: 17pt; font-weight: 700; color: var(--slate-900); letter-spacing: -0.3px; line-height: 1.2; }
+      .header-sub { font-size: 8.5pt; color: var(--slate-500); margin-top: 3px; font-weight: 400; }
+      .header-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--badge-bg); color: var(--badge-text); border: none; border-radius: 20px; padding: 4px 10px; font-size: 7.5pt; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+      .legend-box { background: var(--warning-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 9px 13px; margin-bottom: 16px; font-size: 8pt; color: var(--slate-600); display: flex; align-items: center; gap: 8px; }
+      .legend-box strong { color: var(--slate-700); font-weight: 600; }
+      table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; margin-bottom: 20px; border: 1px solid var(--slate-200); border-radius: 8px; overflow: hidden; }
+      tr { page-break-inside: avoid; break-inside: avoid; }
+      thead tr { background: var(--slate-100); }
+      th { padding: 8px 10px; font-size: 7.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--slate-500); border-bottom: 1px solid var(--slate-200); text-align: left; }
+      thead th.col-cat, thead th.col-chk { text-align: center; padding-left: 0; padding-right: 0; }
+      td { padding: 9px 10px; font-size: 8.5pt; color: var(--slate-700); border-bottom: 1px solid var(--slate-100); vertical-align: middle; }
+      tbody tr:last-child td { border-bottom: none; }
+      .col-date { width: 8%; font-variant-numeric: tabular-nums; color: var(--slate-500); font-size: 8pt; }
+      .col-food { width: 34%; line-height: 1.4; }
+      .food-name { display: block; font-weight: 600; color: var(--slate-800); font-size: 8.5pt; }
+      .food-prep { display: block; font-size: 7pt; color: var(--slate-500); font-weight: 400; margin-top: 2px; }
+      .col-cat { width: 12%; text-align: center; }
+      .col-chk { width: 8%; text-align: center; }
+      td.col-chk { color: var(--slate-300); font-size: 7.5pt; }
+      .col-notes { width: 28%; }
+      th.col-cat, th.col-chk, th.col-notes, td.col-cat, td.col-chk, td.col-notes { border-left: 1px solid var(--slate-300); }
+      .badge { display: inline-block; padding: 2px 7px; border-radius: 20px; font-size: 7pt; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; }
+      .badge-standard { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+      .badge-allergen { background: var(--rose-bg); color: var(--rose-text); border: 1px solid var(--rose-border); }
+      @media screen and (max-width: 640px) {
+        .badge { width: 11px; height: 11px; padding: 0; border-radius: 50%; font-size: 0; border: none; vertical-align: middle; }
+        .badge-standard { background: var(--green-border); }
+        .badge-allergen { background: var(--rose-border); }
+        th { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .col-cat { width: 8%; }
+      }
+      .footer-section { page-break-inside: avoid; margin-top: 4px; }
+      .alert-box { background: var(--danger-bg); border-left: 3px solid #ef4444; border-radius: 0 6px 6px 0; padding: 10px 13px; margin-bottom: 12px; }
+      .alert-box .alert-title { font-size: 8.5pt; font-weight: 700; color: var(--danger-text); margin-bottom: 4px; }
+      .alert-box p { font-size: 8pt; color: #b91c1c; line-height: 1.5; }
+      .info-grid { display: table; width: 100%; border-top: 1px solid var(--slate-200); padding-top: 12px; }
+      .info-col { display: table-cell; width: 50%; vertical-align: top; font-size: 8pt; color: var(--slate-500); line-height: 1.5; }
+      .info-col strong { display: block; font-size: 8pt; font-weight: 600; color: var(--slate-700); margin-bottom: 3px; }
+      .info-col:first-child { padding-right: 14px; }
+      .info-col:last-child { padding-left: 14px; border-left: 1px solid var(--slate-200); }
+      .bibliography { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--slate-200); }
+      .bibliography-title { font-size: 6.5pt; font-weight: 600; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+      .bibliography ol { padding-left: 14px; margin: 0; }
+      .bibliography li { font-size: 6.5pt; color: var(--slate-400); line-height: 1.5; margin-bottom: 1px; }
+      .bibliography em { font-style: italic; }
+      .signature { text-align: center; font-size: 7.5pt; color: var(--slate-400); margin-top: 18px; padding-top: 10px; border-top: 1px dashed var(--slate-200); letter-spacing: 0.3px; }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <div class="header-banner">
+        <div class="header-left">
+          <div class="header-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ecfdf5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a3 3 0 0 1-2.121-5.121"/>
+              <path d="M15.606 14.204c-3.5 1.5-5.899 4.503-8.899 7.503A1 1 0 0 1 6 22c-2 0-4-2-4-4a1 1 0 0 1 .293-.707c1.911-1.911 3.823-3.578 5.347-5.441"/>
+              <path d="M16.573 14.737A4 4 0 0 1 14 11"/>
+              <path d="M7.14 10.907a4 4 0 1 1 2.756-7.43A4 4 0 0 1 16.7 4.48a2 2 0 0 1 2.82 2.82 4 4 0 0 1 1.002 6.805A4 4 0 1 1 13 16"/>
+            </svg>
+          </div>
+          <div>
+            <div class="header-title">{{BABY_NAME}}'s 30-Day Solid Food Plan</div>
+            <div class="header-sub">Baby-Led Weaning (BLW) Checklist &nbsp;&bull;&nbsp; Start Date: {{START_DATE}}</div>
+          </div>
+        </div>
+        <div class="header-badge">✦ BLW Tracker</div>
+      </div>
+      <div class="legend-box"><span>⏰ {{MONITORING_INSTRUCTIONS}}</span></div>
+      <table>
+        <thead>
+          <tr>
+            <th class="col-date">Date</th>
+            <th class="col-food">Food Item &amp; Preparation</th>
+            <th class="col-cat">Category</th>
+            <th class="col-chk">Offered</th>
+            <th class="col-notes">Notes</th>
+          </tr>
+        </thead>
+        <tbody>{{TABLE_ROWS}}</tbody>
+      </table>
+      <div class="footer-section">
+        <div class="alert-box">
+          <div class="alert-title">🚨 Allergy Reaction Quick Reference</div>
+          <p>{{TOOL_MESSAGES.ALLERGY_WARNING}}</p>
+        </div>
+        <div class="info-grid">
+          <div class="info-col">
+            <strong>📚 Medical Sources</strong>
+            <div class="bibliography">
+              <ol>
+                <li>World Health Organization. (2023). <em>Guideline for complementary feeding of infants and young children 6–23 months of age.</em> WHO Press, Geneva.</li>
+                <li>American Academy of Pediatrics, Eidelman A.I. et al. (2022). <em>Timing of Introduction of Complementary Foods to Breastfed and Formula-Fed Infants.</em> Pediatrics.</li>
+                <li>American Academy of Pediatrics. (2024). <em>Infant Food and Feeding.</em> HealthyChildren.org — AAP Policy Statement.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="info-col">
+            <strong>⚖️ Disclaimer</strong>
+            {{TOOL_MESSAGES.DISCLAIMER}}
+          </div>
+        </div>
+      </div>
+      <div class="signature">Made with 💚 by Karenina &bull; Programmatic BLW Tool</div>
+    </div>
+  </body>
+</html>`;

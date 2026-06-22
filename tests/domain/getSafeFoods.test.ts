@@ -1,5 +1,7 @@
-import { getSafeFoodsTool } from '../../src/domain/getSafeFoods';
-import type { BabyProfile } from '../../src/schemas/profileSchema';
+import { getSafeFoodsTool } from '@/domain/getSafeFoods';
+import { defaultFoodRepository } from '@/domain/services/foodRepository';
+import { defaultProfileValidator } from '@/domain/services/profileValidator';
+import type { BabyProfile } from '@/types/profile';
 
 const BASE_PROFILE: BabyProfile = {
   name: 'Sofia',
@@ -16,13 +18,18 @@ const BASE_PROFILE: BabyProfile = {
   },
 };
 
+function tool(profile: BabyProfile) {
+  return getSafeFoodsTool(defaultFoodRepository, defaultProfileValidator, { profile });
+}
+
 describe('getSafeFoodsTool', () => {
   it('approves a ready 6-month-old and returns foods', () => {
-    const result = getSafeFoodsTool({ profile: BASE_PROFILE });
+    const result = tool(BASE_PROFILE);
     expect(result.success).toBe(true);
     expect(result.safetyStatus).toBe('APPROVED');
+    if (!result.success) return;
     expect(result.foods).toBeDefined();
-    expect((result.foods as unknown[]).length).toBeGreaterThan(0);
+    expect(result.foods.length).toBeGreaterThan(0);
   });
 
   it('blocks when headControl is missing', () => {
@@ -30,10 +37,12 @@ describe('getSafeFoodsTool', () => {
       ...BASE_PROFILE,
       developmentalMilestones: { ...BASE_PROFILE.developmentalMilestones, headControl: false },
     };
-    const result = getSafeFoodsTool({ profile });
+    const result = tool(profile);
     expect(result.success).toBe(false);
     expect(result.safetyStatus).toBe('BLOCKED_NOT_READY');
-    expect(result.note).toContain("Sofia hasn't developed full head control yet");
+    if (result.success) return;
+    expect(result.reason).toBe('milestones_incomplete');
+    expect(result.missingMilestones).toContain('headControl');
   });
 
   it('blocks when sitting milestone is missing', () => {
@@ -44,7 +53,7 @@ describe('getSafeFoodsTool', () => {
         canSitWithMinimalSupport: false,
       },
     };
-    const result = getSafeFoodsTool({ profile });
+    const result = tool(profile);
     expect(result.success).toBe(false);
   });
 
@@ -54,44 +63,35 @@ describe('getSafeFoodsTool', () => {
       knownAllergies: true,
       allergicFoods: ['peanut'],
     };
-    const result = getSafeFoodsTool({ profile });
+    const result = tool(profile);
     expect(result.success).toBe(true);
-    const foods = result.foods as { id: string }[];
-    expect(foods.find((f) => f.id === 'peanut')).toBeUndefined();
+    if (!result.success) return;
+    expect(result.foods.find((f) => f.id === 'peanut')).toBeUndefined();
   });
 
   it('vegan diet excludes meat and fish', () => {
-    const veganProfile: BabyProfile = { ...BASE_PROFILE, dietType: 'vegan' };
-    const standardProfile: BabyProfile = { ...BASE_PROFILE, dietType: 'standard' };
-    const veganResult = getSafeFoodsTool({ profile: veganProfile });
-    const standardResult = getSafeFoodsTool({ profile: standardProfile });
-    const veganFoods = veganResult.foods as { id: string }[];
-    const standardFoods = standardResult.foods as { id: string }[];
-    expect(veganFoods.find((f) => f.id === 'beef')).toBeUndefined();
-    expect(veganFoods.find((f) => f.id === 'fish')).toBeUndefined();
-    expect(standardFoods.find((f) => f.id === 'beef')).toBeDefined();
+    const veganResult = tool({ ...BASE_PROFILE, dietType: 'vegan' });
+    const standardResult = tool({ ...BASE_PROFILE, dietType: 'standard' });
+    if (!veganResult.success || !standardResult.success) return;
+    expect(veganResult.foods.find((f) => f.id === 'beef')).toBeUndefined();
+    expect(veganResult.foods.find((f) => f.id === 'fish')).toBeUndefined();
+    expect(standardResult.foods.find((f) => f.id === 'beef')).toBeDefined();
   });
 
   it('vegetarian diet excludes meat but includes egg', () => {
-    const vegProfile: BabyProfile = { ...BASE_PROFILE, dietType: 'vegetarian' };
-    const result = getSafeFoodsTool({ profile: vegProfile });
-    const foods = result.foods as { id: string }[];
-    expect(foods.find((f) => f.id === 'beef')).toBeUndefined();
-    expect(foods.find((f) => f.id === 'egg')).toBeDefined();
+    const result = tool({ ...BASE_PROFILE, dietType: 'vegetarian' });
+    if (!result.success) return;
+    expect(result.foods.find((f) => f.id === 'beef')).toBeUndefined();
+    expect(result.foods.find((f) => f.id === 'egg')).toBeDefined();
   });
 
   it('approves 5-month formula-fed baby with all milestones', () => {
-    const profile: BabyProfile = {
-      ...BASE_PROFILE,
-      ageMonths: 5,
-      feedingType: 'formula',
-    };
-    const result = getSafeFoodsTool({ profile });
+    const result = tool({ ...BASE_PROFILE, ageMonths: 5, feedingType: 'formula' });
     expect(result.success).toBe(true);
     expect(result.safetyStatus).toBe('APPROVED');
   });
 
-  it('includes food interest note when showsInterestInFood is false', () => {
+  it('shows food interest note when showsInterestInFood is false', () => {
     const profile = {
       ...BASE_PROFILE,
       developmentalMilestones: {
@@ -99,8 +99,9 @@ describe('getSafeFoodsTool', () => {
         showsInterestInFood: false,
       },
     };
-    const result = getSafeFoodsTool({ profile });
+    const result = tool(profile);
     expect(result.success).toBe(true);
-    expect(result.foodInterestNote).toBeDefined();
+    if (!result.success) return;
+    expect(result.showFoodInterestNote).toBe(true);
   });
 });

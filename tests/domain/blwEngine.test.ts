@@ -1,6 +1,6 @@
-import { generate30DayPlan } from '../../src/domain/blwEngine';
-import { FOOD_DATASET } from '../../src/data/foodDataset';
-import type { FoodItem } from '../../src/schemas/foodDatasetSchema';
+import { generate30DayPlan } from '@/domain/blwEngine';
+import { FOOD_DATASET } from '@/data/foodDataset';
+import type { FoodItem } from '@/types/food';
 
 const ALL_FOODS = FOOD_DATASET;
 const START_DATE = '2025-09-01';

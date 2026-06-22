@@ -1,4 +1,7 @@
-import { DatePicker } from '../DatePicker';
+'use client';
+
+import { useTranslation } from 'react-i18next';
+import { DatePicker } from '@/components/DatePicker';
 
 interface StepBabyInfoProps {
   name: string;
@@ -8,33 +11,34 @@ interface StepBabyInfoProps {
 }
 
 export function StepBabyInfo({ name, startDate, onChange, onNext }: StepBabyInfoProps) {
+  const { t } = useTranslation();
   const canProceed = name.trim().length > 0 && startDate.length > 0;
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-slate-800 mb-1">Let's get started</h2>
-      <p className="text-slate-500 text-sm mb-6">Tell us a little about your baby.</p>
+      <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('steps.babyInfo.title')}</h2>
+      <p className="text-slate-500 text-sm mb-6">{t('steps.babyInfo.subtitle')}</p>
 
       <div className="space-y-5">
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1.5">
-            Baby's name
+            {t('steps.babyInfo.nameLabel')}
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => onChange('name', e.target.value)}
-            placeholder="e.g. Sofia"
-            className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+            placeholder={t('steps.babyInfo.namePlaceholder')}
+            className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1.5">
-            Planned start date
+            {t('steps.babyInfo.dateLabel')}
           </label>
           <DatePicker value={startDate} onChange={(iso) => onChange('startDate', iso)} />
-          <p className="text-xs text-slate-400 mt-1">This is used to generate your 30-day calendar.</p>
+          <p className="text-xs text-slate-400 mt-1">{t('steps.babyInfo.dateHint')}</p>
         </div>
       </div>
 
@@ -42,9 +46,9 @@ export function StepBabyInfo({ name, startDate, onChange, onNext }: StepBabyInfo
         <button
           onClick={onNext}
           disabled={!canProceed}
-          className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors"
+          className="bg-seed-600 hover:bg-seed-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors"
         >
-          Next →
+          {t('common.next')}
         </button>
       </div>
     </div>

@@ -1,82 +1,90 @@
-import { FOOD_DATASET } from '../data/foodDataset';
-import { TOOL_MESSAGES } from '../data/toolMessages';
-import { BabyProfileSchema, type BabyProfile } from '../schemas/profileSchema';
-import { checkBLWReadiness } from './validateAge';
+import { BabyProfileSchema, type BabyProfile } from '@/types/profile';
+import type { FoodItem } from '@/types/food';
+import type { IFoodRepository } from '@/domain/interfaces/IFoodRepository';
+import type { IProfileValidator } from '@/domain/interfaces/IProfileValidator';
 
-interface ToolInput {
-  profile: BabyProfile;
-}
+export type MissingMilestone = 'headControl' | 'canSitWithMinimalSupport' | 'reachAndGrab';
 
-export function getSafeFoodsTool(input: ToolInput) {
+export type SafeFoodsResult =
+  | {
+      success: false;
+      safetyStatus: 'BLOCKED_NOT_READY';
+      reason: 'exclusive_breastfeeding' | 'age_too_young' | 'milestones_incomplete';
+      missingMilestones?: MissingMilestone[];
+      babyName: string;
+    }
+  | {
+      success: true;
+      safetyStatus: 'APPROVED';
+      babyName: string;
+      totalAvailableSafeFoods: number;
+      showFoodInterestNote: boolean;
+      foods: FoodItem[];
+    };
+
+export function getSafeFoodsTool(
+  repo: IFoodRepository,
+  validator: IProfileValidator,
+  input: { profile: BabyProfile }
+): SafeFoodsResult {
   const validation = BabyProfileSchema.safeParse(input.profile);
   if (!validation.success) {
     return {
       success: false,
-      error: 'Invalid profile data format.',
-      details: validation.error,
+      safetyStatus: 'BLOCKED_NOT_READY',
+      reason: 'milestones_incomplete',
+      babyName: input.profile.name ?? '',
     };
   }
 
   const profile = validation.data;
+  const readiness = validator.checkReadiness(
+    profile.ageMonths,
+    profile.developmentalMilestones,
+    profile.feedingType
+  );
 
-  const readiness = checkBLWReadiness(profile.ageMonths, profile.developmentalMilestones, profile.feedingType);
   if (!readiness.isReady) {
     if (profile.ageMonths === 5 && profile.feedingType === 'exclusive_breastfeeding') {
       return {
         success: false,
         safetyStatus: 'BLOCKED_NOT_READY',
-        note: TOOL_MESSAGES.EXCLUSIVE_BREASTFEEDING_NOTE,
+        reason: 'exclusive_breastfeeding',
+        babyName: profile.name,
       };
     }
 
-    const missing: string[] = [];
-    if (!profile.developmentalMilestones.headControl)              missing.push("hasn't developed full head control yet");
-    if (!profile.developmentalMilestones.canSitWithMinimalSupport) missing.push("isn't sitting upright with minimal support yet");
-    if (!profile.developmentalMilestones.reachAndGrab)             missing.push("hasn't started reaching and grabbing yet");
+    if (!readiness.ageOk) {
+      return {
+        success: false,
+        safetyStatus: 'BLOCKED_NOT_READY',
+        reason: 'age_too_young',
+        babyName: profile.name,
+      };
+    }
 
-    const markerList = missing.length > 0
-      ? missing.map((m) => `• ${profile.name} ${m}`).join('\n')
-      : '• does not meet one or more physical readiness markers';
-
-    const note =
-      `Thank you for taking the time to go through this with me.\n\n` +
-      `Based on what you shared, it looks like ${profile.name} might need just a little more time before starting solid foods. ` +
-      `This is completely normal, every baby develops at their own pace, and there is no rush!\n\n` +
-      `Here is what we noticed:\n${markerList}\n\n` +
-      `The good news is that most babies reach these milestones within the next few weeks. ` +
-      `Starting solids at the right moment makes the whole experience safer and more enjoyable for both of you.\n\n` +
-      `Come back whenever ${profile.name} is ready, we will be here!`;
+    const missingMilestones: MissingMilestone[] = [];
+    if (!profile.developmentalMilestones.headControl) missingMilestones.push('headControl');
+    if (!profile.developmentalMilestones.canSitWithMinimalSupport) missingMilestones.push('canSitWithMinimalSupport');
+    if (!profile.developmentalMilestones.reachAndGrab) missingMilestones.push('reachAndGrab');
 
     return {
       success: false,
       safetyStatus: 'BLOCKED_NOT_READY',
-      note,
+      reason: 'milestones_incomplete',
+      missingMilestones: missingMilestones.length > 0 ? missingMilestones : undefined,
+      babyName: profile.name,
     };
   }
 
-  const effectiveAge = profile.ageMonths === 5 && profile.feedingType === 'formula' ? 6 : profile.ageMonths;
-  const DIET_LEVEL: Record<string, number> = { standard: 0, vegetarian: 1, vegan: 2 };
-  const safeFoods = FOOD_DATASET.filter((food) => {
-    const satisfiesAge = effectiveAge >= food.minAgeMonths;
-    const isUserAllergic = profile.allergicFoods.some(
-      (allergy) =>
-        food.id.toLowerCase() === allergy.toLowerCase() ||
-        food.name.toLowerCase() === allergy.toLowerCase()
-    );
-    const satisfiesDiet = DIET_LEVEL[food.dietaryType ?? 'vegan'] >= DIET_LEVEL[profile.dietType];
-    return satisfiesAge && !isUserAllergic && satisfiesDiet;
-  });
-
-  const foodInterestNote = !profile.developmentalMilestones.showsInterestInFood
-    ? TOOL_MESSAGES.FOOD_INTEREST_NOTE
-    : undefined;
+  const safeFoods = validator.filterSafeFoods(repo.getAll(), profile);
 
   return {
     success: true,
     safetyStatus: 'APPROVED',
     babyName: profile.name,
     totalAvailableSafeFoods: safeFoods.length,
-    foodInterestNote,
+    showFoodInterestNote: !profile.developmentalMilestones.showsInterestInFood,
     foods: safeFoods,
   };
 }
