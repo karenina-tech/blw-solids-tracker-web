@@ -1,4 +1,4 @@
-import { type FoodItem } from '../schemas/foodDatasetSchema';
+import { type FoodItem } from '@/types/food';
 
 export type { FoodItem };
 
