@@ -2,6 +2,7 @@ import { BabyProfileSchema, type BabyProfile } from '@/types/profile';
 import type { FoodItem } from '@/types/food';
 import type { IFoodRepository } from '@/domain/interfaces/IFoodRepository';
 import type { IProfileValidator } from '@/domain/interfaces/IProfileValidator';
+import { getGuidelines } from '@/config/guidelines';
 
 export type MissingMilestone = 'headControl' | 'canSitWithMinimalSupport' | 'reachAndGrab';
 
@@ -45,7 +46,13 @@ export function getSafeFoodsTool(
   );
 
   if (!readiness.isReady) {
-    if (profile.ageMonths === 5 && profile.feedingType === 'exclusive_breastfeeding') {
+    const { ageRules, developmentalMilestones } = getGuidelines();
+    const isEarlyWindowNotApproved =
+      ageRules.earlyWindowMonths.includes(profile.ageMonths) &&
+      profile.feedingType !== undefined &&
+      !ageRules.earlyWindowApprovedFeedingTypes.includes(profile.feedingType);
+
+    if (isEarlyWindowNotApproved) {
       return {
         success: false,
         safetyStatus: 'BLOCKED_NOT_READY',
@@ -63,10 +70,9 @@ export function getSafeFoodsTool(
       };
     }
 
-    const missingMilestones: MissingMilestone[] = [];
-    if (!profile.developmentalMilestones.headControl) missingMilestones.push('headControl');
-    if (!profile.developmentalMilestones.canSitWithMinimalSupport) missingMilestones.push('canSitWithMinimalSupport');
-    if (!profile.developmentalMilestones.reachAndGrab) missingMilestones.push('reachAndGrab');
+    const missingMilestones = developmentalMilestones.required.filter(
+      (key) => !profile.developmentalMilestones[key]
+    ) as MissingMilestone[];
 
     return {
       success: false,
