@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/karenina/Desktop/KareninaTech/blw-solids-tracker-skill/src -type f | sort)",
+      "Read(//Users/karenina/Desktop/KareninaTech/blw-solids-tracker-skill/src/**)",
+      "Bash(find /Users/karenina/Desktop/KareninaTech/blw-solids-tracker-skill -name \"*.ts\" -o -name \"*.json\" | grep -v node_modules | grep -v \".git\" | sort | grep -i \"guideline\")",
+      "Read(//Users/karenina/Desktop/KareninaTech/blw-solids-tracker-skill/**)"
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import { checkBLWReadiness } from '@/domain/validateAge';
+import { getGuidelines } from '@/config/guidelines';
 import type { IProfileValidator } from '@/domain/interfaces/IProfileValidator';
 import type { BabyProfile } from '@/types/profile';
 import type { FoodItem } from '@/types/food';
@@ -6,7 +7,11 @@ import type { FoodItem } from '@/types/food';
 const DIET_LEVEL: Record<string, number> = { standard: 0, vegetarian: 1, vegan: 2 };
 
 function filterSafeFoods(foods: FoodItem[], profile: BabyProfile): FoodItem[] {
-  const effectiveAge = profile.ageMonths === 5 && profile.feedingType === 'formula' ? 6 : profile.ageMonths;
+  const { ageRules } = getGuidelines();
+  const isEarlyApproved =
+    ageRules.earlyWindowMonths.includes(profile.ageMonths) &&
+    ageRules.earlyWindowApprovedFeedingTypes.includes(profile.feedingType ?? '');
+  const effectiveAge = isEarlyApproved ? ageRules.earlyWindowEffectiveAgeMonths : profile.ageMonths;
   return foods.filter((food) => {
     const satisfiesAge = effectiveAge >= food.minAgeMonths;
     const isUserAllergic = profile.allergicFoods.some(
