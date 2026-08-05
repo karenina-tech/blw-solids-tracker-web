@@ -11,21 +11,23 @@
 		},
 		"footer": {
 			"openSource": "Código abierto",
-			"privacy": "🔒 El nombre de tu bebé y los datos del formulario permanecen en tu navegador — no se almacenan ni se envían a ningún servidor."
+			"privacy": "El nombre de tu bebé y los datos del formulario permanecen en tu navegador — no se almacenan ni se envían a ningún servidor.",
+			"privacyLabel": "Privacidad",
+			"builtBy": "Creado por"
 		}
 	},
 	"greeting": {
 		"welcome": "¡Bienvenida!",
 		"body": "Cuando empecé a introducir sólidos a mi hija, busqué una herramienta para ayudarme a crear un plan, pero no encontré ninguna. Ahora que tengo tiempo, decidí construirla yo misma para ayudarte en tu propio camino BLW.",
-		"cta": "¡Empecemos!",
-		"madeBy": "Hecho con 💚 por Karenina"
+		"cta": "¡Empecemos!"
 	},
 	"common": {
 		"next": "Siguiente →",
 		"back": "← Atrás",
 		"startOver": "Empezar de nuevo",
 		"optional": "opcional",
-		"stepOf": "Paso {{current}} de {{total}}"
+		"stepOf": "Paso {{current}} de {{total}}",
+		"close": "Cerrar"
 	},
 	"steps": {
 		"babyInfo": {

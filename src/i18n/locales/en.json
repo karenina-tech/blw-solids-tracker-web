@@ -11,21 +11,23 @@
     },
     "footer": {
       "openSource": "Open source",
-      "privacy": "🔒 Your baby's name and form data stay in your browser — nothing is stored or sent to a server."
+      "privacy": "Your baby's name and form data stay in your browser — nothing is stored or sent to a server.",
+      "privacyLabel": "Privacy",
+      "builtBy": "Built by"
     }
   },
   "greeting": {
     "welcome": "Welcome!",
     "body": "When I started introducing solids to my daughter, I looked for a tool to help me create a plan, but I couldn't find one. Now that I have the time, I decided to build it myself to help you on your own BLW journey!",
-    "cta": "Let's get started",
-    "madeBy": "Made with 💚 by Karenina"
+    "cta": "Let's get started"
   },
   "common": {
     "next": "Next →",
     "back": "← Back",
     "startOver": "Start over",
     "optional": "optional",
-    "stepOf": "Step {{current}} of {{total}}"
+    "stepOf": "Step {{current}} of {{total}}",
+    "close": "Close"
   },
   "steps": {
     "babyInfo": {
