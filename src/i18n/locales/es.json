@@ -186,11 +186,19 @@
 		"subtitle": "Revisa lo que ya existe antes de sugerir algo nuevo. Haz clic en un alimento para ver los detalles.",
 		"searchPlaceholder": "Buscar alimentos…",
 		"noResults": "Ningún alimento coincide con tu búsqueda.",
+		"filters": {
+			"all": "Todos"
+		},
 		"columns": {
 			"food": "Alimento",
 			"category": "Categoría",
 			"type": "Tipo",
 			"hazard": "Riesgo de asfixia"
+		},
+		"dietType": {
+			"standard": "Carne o pescado",
+			"vegetarian": "Producto animal",
+			"vegan": "Origen vegetal"
 		},
 		"months": "{{range}} meses",
 		"count_one": "{{count}} alimento",
@@ -200,6 +208,32 @@
 	"language": {
 		"en": "EN",
 		"es": "ES"
+	},
+	"checklist": {
+		"title": "Plan de 30 Días de Alimentos Sólidos de {{name}}",
+		"subtitle": "Lista de Alimentación Autorregulada por el Bebé (BLW)",
+		"startDateLabel": "Fecha de inicio",
+		"badge": "✦ Rastreador BLW",
+		"monitoringInstructions": "Solo por la mañana o al mediodía — observa durante 2 horas después de la exposición.",
+		"columns": {
+			"date": "Fecha",
+			"food": "Alimento y Preparación",
+			"category": "Categoría",
+			"offered": "Ofrecido",
+			"notes": "Notas"
+		},
+		"categoryLabels": {
+			"Standard": "Estándar",
+			"Allergen (1/3)": "Alérgeno (1/3)",
+			"Allergen (2/3)": "Alérgeno (2/3)",
+			"Allergen (3/3)": "Alérgeno (3/3)"
+		},
+		"allergyReactionTitle": "🚨 Referencia Rápida ante Reacciones Alérgicas",
+		"allergyWarning": "Detén la alimentación de inmediato y contacta a servicios de emergencia si el bebé presenta cualquiera de los siguientes síntomas dentro de las 2 horas posteriores a la exposición: ronchas, hinchazón de labios o lengua, vómitos, sibilancias o flacidez.",
+		"medicalSourcesTitle": "📚 Fuentes Médicas",
+		"disclaimerTitle": "⚖️ Aviso Legal",
+		"disclaimer": "Esta lista es una herramienta educativa de planificación para uso familiar únicamente. No reemplaza la evaluación clínica individualizada ni el consejo de alimentación de un pediatra acreditado.",
+		"signature": "Hecho con 💚 por Karenina &bull; Herramienta BLW Programática"
 	},
 	"datePicker": {
 		"months": [

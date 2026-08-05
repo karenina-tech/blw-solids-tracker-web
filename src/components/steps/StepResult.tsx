@@ -4,7 +4,7 @@ import { useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { FormData } from '@/app/page';
 import { getSafeFoodsTool } from '@/domain/getSafeFoods';
-import { defaultFoodRepository } from '@/domain/services/foodRepository';
+import { createFoodRepository } from '@/domain/services/foodRepository';
 import { defaultProfileValidator } from '@/domain/services/profileValidator';
 import { defaultPlanGenerator } from '@/domain/services/planGenerator';
 import { compileHtmlTemplate } from '@/domain/pdfGenerator';
@@ -35,7 +35,7 @@ const MILESTONE_KEY: Record<MissingMilestone, string> = {
 };
 
 export function StepResult({ formData, onReset, onBack }: StepResultProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const { result, checklistHtml } = useMemo(() => {
@@ -49,13 +49,17 @@ export function StepResult({ formData, onReset, onBack }: StepResultProps) {
       feedingType: formData.feedingType,
       developmentalMilestones: formData.milestones,
     };
-    const result = getSafeFoodsTool(defaultFoodRepository, defaultProfileValidator, { profile });
+    const repo = createFoodRepository(i18n.language);
+    const result = getSafeFoodsTool(repo, defaultProfileValidator, { profile });
     if (!result.success) {
       return { result, checklistHtml: null };
     }
     const plan = defaultPlanGenerator.generate(result.foods, formData.startDate, formData.ageMonths!);
-    return { result, checklistHtml: compileHtmlTemplate(formData.name, formData.startDate, plan) };
-  }, [formData]);
+    return {
+      result,
+      checklistHtml: compileHtmlTemplate(formData.name, formData.startDate, plan, i18n.language),
+    };
+  }, [formData, i18n.language]);
 
   if (!result.success) {
     const name = result.babyName;

@@ -1,9 +1,9 @@
-import { FOOD_DATASET } from '@/data/foodDataset';
+import { getLocalizedFoodDataset } from '@/data/getLocalizedFoodDataset';
 import type { IFoodRepository } from '@/domain/interfaces/IFoodRepository';
 
-export function createFoodRepository(): IFoodRepository {
+export function createFoodRepository(language: string = 'en'): IFoodRepository {
   return {
-    getAll: () => FOOD_DATASET,
+    getAll: () => getLocalizedFoodDataset(language),
   };
 }
 

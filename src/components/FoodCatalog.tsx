@@ -2,29 +2,29 @@
 
 import { Fragment, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FOOD_DATASET } from '@/data/foodDataset';
+import { getLocalizedFoodDataset } from '@/data/getLocalizedFoodDataset';
 import { Tooltip } from '@/components/Tooltip';
 
 type CategoryFilter = 'All' | 'Standard' | 'Allergen';
 
-function dietMeta(dietaryType?: string): { emoji: string; label: string } {
-  if (dietaryType === 'standard') return { emoji: '🥩', label: 'Meat or fish' };
-  if (dietaryType === 'vegetarian') return { emoji: '🥚', label: 'Animal product' };
-  return { emoji: '🌱', label: 'Plant-based' };
+function dietEmoji(dietaryType?: string): string {
+  if (dietaryType === 'standard') return '🥩';
+  if (dietaryType === 'vegetarian') return '🥚';
+  return '🌱';
 }
 
 const PAGE_SIZE = 15;
 
 export function FoodCatalog() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<CategoryFilter>('All');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
   const sorted = useMemo(
-    () => [...FOOD_DATASET].sort((a, b) => a.name.localeCompare(b.name)),
-    []
+    () => [...getLocalizedFoodDataset(i18n.language)].sort((a, b) => a.name.localeCompare(b.name)),
+    [i18n.language]
   );
 
   const visible = useMemo(
@@ -75,7 +75,7 @@ export function FoodCatalog() {
                 : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
             }`}
           >
-            {cat}
+            {cat === 'All' ? t('catalog.filters.all') : t(`contribute.form.categoryOptions.${cat}`)}
           </button>
         ))}
         <span className="ml-auto text-xs text-slate-400">
@@ -116,7 +116,7 @@ export function FoodCatalog() {
                 {pageItems.map((food) => {
                   const isExpanded = expanded === food.id;
                   const isAllergen = food.category === 'Allergen';
-                  const diet = dietMeta(food.dietaryType);
+                  const dietLabel = t(`catalog.dietType.${food.dietaryType ?? 'vegan'}`);
 
                   return (
                     <Fragment key={food.id}>
@@ -131,13 +131,13 @@ export function FoodCatalog() {
                               ? 'bg-rose-50 text-rose-700'
                               : 'bg-accent-50 text-accent-600'
                           }`}>
-                            {food.category}
+                            {t(`contribute.form.categoryOptions.${food.category}`)}
                           </span>
                         </td>
                         <td className="px-3 py-3 text-center">
                           <div className="relative group inline-flex justify-center items-center">
-                            <span className="text-base leading-none cursor-default">{diet.emoji}</span>
-                            <Tooltip text={diet.label} noWrap />
+                            <span className="text-base leading-none cursor-default">{dietEmoji(food.dietaryType)}</span>
+                            <Tooltip text={dietLabel} noWrap />
                           </div>
                         </td>
                         <td className="px-3 py-3 text-center">
