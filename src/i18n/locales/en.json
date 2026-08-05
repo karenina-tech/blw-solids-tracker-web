@@ -185,11 +185,19 @@
     "subtitle": "Browse what's already covered before suggesting something new. Tap a row to see prep details.",
     "searchPlaceholder": "Search foods…",
     "noResults": "No foods match your search.",
+    "filters": {
+      "all": "All"
+    },
     "columns": {
       "food": "Food",
       "category": "Category",
       "type": "Type",
       "hazard": "Choking hazard"
+    },
+    "dietType": {
+      "standard": "Meat or fish",
+      "vegetarian": "Animal product",
+      "vegan": "Plant-based"
     },
     "months": "{{range}} months",
     "count_one": "{{count}} food",
@@ -199,6 +207,32 @@
   "language": {
     "en": "EN",
     "es": "ES"
+  },
+  "checklist": {
+    "title": "{{name}}'s 30-Day Solid Food Plan",
+    "subtitle": "Baby-Led Weaning (BLW) Checklist",
+    "startDateLabel": "Start Date",
+    "badge": "✦ BLW Tracker",
+    "monitoringInstructions": "Morning or midday only — monitor for 2 hours after exposure.",
+    "columns": {
+      "date": "Date",
+      "food": "Food Item & Preparation",
+      "category": "Category",
+      "offered": "Offered",
+      "notes": "Notes"
+    },
+    "categoryLabels": {
+      "Standard": "Standard",
+      "Allergen (1/3)": "Allergen (1/3)",
+      "Allergen (2/3)": "Allergen (2/3)",
+      "Allergen (3/3)": "Allergen (3/3)"
+    },
+    "allergyReactionTitle": "🚨 Allergy Reaction Quick Reference",
+    "allergyWarning": "Stop feeding immediately and contact emergency services if the infant exhibits any of the following within 2 hours of exposure: Hives, Swelling of lips or tongue, Vomiting, Wheezing, or Limpness.",
+    "medicalSourcesTitle": "📚 Medical Sources",
+    "disclaimerTitle": "⚖️ Disclaimer",
+    "disclaimer": "This checklist is an educational planning utility for family tracking only. It does not replace individualized clinical evaluation or feeding advice from an accredited pediatrician.",
+    "signature": "Made with 💚 by Karenina &bull; Programmatic BLW Tool"
   },
   "datePicker": {
     "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],

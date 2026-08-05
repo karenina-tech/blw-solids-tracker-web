@@ -1,9 +1,8 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FOOD_DATASET } from '@/data/foodDataset';
-
-const ALLERGENS = FOOD_DATASET.filter((f) => f.category === 'Allergen');
+import { getLocalizedFoodDataset } from '@/data/getLocalizedFoodDataset';
 
 interface StepAllergiesProps {
   knownAllergies: boolean | null;
@@ -22,7 +21,11 @@ export function StepAllergies({
   onNext,
   onBack,
 }: StepAllergiesProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const allergens = useMemo(
+    () => getLocalizedFoodDataset(i18n.language).filter((f) => f.category === 'Allergen'),
+    [i18n.language]
+  );
   const canProceed =
     knownAllergies === false || (knownAllergies === true && allergicFoods.length > 0);
 
@@ -76,7 +79,7 @@ export function StepAllergies({
         <div>
           <p className="text-sm font-medium text-slate-700 mb-3">{t('steps.allergies.selectFoods')}</p>
           <div className="grid grid-cols-2 gap-1.5">
-            {ALLERGENS.map((food) => {
+            {allergens.map((food) => {
               const selected = allergicFoods.includes(food.id);
               return (
                 <label

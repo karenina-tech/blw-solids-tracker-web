@@ -88,33 +88,33 @@ export const CHECKLIST_TEMPLATE = `<!doctype html>
             </svg>
           </div>
           <div>
-            <div class="header-title">{{BABY_NAME}}'s 30-Day Solid Food Plan</div>
-            <div class="header-sub">Baby-Led Weaning (BLW) Checklist &nbsp;&bull;&nbsp; Start Date: {{START_DATE}}</div>
+            <div class="header-title">{{TITLE}}</div>
+            <div class="header-sub">{{SUBTITLE}} &nbsp;&bull;&nbsp; {{START_DATE_LABEL}}: {{START_DATE}}</div>
           </div>
         </div>
-        <div class="header-badge">✦ BLW Tracker</div>
+        <div class="header-badge">{{BADGE}}</div>
       </div>
       <div class="legend-box"><span>⏰ {{MONITORING_INSTRUCTIONS}}</span></div>
       <table>
         <thead>
           <tr>
-            <th class="col-date">Date</th>
-            <th class="col-food">Food Item &amp; Preparation</th>
-            <th class="col-cat">Category</th>
-            <th class="col-chk">Offered</th>
-            <th class="col-notes">Notes</th>
+            <th class="col-date">{{COL_DATE}}</th>
+            <th class="col-food">{{COL_FOOD}}</th>
+            <th class="col-cat">{{COL_CATEGORY}}</th>
+            <th class="col-chk">{{COL_OFFERED}}</th>
+            <th class="col-notes">{{COL_NOTES}}</th>
           </tr>
         </thead>
         <tbody>{{TABLE_ROWS}}</tbody>
       </table>
       <div class="footer-section">
         <div class="alert-box">
-          <div class="alert-title">🚨 Allergy Reaction Quick Reference</div>
-          <p>{{TOOL_MESSAGES.ALLERGY_WARNING}}</p>
+          <div class="alert-title">{{ALLERGY_REACTION_TITLE}}</div>
+          <p>{{ALLERGY_WARNING}}</p>
         </div>
         <div class="info-grid">
           <div class="info-col">
-            <strong>📚 Medical Sources</strong>
+            <strong>{{MEDICAL_SOURCES_TITLE}}</strong>
             <div class="bibliography">
               <ol>
                 <li>World Health Organization. (2023). <em>Guideline for complementary feeding of infants and young children 6–23 months of age.</em> WHO Press, Geneva.</li>
@@ -124,12 +124,12 @@ export const CHECKLIST_TEMPLATE = `<!doctype html>
             </div>
           </div>
           <div class="info-col">
-            <strong>⚖️ Disclaimer</strong>
-            {{TOOL_MESSAGES.DISCLAIMER}}
+            <strong>{{DISCLAIMER_TITLE}}</strong>
+            {{DISCLAIMER}}
           </div>
         </div>
       </div>
-      <div class="signature">Made with 💚 by Karenina &bull; Programmatic BLW Tool</div>
+      <div class="signature">{{SIGNATURE}}</div>
     </div>
   </body>
 </html>`;
