@@ -13,6 +13,8 @@ import { StepResult } from '@/components/steps/StepResult';
 import { GreetingCard } from '@/components/GreetingCard';
 import { ContributeForm } from '@/components/ContributeForm';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { BrandFooter } from '@/components/BrandFooter';
+import { PrivacyNote } from '@/components/PrivacyNote';
 import { Broccoli } from 'lucide-react';
 
 export type FormData = {
@@ -221,7 +223,7 @@ export default function Page() {
 					{t('app.footer.openSource')} ·{' '}
 					<a
 						href='https://github.com/karenina-tech/blw-solids-tracker-web'
-						className='underline hover:text-slate-600'
+						className='hover:text-slate-600'
 						target='_blank'
 						rel='noopener noreferrer'>
 						GitHub
@@ -234,7 +236,10 @@ export default function Page() {
 						className='hover:text-slate-600'>
 						☕ Buy me a coffee
 					</a>
+					<span className='text-lg'>·</span>
+					<PrivacyNote />
 				</p>
+				<BrandFooter />
 			</div>
 		</div>
 	);

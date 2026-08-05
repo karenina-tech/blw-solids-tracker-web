@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import { I18nProvider } from '@/components/I18nProvider';
 import './globals.css';
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className="relative min-h-full flex flex-col bg-background"
         style={{ backgroundImage: 'url(/food-pattern.svg)', backgroundSize: '500px 400px' }}>
         <I18nProvider>{children}</I18nProvider>
+        <Analytics />
       </body>
     </html>
   );

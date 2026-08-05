@@ -18,7 +18,6 @@ export function GreetingCard({ onStart }: Props) {
 				className='bg-seed-600 hover:bg-seed-500 text-white text-sm font-medium px-6 py-2 rounded-xl transition-colors'>
 				{t('greeting.cta')}
 			</button>
-			<p className='text-xs text-slate-400 mt-4'>{t('greeting.madeBy')}</p>
 		</div>
 	);
 }
