@@ -235,6 +235,7 @@ export default function Page() {
 						☕ Buy me a coffee
 					</a>
 				</p>
+				<p className='text-center text-[11px] text-slate-400 mt-2'>{t('app.footer.privacy')}</p>
 			</div>
 		</div>
 	);

@@ -10,7 +10,8 @@
       "contribute": "✨ Contribute"
     },
     "footer": {
-      "openSource": "Open source"
+      "openSource": "Open source",
+      "privacy": "🔒 Your baby's name and form data stay in your browser — nothing is stored or sent to a server."
     }
   },
   "greeting": {

@@ -10,7 +10,8 @@
 			"contribute": "✨ Contribuir"
 		},
 		"footer": {
-			"openSource": "Código abierto"
+			"openSource": "Código abierto",
+			"privacy": "🔒 El nombre de tu bebé y los datos del formulario permanecen en tu navegador — no se almacenan ni se envían a ningún servidor."
 		}
 	},
 	"greeting": {
