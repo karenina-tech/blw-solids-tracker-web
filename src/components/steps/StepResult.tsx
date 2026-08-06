@@ -1,8 +1,7 @@
 'use client';
 
-import { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { track } from '@vercel/analytics';
 import type { FormData } from '@/app/page';
 import { getSafeFoodsTool } from '@/domain/getSafeFoods';
 import { createFoodRepository } from '@/domain/services/foodRepository';
@@ -61,14 +60,6 @@ export function StepResult({ formData, onReset, onBack }: StepResultProps) {
       checklistHtml: compileHtmlTemplate(formData.name, formData.startDate, plan, i18n.language),
     };
   }, [formData, i18n.language]);
-
-  // Depends only on result.success, not the whole result/formData, so a mid-session
-  // language switch (which recomputes the plan) doesn't count as a second generation.
-  useEffect(() => {
-    if (result.success) {
-      track('plan_generated');
-    }
-  }, [result.success]);
 
   if (!result.success) {
     const name = result.babyName;
