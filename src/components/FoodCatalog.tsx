@@ -2,6 +2,7 @@
 
 import { Fragment, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { getLocalizedFoodDataset } from '@/data/getLocalizedFoodDataset';
 import { Tooltip } from '@/components/Tooltip';
 
@@ -53,7 +54,7 @@ export function FoodCatalog() {
       </div>
 
       <div className="relative mb-3">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">🔍</span>
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" aria-hidden />
         <input
           type="text"
           value={search}
@@ -184,19 +185,20 @@ export function FoodCatalog() {
                 type="button"
                 onClick={() => goToPage(page - 1)}
                 disabled={page === 1}
-                className="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                aria-label={t('common.back')}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
-                ←
+                <ChevronLeft className="h-4 w-4" aria-hidden />
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
                 <button
                   key={n}
                   type="button"
                   onClick={() => goToPage(n)}
-                  className={`w-8 h-8 text-xs font-medium rounded-lg transition-colors ${
+                  className={`h-9 w-9 text-sm font-medium rounded-lg transition-colors ${
                     n === page
                       ? 'bg-seed-600 text-white'
-                      : 'border border-slate-200 text-slate-400 hover:bg-slate-50'
+                      : 'border border-slate-300 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
                   {n}
@@ -206,9 +208,10 @@ export function FoodCatalog() {
                 type="button"
                 onClick={() => goToPage(page + 1)}
                 disabled={page === totalPages}
-                className="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                aria-label={t('common.next')}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
-                →
+                <ChevronRight className="h-4 w-4" aria-hidden />
               </button>
             </div>
           )}

@@ -7,7 +7,7 @@
 		},
 		"nav": {
 			"tracker": "Rastreador",
-			"contribute": "✨ Contribuir"
+			"contribute": "Contribuir"
 		},
 		"footer": {
 			"openSource": "Código abierto",
@@ -22,8 +22,8 @@
 		"cta": "¡Empecemos!"
 	},
 	"common": {
-		"next": "Siguiente →",
-		"back": "← Atrás",
+		"next": "Siguiente",
+		"back": "Atrás",
 		"startOver": "Empezar de nuevo",
 		"optional": "opcional",
 		"stepOf": "Paso {{current}} de {{total}}",
@@ -105,7 +105,7 @@
 				"label": "Vegana",
 				"description": "Solo plantas. Sin productos de origen animal."
 			},
-			"generatePlan": "Generar plan →"
+			"generatePlan": "Generar plan"
 		},
 		"result": {
 			"planTitle": "Plan de 30 días de {{name}}",
@@ -257,5 +257,9 @@
 		"placeholder": "Selecciona una fecha",
 		"clear": "Limpiar",
 		"today": "Hoy"
+	},
+	"blog": {
+		"title": "Blog",
+		"allArticles": "Todos los artículos"
 	}
 }

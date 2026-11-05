@@ -7,7 +7,7 @@
     },
     "nav": {
       "tracker": "Tracker",
-      "contribute": "✨ Contribute"
+      "contribute": "Contribute"
     },
     "footer": {
       "openSource": "Open source",
@@ -22,8 +22,8 @@
     "cta": "Let's get started"
   },
   "common": {
-    "next": "Next →",
-    "back": "← Back",
+    "next": "Next",
+    "back": "Back",
     "startOver": "Start over",
     "optional": "optional",
     "stepOf": "Step {{current}} of {{total}}",
@@ -105,7 +105,7 @@
         "label": "Vegan",
         "description": "Plant-based only. No animal products."
       },
-      "generatePlan": "Generate plan →"
+      "generatePlan": "Generate plan"
     },
     "result": {
       "planTitle": "{{name}}'s 30-Day Plan",
@@ -243,5 +243,9 @@
     "placeholder": "Select a date",
     "clear": "Clear",
     "today": "Today"
+  },
+  "blog": {
+    "title": "Blog",
+    "allArticles": "All articles"
   }
 }

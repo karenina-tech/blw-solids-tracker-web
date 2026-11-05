@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { FoodItemSchema } from '@/types/food';
 import { FOOD_DATASET } from '@/data/foodDataset';
@@ -172,7 +173,9 @@ export function ContributeForm() {
 	if (submission.status === 'success') {
 		return (
 			<div className='text-center py-8'>
-				<div className='text-4xl mb-4'>🙌</div>
+				<span className='inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-accent-100 mb-4'>
+					<Check className='w-6 h-6 text-accent-600' aria-hidden />
+				</span>
 				<h2 className='text-xl font-bold text-slate-800 mb-2'>{t('contribute.success.title')}</h2>
 				<p className='text-slate-500 text-sm mb-2'>{t('contribute.success.body')}</p>
 				<p className='text-slate-400 text-sm'>{t('contribute.success.note')}</p>

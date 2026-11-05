@@ -15,15 +15,15 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="inline-flex bg-white/60 backdrop-blur-sm rounded-full p-1 gap-1 shadow-sm">
+    <div data-sheet className="sheet-gradient inline-flex rounded-md p-1 gap-1">
       {LANGS.map((lang) => (
         <button
           key={lang}
           onClick={() => changeLang(lang)}
-          className={`px-3 py-1 text-xs font-semibold rounded-full transition-all duration-200 ${
+          className={`px-3.5 py-1.5 text-sm font-semibold rounded transition-colors duration-200 ${
             current === lang
-              ? 'bg-seed-600 text-white shadow-sm'
-              : 'text-slate-400 hover:text-slate-600'
+              ? 'bg-seed-600 text-white'
+              : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           {t(`language.${lang}`)}

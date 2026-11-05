@@ -65,9 +65,13 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <main className="flex flex-1 flex-col items-center p-4 pt-10 sm:pt-14">
       <article className="w-full max-w-2xl">
-        <nav className="text-sm font-medium">
-          <Link href="/blog" className="text-accent-600 hover:text-accent-700">
-            &larr; All guides
+        <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+          <Link href="/" className="hover:text-slate-700 hover:underline">
+            {SITE_NAME}
+          </Link>
+          <span aria-hidden="true"> / </span>
+          <Link href="/blog" className="hover:text-slate-700 hover:underline">
+            Blog
           </Link>
         </nav>
         <h1 className="mt-4 text-3xl font-bold leading-tight text-accent-700 sm:text-4xl">{post.title}</h1>

@@ -26,7 +26,7 @@ export function PrivacyNote() {
 			<button
 				type='button'
 				onClick={() => setOpen(true)}
-				className='hover:text-slate-600 transition-colors'>
+				className='py-1 font-medium hover:text-slate-900 transition-colors'>
 				{t('app.footer.privacyLabel')}
 			</button>
 
@@ -42,7 +42,7 @@ export function PrivacyNote() {
 							onClick={(e) => e.stopPropagation()}
 							className='bg-white rounded-xl shadow-lg max-w-sm w-full p-5 text-left'>
 							<div className='flex items-start justify-between gap-3 mb-2'>
-								<h2 id={titleId} className='text-sm font-semibold text-slate-800'>
+								<h2 id={titleId} className='text-base font-semibold text-slate-800'>
 									{t('app.footer.privacyLabel')}
 								</h2>
 								<button
@@ -50,11 +50,11 @@ export function PrivacyNote() {
 									type='button'
 									onClick={() => setOpen(false)}
 									aria-label={t('common.close')}
-									className='text-slate-400 hover:text-slate-600 text-lg leading-none shrink-0'>
+									className='text-slate-500 hover:text-slate-700 text-2xl leading-none shrink-0 px-1'>
 									×
 								</button>
 							</div>
-							<p className='text-xs text-slate-500 leading-relaxed'>{t('app.footer.privacy')}</p>
+							<p className='text-sm text-slate-600 leading-relaxed'>{t('app.footer.privacy')}</p>
 						</div>
 					</div>,
 					document.body
