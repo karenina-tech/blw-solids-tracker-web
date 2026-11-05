@@ -1,11 +1,52 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { I18nProvider } from '@/components/I18nProvider';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'BLW Solids Tracker',
-  description: 'Generate a personalised 30-day Baby-Led Weaning solid food introduction plan.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | Baby-Led Weaning 30-Day Plan & Allergen Tracker`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    'baby-led weaning',
+    'BLW',
+    'starting solids',
+    'baby food introduction plan',
+    'allergen introduction',
+    'baby solids checklist',
+    'complementary feeding',
+  ],
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | Baby-Led Weaning 30-Day Plan`,
+    description: SITE_DESCRIPTION,
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} | Baby-Led Weaning 30-Day Plan`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Any',
+  inLanguage: ['en', 'es'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -16,6 +57,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         style={{ backgroundImage: 'url(/food-pattern.svg)', backgroundSize: '500px 400px' }}>
         <I18nProvider>{children}</I18nProvider>
         <Analytics />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+        />
       </body>
     </html>
   );

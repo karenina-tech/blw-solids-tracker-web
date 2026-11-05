@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
   const result = ContributionPayloadSchema.safeParse(body);
   if (!result.success) {
     return NextResponse.json(
-      { message: 'Validation failed', errors: result.error.flatten().fieldErrors },
+      { message: 'Validation failed', errors: z.flattenError(result.error).fieldErrors },
       { status: 422 }
     );
   }
