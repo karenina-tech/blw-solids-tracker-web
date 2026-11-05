@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { ProgressBar } from '@/components/ProgressBar';
 import { StepBabyInfo } from '@/components/steps/StepBabyInfo';
-import { StepAge } from '@/components/steps/StepAge';
 import { StepFeedingType } from '@/components/steps/StepFeedingType';
 import { StepMilestones } from '@/components/steps/StepMilestones';
 import { StepAllergies } from '@/components/steps/StepAllergies';
@@ -17,7 +17,7 @@ import { BrandFooter } from '@/components/BrandFooter';
 import { BlogSection } from '@/components/blog/BlogSection';
 import { GradientGroup } from '@/components/GradientGroup';
 import { PrivacyNote } from '@/components/PrivacyNote';
-import { Broccoli, Coffee, Sparkles } from 'lucide-react';
+import { BookOpen, Broccoli, CirclePlus, Coffee, ListChecks } from 'lucide-react';
 
 export type FormData = {
 	name: string;
@@ -35,10 +35,10 @@ export type FormData = {
 	dietType: 'standard' | 'vegetarian' | 'vegan' | null;
 };
 
-type StepId = 'baby-info' | 'age' | 'feeding-type' | 'milestones' | 'allergies' | 'diet-type' | 'result';
+type StepId = 'baby-info' | 'feeding-type' | 'milestones' | 'allergies' | 'diet-type' | 'result';
 
 function getSteps(ageMonths: number | null): StepId[] {
-	const steps: StepId[] = ['baby-info', 'age'];
+	const steps: StepId[] = ['baby-info'];
 	if (ageMonths === 5) steps.push('feeding-type');
 	steps.push('milestones', 'allergies', 'diet-type', 'result');
 	return steps;
@@ -70,6 +70,15 @@ export default function Page() {
 	const [formData, setFormData] = useState<FormData>(initialFormData);
 	const [stepIndex, setStepIndex] = useState(0);
 
+	// The blog header links to "/?tab=contribute".
+	useEffect(() => {
+		if (new URLSearchParams(window.location.search).get('tab') === 'contribute') {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
+			setShowGreeting(false);
+			setShowContribute(true);
+		}
+	}, []);
+
 	const steps = useMemo(() => getSteps(formData.ageMonths), [formData.ageMonths]);
 	const currentStep = steps[stepIndex];
 	const totalSteps = steps.length;
@@ -100,32 +109,49 @@ export default function Page() {
 
 	const isResultStep = currentStep === 'result';
 
+	// The logo links to "/". If we are already there the page does not remount, so go back to the welcome screen by hand.
+	const goHome = () => {
+		reset();
+		setShowContribute(false);
+		setShowGreeting(true);
+	};
+
 	return (
 		<div className='flex flex-col flex-1 items-center p-4 pt-10 sm:pt-14'>
 			<GradientGroup className='w-full max-w-lg lg:max-w-5xl'>
-				<header className='flex items-start justify-between gap-4 mb-6'>
+				<header className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between'>
 					<div className='flex items-center gap-3'>
-						<span className='inline-flex items-center justify-center w-12 h-12 rounded-md bg-accent-100 shrink-0'>
+						<Link
+							href='/'
+							aria-label={t('app.title')}
+							onClick={goHome}
+							className='inline-flex items-center justify-center w-12 h-12 rounded-md bg-accent-100 shrink-0 transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-700'>
 							<Broccoli className='w-7 h-7 text-background' aria-hidden />
-						</span>
+						</Link>
 						<div>
 							<h1 className='font-display text-2xl sm:text-3xl font-extrabold leading-none text-accent-700'>
 								{t('app.title')}
 							</h1>
-							<p className='mt-1.5 text-sm font-medium text-slate-600'>
+							<p className='mt-1.5 text-base font-medium text-slate-600'>
 								{t('app.badges.free')} <span aria-hidden='true'>/</span> {t('app.badges.noAccount')}
 							</p>
 						</div>
 					</div>
-					<LanguageSwitcher />
+					{/* On phones the language buttons sit on their own row above the title so the title stays on one line. */}
+					<div className='order-first self-end sm:order-none sm:self-start'>
+						<LanguageSwitcher />
+					</div>
 				</header>
 
-				<div className='flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-stretch lg:gap-6'>
+				<div
+					className={`flex flex-col gap-4 ${
+						showGreeting ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-stretch lg:gap-6' : ''
+					}`}>
 				{!showGreeting && (
 					<nav className='flex gap-6 border-b-2 border-accent-700/15 lg:col-span-2' aria-label='Sections'>
 						{[
-							{ active: !showContribute, onClick: () => setShowContribute(false), label: t('app.nav.tracker'), icon: null },
-							{ active: showContribute, onClick: () => setShowContribute(true), label: t('app.nav.contribute'), icon: Sparkles }
+							{ active: !showContribute, onClick: () => setShowContribute(false), label: t('app.nav.tracker'), icon: ListChecks },
+							{ active: showContribute, onClick: () => setShowContribute(true), label: t('app.nav.contribute'), icon: CirclePlus }
 						].map(({ active, onClick, label, icon: Icon }) => (
 							<button
 								key={label}
@@ -140,30 +166,35 @@ export default function Page() {
 								{label}
 							</button>
 						))}
+						<Link
+							href='/blog'
+							className='inline-flex items-center gap-1.5 -mb-0.5 border-b-4 border-transparent pb-2 font-display text-base font-bold text-slate-500 transition-colors hover:text-slate-800'>
+							<BookOpen className='w-4 h-4' aria-hidden />
+							{t('blog.title')}
+						</Link>
 					</nav>
 				)}
 
 					{showGreeting ? (
 						<GreetingCard onStart={() => setShowGreeting(false)} />
 					) : showContribute ? (
-						<div data-sheet className='sheet-gradient rounded-2xl p-8'>
+						<div data-sheet className='sheet-gradient rounded-2xl p-5 sm:p-8'>
 							<ContributeForm />
 						</div>
 					) : (
-						<div data-sheet className='sheet-gradient rounded-2xl p-8'>
+						<div data-sheet className='sheet-gradient rounded-2xl p-5 sm:p-8'>
 							{!isResultStep && <ProgressBar current={stepIndex + 1} total={totalSteps - 1} />}
+
 
 							{currentStep === 'baby-info' && (
 								<StepBabyInfo
 									name={formData.name}
 									startDate={formData.startDate}
+									ageMonths={formData.ageMonths}
 									onChange={(field, value) => setFormData((prev) => ({ ...prev, [field]: value }))}
+									onChangeAge={setAge}
 									onNext={goNext}
 								/>
-							)}
-
-							{currentStep === 'age' && (
-								<StepAge ageMonths={formData.ageMonths} onChange={setAge} onNext={goNext} onBack={goBack} />
 							)}
 
 							{currentStep === 'feeding-type' && (
@@ -218,11 +249,14 @@ export default function Page() {
 							{currentStep === 'result' && <StepResult formData={formData} onReset={reset} onBack={goBack} />}
 						</div>
 					)}
-					<BlogSection />
+					{showGreeting && <BlogSection />}
 				</div>
 
-				<div className='mt-6 flex flex-col items-center gap-2 lg:flex-row lg:justify-between'>
-					<p className='flex flex-wrap justify-center lg:justify-start items-center gap-x-2 gap-y-1 text-sm text-slate-600'>
+				<div
+					className={`mt-6 flex flex-col items-center gap-2 ${
+						showGreeting ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-6' : ''
+					}`}>
+					<p className='flex flex-wrap justify-center items-center gap-x-2.5 gap-y-1 text-base text-slate-600'>
 						<span>{t('app.footer.openSource')}</span>
 						<span aria-hidden='true'>·</span>
 						<a
@@ -238,13 +272,13 @@ export default function Page() {
 							target='_blank'
 							rel='noopener noreferrer'
 							className={`${footerLinkClass} inline-flex items-center gap-1`}>
-							<Coffee className='w-4 h-4' aria-hidden />
+							<Coffee className='w-5 h-5' aria-hidden />
 							Buy me a coffee
 						</a>
 						<span aria-hidden='true'>·</span>
 						<PrivacyNote />
 					</p>
-					<div>
+					<div className='text-center'>
 						<BrandFooter />
 					</div>
 				</div>

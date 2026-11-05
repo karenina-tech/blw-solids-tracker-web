@@ -20,7 +20,7 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
 
   return (
     <div className="mb-8" role="progressbar" aria-valuemin={1} aria-valuemax={total} aria-valuenow={current}>
-      <p className="mb-3 font-mono text-sm font-medium text-accent-700">
+      <p className="mb-3 font-display text-base font-semibold text-accent-700">
         {t('common.stepOf', { current, total })}
       </p>
       <div className="flex items-end justify-between" aria-hidden="true">
@@ -35,11 +35,11 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
           );
         })}
       </div>
-      <div className="mt-1 flex justify-between font-mono text-sm" aria-hidden="true">
+      <div className="mt-1 flex justify-between font-display text-base" aria-hidden="true">
         {Array.from({ length: total }, (_, i) => (
           <span
             key={i}
-            className={`-mx-1 w-2 text-center ${i + 1 === current ? 'font-medium text-accent-700' : 'text-slate-400'}`}>
+            className={`-mx-1 w-2 text-center ${i + 1 === current ? 'font-bold text-accent-700' : 'font-medium text-slate-400'}`}>
             {i + 1}
           </span>
         ))}

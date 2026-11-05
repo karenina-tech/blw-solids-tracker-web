@@ -4,7 +4,7 @@
 	--background: #ecfdf5;
 	--foreground: #334155;
 
-	/* Green accent — containers, text, fills */
+	/* Green accent: containers, text, fills */
 	--accent-50:  #fef9e7;
 	--accent-100: #52b788;
 	--accent-300: #74c69d;
@@ -12,7 +12,7 @@
 	--accent-600: #264e36;
 	--accent-700: #1a3d27;
 
-	/* Seed (avocado pit brown) — interactive elements: buttons, active states */
+	/* Seed (avocado pit brown): interactive elements: buttons, active states */
 	--seed-400: #a07850;
 	--seed-500: #8d6a44;
 	--seed-600: #7c5c3a;
@@ -35,7 +35,6 @@
 
 	--font-display: var(--ff-display), ui-sans-serif, system-ui, sans-serif;
 	--font-sans: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
-	--font-mono: var(--ff-mono), ui-monospace, monospace;
 
 	/* Near-square corners: record cards, not pills. rounded-full stays for true circles. */
 	--radius-sm: 2px;

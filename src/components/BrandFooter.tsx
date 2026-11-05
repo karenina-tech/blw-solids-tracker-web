@@ -13,7 +13,7 @@ const linkClass =
 export function BrandFooter() {
 	const { t } = useTranslation();
 	return (
-		<span className='text-sm text-slate-600'>
+		<span className='text-base text-slate-600'>
 			{t('app.footer.builtBy')}{' '}
 			<a
 				href={DEVELOPER_URL}

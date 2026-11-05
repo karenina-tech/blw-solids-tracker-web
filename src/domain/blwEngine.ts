@@ -118,7 +118,7 @@ export function generate30DayPlan(foods: FoodItem[], startDate: string, ageMonth
     const prefix = day.allergenTrialDay ? '⏰ ' : '';
     return {
       date: shiftDateByDays(startDate, index),
-      foodItem: `${prefix}${day.food.name} — ${preparation}`,
+      foodItem: `${prefix}${day.food.name} | ${preparation}`,
       category,
       isAllergenFirstDay: day.allergenTrialDay === 1,
       isOffered: false,

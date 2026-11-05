@@ -14,17 +14,22 @@ const DateField = z.union([
   z.string().regex(DATE_PATTERN, 'Use the format YYYY-MM-DD'),
 ]);
 
-const FrontmatterSchema = z.object({
-  title: z.string().min(10).max(90),
-  description: z.string().min(70).max(165),
-  date: DateField,
-  updated: DateField.optional(),
-  draft: z.boolean().default(false),
-  tags: z.array(z.string()).default([]),
-  sources: z
-    .array(z.object({ label: z.string().min(1), url: z.url() }))
-    .min(1, 'Health articles must cite at least one source'),
-});
+const FrontmatterSchema = z
+  .object({
+    title: z.string().min(10).max(90),
+    description: z.string().min(70).max(165),
+    date: DateField,
+    updated: DateField.optional(),
+    draft: z.boolean().default(false),
+    // "guide" = health information (must cite sources). "story" = personal experience.
+    type: z.enum(['guide', 'story']).default('guide'),
+    tags: z.array(z.string()).default([]),
+    sources: z.array(z.object({ label: z.string().min(1), url: z.url() })).default([]),
+  })
+  .refine((post) => post.type === 'story' || post.sources.length > 0, {
+    message: 'Guides must cite at least one source (use type: story for personal posts)',
+    path: ['sources'],
+  });
 
 export type PostMeta = z.infer<typeof FrontmatterSchema> & {
   slug: string;

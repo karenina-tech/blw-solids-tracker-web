@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleBody } from '@/components/blog/ArticleBody';
 import { ArticleFooter } from '@/components/blog/ArticleFooter';
+import { BlogHeader } from '@/components/blog/BlogHeader';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { SITE_NAME, SITE_URL } from '@/config/site';
 
@@ -64,29 +64,23 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <main className="flex flex-1 flex-col items-center p-4 pt-10 sm:pt-14">
-      <article className="w-full max-w-2xl">
-        <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
-          <Link href="/" className="hover:text-slate-700 hover:underline">
-            {SITE_NAME}
-          </Link>
-          <span aria-hidden="true"> / </span>
-          <Link href="/blog" className="hover:text-slate-700 hover:underline">
-            Blog
-          </Link>
-        </nav>
-        <h1 className="mt-4 text-3xl font-bold leading-tight text-accent-700 sm:text-4xl">{post.title}</h1>
-        <p className="mt-3 text-sm text-slate-500">
-          {formatDate(post.date)}
-          {post.updated && post.updated !== post.date ? ` (updated ${formatDate(post.updated)})` : ''} &middot;{' '}
-          {post.readingMinutes} min read
-        </p>
+      <div className="w-full max-w-5xl">
+        <BlogHeader />
+        <article className="max-w-3xl">
+          <h1 className="mt-8 text-3xl font-bold leading-tight text-accent-700 sm:text-4xl">{post.title}</h1>
+          <p className="mt-3 text-base text-slate-500">
+            {formatDate(post.date)}
+            {post.updated && post.updated !== post.date ? ` (updated ${formatDate(post.updated)})` : ''} &middot;{' '}
+            {post.readingMinutes} min read
+          </p>
 
-        <div className="mt-6">
-          <ArticleBody markdown={post.content} />
-        </div>
+          <div className="mt-6">
+            <ArticleBody markdown={post.content} />
+          </div>
 
-        <ArticleFooter sources={post.sources} />
-      </article>
+          <ArticleFooter sources={post.sources} />
+        </article>
+      </div>
 
       <script
         type="application/ld+json"

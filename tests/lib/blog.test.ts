@@ -59,9 +59,20 @@ describe('blog loader', () => {
     expect(getAllPosts(dir)).toEqual([]);
   });
 
-  it('fails the build when an article has no sources', () => {
+  it('fails the build when a guide has no sources', () => {
     write('no-sources.md', frontmatter({ sources: '' }));
     expect(() => getAllPosts(dir)).toThrow(/no-sources/);
+  });
+
+  it('allows a personal story without sources', () => {
+    write('our-first-week.md', frontmatter({ sources: '', type: 'story' }));
+    const [post] = getAllPosts(dir);
+    expect(post).toMatchObject({ slug: 'our-first-week', type: 'story', sources: [] });
+  });
+
+  it('defaults to the guide type', () => {
+    write('a-guide.md', frontmatter());
+    expect(getAllPosts(dir)[0].type).toBe('guide');
   });
 
   it('rejects slugs that try to escape the folder', () => {

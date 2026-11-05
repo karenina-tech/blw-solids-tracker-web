@@ -66,15 +66,15 @@ export function StepResult({ formData, onReset, onBack }: StepResultProps) {
     let noteContent: React.ReactNode;
 
     if (result.reason === 'exclusive_breastfeeding') {
-      noteContent = <p className="text-sm text-amber-900 whitespace-pre-line leading-relaxed">{t('steps.result.notReady.exclusive_breastfeeding')}</p>;
+      noteContent = <p className="text-base text-amber-900 whitespace-pre-line leading-relaxed">{t('steps.result.notReady.exclusive_breastfeeding')}</p>;
     } else if (result.reason === 'age_too_young') {
-      noteContent = <p className="text-sm text-amber-900 whitespace-pre-line leading-relaxed">{t('steps.result.notReady.age_too_young')}</p>;
+      noteContent = <p className="text-base text-amber-900 whitespace-pre-line leading-relaxed">{t('steps.result.notReady.age_too_young')}</p>;
     } else {
       const missingList = (result.missingMilestones ?? [])
         .map((m) => `• ${name} ${t(MILESTONE_KEY[m])}`)
         .join('\n');
       noteContent = (
-        <div className="text-sm text-amber-900 leading-relaxed space-y-3">
+        <div className="text-base text-amber-900 leading-relaxed space-y-3">
           <p className="whitespace-pre-line">{t('steps.result.notReady.milestones_intro', { name })}</p>
           <p className="whitespace-pre-line pl-2">{missingList}</p>
           <p className="whitespace-pre-line">{t('steps.result.notReady.milestones_outro', { name })}</p>
@@ -105,34 +105,34 @@ export function StepResult({ formData, onReset, onBack }: StepResultProps) {
       <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-white shadow-sm shrink-0">
         <button
           onClick={onBack}
-          className="flex items-center gap-1 text-slate-500 hover:text-slate-800 text-sm font-medium transition-colors"
+          className="flex items-center gap-1 text-slate-500 hover:text-slate-800 text-base font-medium transition-colors"
         >
           {t('common.back')}
         </button>
         <div className="flex-1 text-center">
-          <span className="text-sm font-semibold text-slate-700">
+          <span className="text-base font-semibold text-slate-700">
             {t('steps.result.planTitle', { name: formData.name })}
           </span>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => downloadHtml(checklistHtml!, `${slug}-blw-checklist.html`)}
-            className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-base font-semibold px-4 py-2 rounded-lg transition-colors"
             title="Download as HTML file"
           >
             {t('steps.result.html')}
           </button>
           <button
             onClick={() => iframeRef.current?.contentWindow?.print()}
-            className="bg-seed-600 hover:bg-seed-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
-            title="Opens print dialog — choose 'Save as PDF'"
+            className="bg-seed-600 hover:bg-seed-500 text-white text-base font-semibold px-4 py-2 rounded-lg transition-colors"
+            title="Opens the print dialog. Choose 'Save as PDF'"
           >
             {t('steps.result.pdf')}
           </button>
         </div>
       </div>
       {result.showFoodInterestNote && (
-        <div className="px-4 py-2 bg-amber-50 border-b border-amber-100 text-xs text-amber-800">
+        <div className="px-4 py-2 bg-amber-50 border-b border-amber-100 text-base text-amber-800">
           {t('steps.result.foodInterestNote')}
         </div>
       )}

@@ -11,7 +11,7 @@
 		},
 		"footer": {
 			"openSource": "Código abierto",
-			"privacy": "El nombre de tu bebé y los datos del formulario permanecen en tu navegador — no se almacenan ni se envían a ningún servidor.",
+			"privacy": "El nombre de tu bebé y los datos del formulario permanecen en tu navegador. No se almacenan ni se envían a ningún servidor.",
 			"privacyLabel": "Privacidad",
 			"builtBy": "Creado por"
 		}
@@ -34,9 +34,9 @@
 			"title": "¡Empecemos!",
 			"subtitle": "Cuéntanos un poco sobre tu bebé.",
 			"nameLabel": "Nombre del bebé",
+			"nameNeedsLettersOrNumbers": "Usa letras o números en el nombre.",
 			"namePlaceholder": "ej. Sofía",
-			"dateLabel": "Fecha de inicio planeada",
-			"dateHint": "Se usa para generar tu calendario de 30 días."
+			"dateLabel": "Fecha de inicio planeada"
 		},
 		"age": {
 			"title": "¿Cuántos meses tiene tu bebé?",
@@ -111,13 +111,13 @@
 			"planTitle": "Plan de 30 días de {{name}}",
 			"html": "HTML",
 			"pdf": "Guardar como PDF",
-			"foodInterestNote": "No todos los bebés muestran interés obvio en la comida antes de introducir sólidos — esto es completamente normal. La curiosidad alimentaria suele desarrollarse naturalmente una vez que empiezan a explorar sabores y texturas.",
+			"foodInterestNote": "No todos los bebés muestran interés obvio en la comida antes de introducir sólidos. Esto es completamente normal. La curiosidad alimentaria suele desarrollarse naturalmente una vez que empiezan a explorar sabores y texturas.",
 			"notReady": {
 				"title": "Aún en procesos de desarrollo",
-				"exclusive_breastfeeding": "La lactancia materna exclusiva proporciona nutrición completa para bebés menores de 6 meses y es fuertemente recomendada por la OMS y la AAP. Regresa cuando tu bebé cumpla los 6 meses — ¡estaremos aquí para guiarte en cada paso!",
-				"age_too_young": "¡Gracias por compartir eso! Según las guías actuales de la OMS y la AAP, la edad mínima recomendada para comenzar con sólidos es de 6 meses. Regresa cuando tu bebé esté más cerca de los 6 meses — ¡estaremos aquí para guiarte en cada paso!",
-				"milestones_intro": "Gracias por tomarte el tiempo de compartir esto conmigo.\n\nSegún lo que compartiste, parece que {{name}} puede necesitar un poco más de tiempo antes de comenzar con los sólidos. ¡Esto es completamente normal — cada bebé se desarrolla a su propio ritmo!\n\nEsto es lo que notamos:",
-				"milestones_outro": "La buena noticia es que la mayoría de los bebés alcanzan estos hitos en las próximas semanas.\n\n¡Regresa cuando {{name}} esté lista — estaremos aquí!",
+				"exclusive_breastfeeding": "La lactancia materna exclusiva proporciona nutrición completa para bebés menores de 6 meses y es fuertemente recomendada por la OMS y la AAP. Regresa cuando tu bebé cumpla los 6 meses. ¡Estaremos aquí para guiarte en cada paso!",
+				"age_too_young": "¡Gracias por compartir eso! Según las guías actuales de la OMS y la AAP, la edad mínima recomendada para comenzar con sólidos es de 6 meses. Regresa cuando tu bebé esté más cerca de los 6 meses. ¡Estaremos aquí para guiarte en cada paso!",
+				"milestones_intro": "Gracias por tomarte el tiempo de compartir esto conmigo.\n\nSegún lo que compartiste, parece que {{name}} puede necesitar un poco más de tiempo antes de comenzar con los sólidos. ¡Esto es completamente normal. Cada bebé se desarrolla a su propio ritmo!\n\nEsto es lo que notamos:",
+				"milestones_outro": "La buena noticia es que la mayoría de los bebés alcanzan estos hitos en las próximas semanas.\n\n¡Regresa cuando {{name}} esté lista. Estaremos aquí!",
 				"missing_headControl": "aún no ha desarrollado control total de la cabeza",
 				"missing_canSitWithMinimalSupport": "aún no se sienta erguida / erguido con apoyo mínimo",
 				"missing_reachAndGrab": "aún no ha comenzado a alcanzar y agarrar objetos"
@@ -132,8 +132,6 @@
 			"subtitle": "Completa el formulario. Revisaré tu sugerencia personalmente antes de publicarla.",
 			"nameLabel": "Nombre del alimento",
 			"required": "*",
-			"idLabel": "ID",
-			"idHint": "auto-completado · editable",
 			"categoryLabel": "Categoría",
 			"categoryOptions": {
 				"Standard": "Estándar",
@@ -146,26 +144,26 @@
 			"dietaryTypeLabel": "¿Qué tipo de alimento es?",
 			"dietaryTypeOptions": {
 				"placeholder": "Selecciona uno…",
-				"vegan": "Vegetal — fruta, verdura, cereal, legumbre",
-				"vegetarian": "Producto animal (no carne) — huevo, lácteo",
-				"standard": "Carne o pescado — pollo, res, salmón…"
+				"vegan": "Vegetal: fruta, verdura, cereal, legumbre",
+				"vegetarian": "Producto animal (no carne): huevo, lácteo",
+				"standard": "Carne o pescado: pollo, res, salmón…"
 			},
-			"prep6_9Label": "Preparación — 6 a 9 meses",
-			"prep9_12Label": "Preparación — 9 a 12 meses",
+			"prep6_9Label": "Preparación: 6 a 9 meses",
+			"prep9_12Label": "Preparación: 9 a 12 meses",
 			"prep6_9Placeholder": "Cómo preparar este alimento de forma segura para un bebé de 6–9 meses...",
 			"prep9_12Placeholder": "Cómo preparar este alimento de forma segura para un bebé de 9–12 meses...",
 			"chokingWarningLabel": "Advertencia de riesgo de asfixia",
 			"chokingOptional": "(opcional)",
 			"chokingWarningPlaceholder": "Describe los riesgos específicos de asfixia...",
 			"notesLabel": "Notas",
-			"notesHint": "(opcional — fuentes, contexto, sugerencias)",
+			"notesHint": "(opcional: fuentes, contexto, sugerencias)",
 			"notesPlaceholder": "ej. Basado en las guías de alimentación de la OMS...",
 			"submit": "Enviar contribución",
 			"submitting": "Enviando…",
 			"duplicate": "\"{{name}}\" ya existe.",
 			"minChars": "Al menos {{min}} caracteres ({{len}}/{{min}})",
 			"maxChars": "Como máximo {{max}} caracteres ({{len}}/{{max}})",
-			"minProgress": "Mínimo {{min}} caracteres — {{remaining}} más",
+			"minProgress": "Mínimo {{min}} caracteres, {{remaining}} más",
 			"required_field": "Este campo es obligatorio",
 			"required_selection": "Por favor selecciona {{field}}"
 		},
@@ -178,15 +176,15 @@
 		},
 		"errors": {
 			"rateLimit": "¡Vaya! Estamos recibiendo muchas contribuciones ahora mismo. Por favor espera unos minutos antes de intentarlo de nuevo.",
-			"server": "Tenemos problemas para conectar con nuestro servidor. Tu contribución es importante — por favor inténtalo más tarde.",
+			"server": "Tenemos problemas para conectar con nuestro servidor. Tu contribución es importante. Por favor inténtalo más tarde.",
 			"validation": "Algo no está bien con los datos enviados. Por favor revisa el formulario e inténtalo de nuevo.",
 			"network": "Por favor verifica tu conexión a internet e inténtalo de nuevo.",
 			"unknown": "Algo inesperado ocurrió. Por favor inténtalo de nuevo."
 		}
 	},
 	"catalog": {
-		"title": "Alimentos existentes",
-		"subtitle": "Revisa lo que ya existe antes de sugerir algo nuevo. Haz clic en un alimento para ver los detalles.",
+		"title": "Alimentos que ya están en la lista",
+		"subtitle": "Mira qué alimentos ya están en la lista antes de sugerir uno nuevo. Toca un alimento para ver cómo prepararlo.",
 		"searchPlaceholder": "Buscar alimentos…",
 		"noResults": "Ningún alimento coincide con tu búsqueda.",
 		"filters": {
@@ -217,7 +215,7 @@
 		"subtitle": "Lista de Alimentación Autorregulada por el Bebé (BLW)",
 		"startDateLabel": "Fecha de inicio",
 		"badge": "✦ Rastreador BLW",
-		"monitoringInstructions": "Solo por la mañana o al mediodía — observa durante 2 horas después de la exposición.",
+		"monitoringInstructions": "Solo por la mañana o al mediodía. Observa durante 2 horas después de la exposición.",
 		"columns": {
 			"date": "Fecha",
 			"food": "Alimento y Preparación",
@@ -260,6 +258,7 @@
 	},
 	"blog": {
 		"title": "Blog",
-		"allArticles": "Todos los artículos"
+		"allArticles": "Todos los artículos",
+		"comingSoon": "Estoy escribiendo mis primeros artículos. Vuelve pronto."
 	}
 }

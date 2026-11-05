@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Atkinson_Hyperlegible_Next, Bricolage_Grotesque, DM_Mono } from 'next/font/google';
+import { Atkinson_Hyperlegible_Next, Bricolage_Grotesque } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { I18nProvider } from '@/components/I18nProvider';
 import { BlogProvider } from '@/components/blog/BlogProvider';
@@ -8,10 +8,8 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
 import './globals.css';
 
 // Display: headings and the app name. Body: Atkinson Hyperlegible, built for readability.
-// Mono: step counters and dates.
 const display = Bricolage_Grotesque({ subsets: ['latin'], axes: ['opsz', 'wdth'], variable: '--ff-display' });
 const body = Atkinson_Hyperlegible_Next({ subsets: ['latin'], variable: '--ff-body' });
-const mono = DM_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--ff-mono' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -64,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} h-full antialiased`}
       suppressHydrationWarning>
       <body
         className="relative min-h-full flex flex-col bg-background"

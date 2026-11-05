@@ -54,7 +54,7 @@ export function PrivacyNote() {
 									×
 								</button>
 							</div>
-							<p className='text-sm text-slate-600 leading-relaxed'>{t('app.footer.privacy')}</p>
+							<p className='text-base text-slate-600 leading-relaxed'>{t('app.footer.privacy')}</p>
 						</div>
 					</div>,
 					document.body

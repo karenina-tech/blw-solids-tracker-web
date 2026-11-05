@@ -15,6 +15,7 @@ description: "One or two sentences for Google results. Between 70 and 165 charac
 date: "2026-11-20"
 updated: "2026-12-05" # optional, only when the content changes
 draft: true # true = hidden everywhere, false = published
+type: guide # guide (default, needs sources) or story (personal experience, sources optional)
 tags: ["readiness", "starting solids"]
 sources:
   - label: "Organisation: exact page title"
@@ -29,7 +30,7 @@ The page title already comes from `title`, so do not add a `#` heading.
 
 - `title`: 10 to 90 characters. `description`: 70 to 165 characters.
 - `date` format `YYYY-MM-DD`.
-- At least one entry in `sources` (health content must cite CDC, WHO, AAP or similar).
+- A `guide` needs at least one entry in `sources` (health content must cite CDC, WHO, AAP or similar). A personal `story` (`type: story`) can have none.
 - A broken article fails `npm run build`, so it can never reach production half-finished.
 
 ## Publishing every ~20 days
