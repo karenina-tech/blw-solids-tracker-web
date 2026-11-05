@@ -149,7 +149,7 @@ export function ContributeForm() {
 
 		const result = FoodItemSchema.safeParse(buildEntry(fields));
 		if (!result.success) {
-			result.error.errors.forEach((e) => {
+			result.error.issues.forEach((e) => {
 				const key = e.path.join('.');
 				if (!errs[key]) errs[key] = e.message;
 			});
