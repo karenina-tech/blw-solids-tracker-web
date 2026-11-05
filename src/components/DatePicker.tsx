@@ -78,7 +78,8 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         type="button"
         onClick={() => setOpen(o => !o)}
         className={[
-          'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-base transition-colors bg-white',
+          // Same look as the other inputs in the form: see-through background, same border and padding.
+          'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-base transition-colors',
           open
             ? 'border-accent-500 ring-1 ring-accent-500'
             : 'border-slate-300 hover:border-slate-400',
