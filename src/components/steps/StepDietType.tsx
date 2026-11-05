@@ -34,7 +34,7 @@ export function StepDietType({ dietType, onChange, onNext, onBack }: StepDietTyp
   return (
     <div>
       <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('steps.dietType.title')}</h2>
-      <p className="text-slate-500 text-sm mb-6">{t('steps.dietType.subtitle')}</p>
+      <p className="text-slate-500 text-base mb-6">{t('steps.dietType.subtitle')}</p>
 
       <div className="space-y-3">
         {OPTIONS.map((opt) => (
@@ -57,8 +57,8 @@ export function StepDietType({ dietType, onChange, onNext, onBack }: StepDietTyp
               )}
             </div>
             <div>
-              <div className="font-semibold text-slate-800 text-sm">{t(opt.labelKey)}</div>
-              <div className="text-slate-500 text-xs mt-0.5">{t(opt.descriptionKey)}</div>
+              <div className="font-semibold text-slate-800 text-base">{t(opt.labelKey)}</div>
+              <div className="text-slate-500 text-base mt-0.5">{t(opt.descriptionKey)}</div>
             </div>
           </button>
         ))}

@@ -50,7 +50,7 @@ export function StepMilestones({ milestones, onChange, onNext, onBack }: StepMil
   return (
     <div>
       <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('steps.milestones.title')}</h2>
-      <p className="text-slate-500 text-sm mb-6">{t('steps.milestones.subtitle')}</p>
+      <p className="text-slate-500 text-base mb-6">{t('steps.milestones.subtitle')}</p>
 
       <div className="space-y-2">
         {MILESTONE_FIELDS.map(({ key, labelKey, descriptionKey, informationalOnly }) => (
@@ -66,20 +66,20 @@ export function StepMilestones({ milestones, onChange, onNext, onBack }: StepMil
             />
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-slate-800">{t(labelKey)}</span>
+                <span className="text-base font-semibold text-slate-800">{t(labelKey)}</span>
                 {informationalOnly && (
-                  <span className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">
+                  <span className="text-base bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">
                     {t('common.optional')}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">{t(descriptionKey)}</p>
+              <p className="text-base text-slate-500 mt-0.5">{t(descriptionKey)}</p>
             </div>
           </label>
         ))}
       </div>
 
-      <p className="text-xs text-slate-400 mt-4">{t('steps.milestones.hint')}</p>
+      <p className="text-base text-slate-400 mt-4">{t('steps.milestones.hint')}</p>
 
       <div className="mt-6 flex justify-between">
         <button

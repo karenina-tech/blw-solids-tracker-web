@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
+import { Atkinson_Hyperlegible_Next, Bricolage_Grotesque } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { I18nProvider } from '@/components/I18nProvider';
+import { BlogProvider } from '@/components/blog/BlogProvider';
+import { getAllPosts } from '@/lib/blog';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/config/site';
 import './globals.css';
+
+// Display: headings and the app name. Body: Atkinson Hyperlegible, built for readability.
+const display = Bricolage_Grotesque({ subsets: ['latin'], axes: ['opsz', 'wdth'], variable: '--ff-display' });
+const body = Atkinson_Hyperlegible_Next({ subsets: ['latin'], variable: '--ff-body' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -50,12 +57,19 @@ const jsonLd = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const blogLinks = getAllPosts().map(({ slug, title }) => ({ slug, title }));
+
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} h-full antialiased`}
+      suppressHydrationWarning>
       <body
         className="relative min-h-full flex flex-col bg-background"
         style={{ backgroundImage: 'url(/food-pattern.svg)', backgroundSize: '500px 400px' }}>
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider>
+          <BlogProvider posts={blogLinks}>{children}</BlogProvider>
+        </I18nProvider>
         <Analytics />
         <script
           type="application/ld+json"

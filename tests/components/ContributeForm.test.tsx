@@ -25,7 +25,7 @@ function fillRequiredFields() {
 // ---------------------------------------------------------------------------
 // Duplicate detection
 // ---------------------------------------------------------------------------
-describe('ContributeForm — duplicate detection', () => {
+describe('ContributeForm: duplicate detection', () => {
   it('shows a warning immediately when an existing food name is typed', () => {
     render(<ContributeForm />);
     fireEvent.change(screen.getByPlaceholderText('e.g. Mango'), { target: { value: 'Broccoli' } });
@@ -60,7 +60,7 @@ describe('ContributeForm — duplicate detection', () => {
 // ---------------------------------------------------------------------------
 // Preparation field character limits & live hints
 // ---------------------------------------------------------------------------
-describe('ContributeForm — preparation character limits', () => {
+describe('ContributeForm: preparation character limits', () => {
   it('shows a required error when prep 6–9 is empty on submit', () => {
     render(<ContributeForm />);
     fireEvent.change(screen.getByPlaceholderText('e.g. Mango'), { target: { value: 'Dragon Fruit' } });
@@ -138,7 +138,7 @@ describe('ContributeForm — preparation character limits', () => {
 // ---------------------------------------------------------------------------
 // Optional fields character limits (choking hazard & reviewer notes)
 // ---------------------------------------------------------------------------
-describe('ContributeForm — optional field character limits', () => {
+describe('ContributeForm: optional field character limits', () => {
   it('shows an error when the choking hazard warning is below the minimum', () => {
     render(<ContributeForm />);
     fillRequiredFields();

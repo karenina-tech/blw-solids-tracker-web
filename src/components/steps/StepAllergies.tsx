@@ -45,7 +45,7 @@ export function StepAllergies({
   return (
     <div>
       <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('steps.allergies.title')}</h2>
-      <p className="text-slate-500 text-sm mb-6">{t('steps.allergies.subtitle')}</p>
+      <p className="text-slate-500 text-base mb-6">{t('steps.allergies.subtitle')}</p>
 
       <div className="space-y-3 mb-6">
         {options.map((opt) => (
@@ -68,8 +68,8 @@ export function StepAllergies({
               )}
             </div>
             <div>
-              <div className="font-semibold text-slate-800 text-sm">{t(opt.labelKey)}</div>
-              <div className="text-slate-500 text-xs mt-0.5">{t(opt.descriptionKey)}</div>
+              <div className="font-semibold text-slate-800 text-base">{t(opt.labelKey)}</div>
+              <div className="text-slate-500 text-base mt-0.5">{t(opt.descriptionKey)}</div>
             </div>
           </button>
         ))}
@@ -77,7 +77,7 @@ export function StepAllergies({
 
       {knownAllergies === true && (
         <div>
-          <p className="text-sm font-medium text-slate-700 mb-3">{t('steps.allergies.selectFoods')}</p>
+          <p className="text-base font-medium text-slate-700 mb-3">{t('steps.allergies.selectFoods')}</p>
           <div className="grid grid-cols-2 gap-1.5">
             {allergens.map((food) => {
               const selected = allergicFoods.includes(food.id);
@@ -92,13 +92,13 @@ export function StepAllergies({
                     onChange={() => onToggleAllergen(food.id)}
                     className="h-4 w-4 rounded border-slate-300 text-accent-600 focus:ring-accent-500 cursor-pointer shrink-0"
                   />
-                  <span className="text-sm text-slate-700">{food.name}</span>
+                  <span className="text-base text-slate-700">{food.name}</span>
                 </label>
               );
             })}
           </div>
           {allergicFoods.length === 0 && (
-            <p className="text-xs text-rose-500 mt-2">{t('steps.allergies.selectAtLeastOne')}</p>
+            <p className="text-base text-rose-500 mt-2">{t('steps.allergies.selectAtLeastOne')}</p>
           )}
         </div>
       )}

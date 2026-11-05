@@ -11,7 +11,7 @@ const BASE_ENTRY = {
   },
 };
 
-describe('ContributionPayloadSchema — valid inputs', () => {
+describe('ContributionPayloadSchema: valid inputs', () => {
   it('accepts a minimal valid entry', () => {
     expect(ContributionPayloadSchema.safeParse({ entry: BASE_ENTRY }).success).toBe(true);
   });
@@ -44,7 +44,7 @@ describe('ContributionPayloadSchema — valid inputs', () => {
   });
 });
 
-describe('ContributionPayloadSchema — id validation', () => {
+describe('ContributionPayloadSchema: id validation', () => {
   it('rejects an id with uppercase letters', () => {
     expect(ContributionPayloadSchema.safeParse({ entry: { ...BASE_ENTRY, id: 'Mango' } }).success).toBe(false);
   });
@@ -62,19 +62,19 @@ describe('ContributionPayloadSchema — id validation', () => {
   });
 });
 
-describe('ContributionPayloadSchema — name validation', () => {
+describe('ContributionPayloadSchema: name validation', () => {
   it('rejects an empty name', () => {
     expect(ContributionPayloadSchema.safeParse({ entry: { ...BASE_ENTRY, name: '' } }).success).toBe(false);
   });
 });
 
-describe('ContributionPayloadSchema — category validation', () => {
+describe('ContributionPayloadSchema: category validation', () => {
   it('rejects an unknown category', () => {
     expect(ContributionPayloadSchema.safeParse({ entry: { ...BASE_ENTRY, category: 'Unknown' } }).success).toBe(false);
   });
 });
 
-describe('ContributionPayloadSchema — preparationByAge validation', () => {
+describe('ContributionPayloadSchema: preparationByAge validation', () => {
   it('rejects an empty preparationByAge object', () => {
     expect(
       ContributionPayloadSchema.safeParse({ entry: { ...BASE_ENTRY, preparationByAge: {} } }).success
@@ -98,7 +98,7 @@ describe('ContributionPayloadSchema — preparationByAge validation', () => {
   });
 });
 
-describe('ContributionPayloadSchema — optional fields', () => {
+describe('ContributionPayloadSchema: optional fields', () => {
   it('rejects an invalid dietaryType', () => {
     expect(
       ContributionPayloadSchema.safeParse({ entry: { ...BASE_ENTRY, dietaryType: 'pescatarian' } }).success

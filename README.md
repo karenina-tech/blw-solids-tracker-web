@@ -1,91 +1,97 @@
 # 🥑 BLW Solids Tracker
 
-## Motivation
-
-Starting complementary feeding can be overwhelming for first-time parents, especially when implementing the Baby-Led Weaning (BLW) method.
-
-This tool helps parents track the introduction of solid foods in a safe, suggested order. It places special emphasis on tracking **potentially allergenic foods**. By using this tool, parents gain peace of mind and clear visibility into which foods have been offered, which were rejected, and which caused allergic reactions.
+A free tool for parents who start baby-led weaning (BLW). It helps you introduce solid foods in a safe order, with extra care for **foods that can cause allergies**.
 
 👉 **[Try it live](https://blw.kareninatech.com/)**
 
 <details>
-  <summary>📸 Click to view the printable checklist design</summary>
+  <summary>📸 See the printable checklist</summary>
   <br>
-  <p><strong>Header & Intro:</strong></p>
-  <img src="./assets/preview-header.png" alt="Header" width="500px">
+  <img src="./assets/preview-header.png" alt="Checklist header" width="500px">
   <br><br>
-  <p><strong>30-Day Tracking Table and Footer:</strong></p>
-  <img src="./assets/preview-footer.png" alt="Table Rows" width="500px">
+  <img src="./assets/preview-footer.png" alt="Checklist table" width="500px">
 </details>
 
 ---
 
-## Features
+## What it does
 
-- **Readiness check** — evaluates age and developmental milestones against WHO and AAP guidelines before generating a plan
-- **Personalised food list** — filters by age, diet type (standard / vegetarian / vegan), and known allergens
-- **30-day plan** — generates a safe, sequenced introduction schedule starting from your chosen date
-- **Printable checklist** — download an A4 HTML file with food items, preparation notes, allergen badges, and an allergy quick reference card
-- **Contribute a food** — submit missing foods via form; each submission is reviewed before it goes live
+- **Readiness check**: checks your baby's age and skills against WHO and AAP advice
+- **Food list**: matches your baby's age, diet and allergies
+- **30-day plan**: a safe schedule from the day you choose
+- **Printable checklist**: an A4 page with foods, how to prepare them, and an allergy guide
+- **Browse foods**: search and filter every food in the list
+- **Contribute a food**: suggest a missing food, and it is reviewed before it goes live
+- **Blog**: guides and personal stories
+- **English and Spanish**
+- **Private**: your baby's name and answers stay in your browser
 
 ---
 
-## Local development
+## Run it locally
 
 ```bash
-# Install dependencies
 npm install
-
-# Start the dev server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-### Available scripts
+### Environment variables
+
+Put these in a local `.env` file (never commit it).
+
+| Variable | Used for |
+|---|---|
+| `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO` | The "Contribute a food" form (it opens a GitHub issue) |
+| `STAGING_PASSWORD` | Password for preview deployments |
+
+### Scripts
 
 | Script | What it does |
 |---|---|
 | `npm run dev` | Start the dev server |
 | `npm run build` | Production build |
+| `npm run lint` | Check the code style |
 | `npm run test` | Run tests |
-| `npm run types` | Type check only |
-| `npm run verify` | Full check: audit + types + tests + build |
+| `npm run verify` | Run all checks (also runs before every commit) |
 
 ---
 
 ## Tech stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | React 18 + TypeScript + Vite |
-| Styling | Tailwind CSS |
-| Validation | Zod |
-| Tests | Jest + Testing Library |
-| Deployment | GitHub Pages |
-| Contribution backend | Cloudflare Worker |
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, Zod, react-i18next, lucide-react, Jest. Hosted on Vercel, with Cloudflare for DNS.
 
 ---
 
-## Contributing a food
+## Blog
 
-The app has a built-in **"Contribute a food"** tab. Fill in the food details and submit it creates a GitHub Issue for review. No account needed.
+Articles are Markdown files in [`content/blog/`](content/blog). The file name is the web address.
 
-If you want to contribute directly via code, open a pull request with changes to [`src/data/foodDataset.ts`](src/data/foodDataset.ts).
+- `type: guide` needs at least one source.
+- `type: story` is a personal post and needs no source.
+- `draft: true` hides an article.
+- With no articles, the blog shows a friendly "getting ready" message.
+
+Full steps are in [`content/blog/README.md`](content/blog/README.md).
+
+---
+
+## Contributing
+
+Use the **Contribute** tab in the app to suggest a food. You can also open a pull request that changes [`src/data/foodDataset.ts`](src/data/foodDataset.ts).
 
 ---
 
 ## Deployment
 
-The app is deployed automatically to GitHub Pages on every push to `main` via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
-
-The contribution form backend is a separate Cloudflare Worker. See [`worker/README.md`](worker/README.md) for setup instructions.
+Vercel deploys `main` to production. Other branches get a preview, protected by a password. GitHub Actions runs `npm run verify` on every pull request. Dependabot opens weekly update pull requests.
 
 ---
 
-## ⚠️ Safety notice
+## ⚠️ Safety
 
-- This tool does **not** replace professional medical advice.
-- Always consult your pediatrician before starting solids.
-- Never leave your baby unattended while eating.
-- Prepare all foods in an **age-appropriate size and texture** to prevent choking.
+- This tool does **not** replace medical advice.
+- Ask your pediatrician before you start solids.
+- Never leave your baby alone while eating.
+- Cut and prepare food in a safe size and texture to prevent choking.
