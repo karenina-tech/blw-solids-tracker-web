@@ -23,7 +23,7 @@
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-i18next": "^17.0.8",
-		"zod": "^3.23.8"
+		"zod": "^4.6.7"
 	},
 	"overrides": {
 		"form-data": "^4.0.6"
