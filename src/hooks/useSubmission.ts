@@ -5,7 +5,7 @@ const MESSAGES: Record<ErrorKind, string> = {
   rateLimit:
     "Wow! We're receiving a lot of contributions right now. Please wait a few minutes before trying again.",
   server:
-    "We're having trouble connecting to our server. Your contribution is important to us — please try again later.",
+    "We're having trouble connecting to our server. Your contribution is important to us. Please try again later.",
   validation:
     "Something looks off with the submitted data. Please review the form and try again.",
   network:

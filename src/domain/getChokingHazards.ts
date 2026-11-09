@@ -40,7 +40,7 @@ export function getChokingHazardsTool(repo: IFoodRepository, input: GetChokingHa
     return {
       success: false,
       safetyStatus: 'REQUIRES_FEEDING_TYPE',
-      message: 'Baby is 5 months old — feeding type required to determine eligibility.',
+      message: 'Baby is 5 months old. Feeding type is required to determine eligibility.',
     };
   }
 

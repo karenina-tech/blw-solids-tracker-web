@@ -8,12 +8,12 @@ const AGENCY_NAME = 'tuik';
 const AGENCY_URL = 'https://tuik.ai';
 
 const linkClass =
-	'font-medium text-slate-500 hover:text-slate-700 transition-colors';
+	'font-medium text-slate-700 hover:text-slate-900 transition-colors';
 
 export function BrandFooter() {
 	const { t } = useTranslation();
 	return (
-		<p className='text-center text-[11px] text-slate-400 mt-2' aria-label='Site credit'>
+		<span className='text-base text-slate-600'>
 			{t('app.footer.builtBy')}{' '}
 			<a
 				href={DEVELOPER_URL}
@@ -32,6 +32,6 @@ export function BrandFooter() {
 				className={linkClass}>
 				{AGENCY_NAME}
 			</a>
-		</p>
+		</span>
 	);
 }

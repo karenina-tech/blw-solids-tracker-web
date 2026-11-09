@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { Check } from 'lucide-react';
+import { DietIcon } from '@/components/DietIcon';
 import { useTranslation } from 'react-i18next';
 import { FoodItemSchema } from '@/types/food';
 import { FOOD_DATASET } from '@/data/foodDataset';
@@ -9,7 +11,6 @@ import { FoodCatalog } from '@/components/FoodCatalog';
 import { Tooltip } from '@/components/Tooltip';
 
 type FormFields = {
-	id: string;
 	name: string;
 	category: 'Standard' | 'Allergen' | '';
 	dietaryType: 'standard' | 'vegetarian' | 'vegan' | '';
@@ -20,7 +21,6 @@ type FormFields = {
 };
 
 const EMPTY: FormFields = {
-	id: '',
 	name: '',
 	category: '',
 	dietaryType: '',
@@ -44,7 +44,8 @@ function buildEntry(f: FormFields) {
 	if (f.prep9_12.trim()) preparationByAge['9-12'] = f.prep9_12.trim();
 
 	return {
-		id: f.id,
+		// The ID is generated from the name, so contributors never see or type it.
+		id: toSlug(f.name),
 		name: f.name,
 		category: f.category as 'Standard' | 'Allergen',
 		minAgeMonths: 6,
@@ -54,11 +55,7 @@ function buildEntry(f: FormFields) {
 	};
 }
 
-const DIETARY_OPTIONS = [
-	{ value: 'vegan', emoji: '🌱' },
-	{ value: 'vegetarian', emoji: '🥚' },
-	{ value: 'standard', emoji: '🥩' }
-] as const;
+const DIETARY_OPTIONS = [{ value: 'vegan' }, { value: 'vegetarian' }, { value: 'standard' }] as const;
 
 const PREP_MIN = 20;
 const PREP_MAX = 150;
@@ -68,18 +65,17 @@ const NOTES_MIN = 20;
 const NOTES_MAX = 500;
 
 const inputClass =
-	'w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 bg-white focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500';
+	'w-full border border-slate-300 rounded-lg px-4 py-2.5 text-base text-slate-700 placeholder-slate-400 bg-white focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500';
 
 function FieldError({ msg }: { msg?: string }) {
 	if (!msg) return null;
-	return <p className='text-xs text-red-500 mt-1'>{msg}</p>;
+	return <p className='text-base text-red-500 mt-1'>{msg}</p>;
 }
 
 export function ContributeForm() {
 	const { t } = useTranslation();
 	const [view, setView] = useState<'suggest' | 'browse'>('suggest');
 	const [fields, setFields] = useState<FormFields>(EMPTY);
-	const [slugTouched, setSlugTouched] = useState(false);
 	const [errors, setErrors] = useState<Record<string, string>>({});
 	const { submission, submit, reset } = useSubmission('/api/contribute');
 	const [dietOpen, setDietOpen] = useState(false);
@@ -96,18 +92,14 @@ export function ContributeForm() {
 	}, [dietOpen]);
 
 	const set = (key: keyof FormFields, value: string) =>
-		setFields((prev) => {
-			const next = { ...prev, [key]: value };
-			if (key === 'name' && !slugTouched) next.id = toSlug(value);
-			return next;
-		});
+		setFields((prev) => ({ ...prev, [key]: value }));
 
 	const duplicateFood =
 		fields.name.trim().length > 0
 			? FOOD_DATASET.find(
 					(f) =>
 						f.name.toLowerCase() === fields.name.trim().toLowerCase() ||
-						f.id.toLowerCase() === fields.id.trim().toLowerCase()
+						f.id.toLowerCase() === toSlug(fields.name)
 				)
 			: undefined;
 
@@ -147,6 +139,9 @@ export function ContributeForm() {
 		const notesErr = validateOptional(fields.submitterNotes, NOTES_MIN, NOTES_MAX);
 		if (notesErr) errs['submitterNotes'] = notesErr;
 
+		if (fields.name.trim() && !toSlug(fields.name))
+			errs.name = t('contribute.form.nameNeedsLettersOrNumbers');
+
 		const result = FoodItemSchema.safeParse(buildEntry(fields));
 		if (!result.success) {
 			result.error.issues.forEach((e) => {
@@ -172,20 +167,21 @@ export function ContributeForm() {
 	if (submission.status === 'success') {
 		return (
 			<div className='text-center py-8'>
-				<div className='text-4xl mb-4'>🙌</div>
+				<span className='inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-accent-100 mb-4'>
+					<Check className='w-6 h-6 text-accent-600' aria-hidden />
+				</span>
 				<h2 className='text-xl font-bold text-slate-800 mb-2'>{t('contribute.success.title')}</h2>
-				<p className='text-slate-500 text-sm mb-2'>{t('contribute.success.body')}</p>
-				<p className='text-slate-400 text-sm'>{t('contribute.success.note')}</p>
+				<p className='text-slate-500 text-base mb-2'>{t('contribute.success.body')}</p>
+				<p className='text-slate-400 text-base'>{t('contribute.success.note')}</p>
 
 				<div className='mt-6'>
 					<button
 						onClick={() => {
 							reset();
 							setFields(EMPTY);
-							setSlugTouched(false);
 							setView('suggest');
 						}}
-						className='text-sm text-slate-400 hover:text-slate-600 underline'>
+						className='text-base text-slate-400 hover:text-slate-600 underline'>
 						{t('contribute.success.submitAnother')}
 					</button>
 				</div>
@@ -195,20 +191,26 @@ export function ContributeForm() {
 
 	return (
 		<>
-			<div className='flex items-center justify-center gap-2.5 mb-6 text-sm'>
-				<button
-					type='button'
-					onClick={() => setView('suggest')}
-					className={`transition-colors ${view === 'suggest' ? 'font-semibold text-slate-700' : 'text-slate-400 hover:text-slate-500'}`}>
-					{t('contribute.suggestFood')}
-				</button>
-				<span className='text-slate-300 select-none'>/</span>
-				<button
-					type='button'
-					onClick={() => setView('browse')}
-					className={`transition-colors ${view === 'browse' ? 'font-semibold text-slate-700' : 'text-slate-400 hover:text-slate-500'}`}>
-					{t('contribute.browseFoods')}
-				</button>
+			<div className='flex justify-center mb-6'>
+				<div data-sheet className='sheet-gradient inline-flex gap-1 rounded-md p-1'>
+					{(
+						[
+							{ id: 'suggest', label: t('contribute.suggestFood') },
+							{ id: 'browse', label: t('contribute.browseFoods') }
+						] as const
+					).map(({ id, label }) => (
+						<button
+							key={id}
+							type='button'
+							onClick={() => setView(id)}
+							aria-pressed={view === id}
+							className={`rounded px-3.5 py-1.5 text-base font-semibold transition-colors duration-200 ${
+								view === id ? 'bg-seed-600 text-white' : 'text-slate-600 hover:bg-seed-600/10 hover:text-seed-700'
+							}`}>
+							{label}
+						</button>
+					))}
+				</div>
 			</div>
 
 			{view === 'browse' ? (
@@ -217,52 +219,32 @@ export function ContributeForm() {
 				<form onSubmit={handleSubmit} noValidate className='space-y-5'>
 					<div className='mb-6'>
 						<h2 className='text-xl font-bold text-slate-800 mb-1'>{t('contribute.form.title')}</h2>
-						<p className='text-slate-500 text-sm'>{t('contribute.form.subtitle')}</p>
-					</div>
-
-					<div className='grid grid-cols-2 gap-4'>
-						<div className='col-span-2 sm:col-span-1'>
-							<label className='block text-sm font-medium text-slate-700 mb-1.5'>
-								{t('contribute.form.nameLabel')}{' '}
-								<span className='text-red-400'>{t('contribute.form.required')}</span>
-							</label>
-							<input
-								type='text'
-								value={fields.name}
-								onChange={(e) => set('name', e.target.value)}
-								placeholder='e.g. Mango'
-								className={inputClass}
-							/>
-							{duplicateFood ? (
-								<p className='text-xs text-amber-600 mt-1'>
-									{t('contribute.form.duplicate', { name: duplicateFood.name })}
-								</p>
-							) : (
-								<FieldError msg={errors.name} />
-							)}
-						</div>
-
-						<div className='col-span-2 sm:col-span-1'>
-							<label className='block text-sm font-medium text-slate-700 mb-1.5'>
-								{t('contribute.form.idLabel')}{' '}
-								<span className='font-normal text-xs text-slate-400'>{t('contribute.form.idHint')}</span>
-							</label>
-							<input
-								type='text'
-								value={fields.id}
-								onChange={(e) => {
-									setSlugTouched(true);
-									set('id', e.target.value);
-								}}
-								placeholder='e.g. mango'
-								className={`${inputClass} font-mono`}
-							/>
-							<FieldError msg={errors.id} />
-						</div>
+						<p className='text-slate-500 text-base'>{t('contribute.form.subtitle')}</p>
 					</div>
 
 					<div>
-						<label className='block text-sm font-medium text-slate-700 mb-2'>
+						<label className='block text-base font-medium text-slate-700 mb-1.5'>
+							{t('contribute.form.nameLabel')}{' '}
+							<span className='text-red-400'>{t('contribute.form.required')}</span>
+						</label>
+						<input
+							type='text'
+							value={fields.name}
+							onChange={(e) => set('name', e.target.value)}
+							placeholder='e.g. Mango'
+							className={inputClass}
+						/>
+						{duplicateFood ? (
+							<p className='text-base text-amber-600 mt-1'>
+								{t('contribute.form.duplicate', { name: duplicateFood.name })}
+							</p>
+						) : (
+							<FieldError msg={errors.name ?? errors.id} />
+						)}
+					</div>
+
+					<div>
+						<label className='block text-base font-medium text-slate-700 mb-2'>
 							{t('contribute.form.categoryLabel')}{' '}
 							<span className='text-red-400'>{t('contribute.form.required')}</span>
 						</label>
@@ -270,8 +252,8 @@ export function ContributeForm() {
 							{(['Standard', 'Allergen'] as const).map((cat) => (
 								<label
 									key={cat}
-									className='relative group flex items-center gap-2 cursor-pointer text-sm text-slate-700'>
-									<Tooltip text={t(`contribute.form.categoryTooltip.${cat}`)} width='w-36' side='right' />
+									className='relative group flex items-center gap-2 cursor-pointer text-base text-slate-700'>
+									<Tooltip text={t(`contribute.form.categoryTooltip.${cat}`)} width='w-72' side='right' />
 									<input
 										type='radio'
 										name='category'
@@ -288,7 +270,7 @@ export function ContributeForm() {
 					</div>
 
 					<div>
-						<label className='block text-sm font-medium text-slate-700 mb-1.5'>
+						<label className='block text-base font-medium text-slate-700 mb-1.5'>
 							{t('contribute.form.dietaryTypeLabel')}{' '}
 							<span className='text-red-400'>{t('contribute.form.required')}</span>
 						</label>
@@ -297,14 +279,14 @@ export function ContributeForm() {
 								type='button'
 								onClick={() => setDietOpen((o) => !o)}
 								className={[
-									'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-sm bg-white transition-colors',
+									'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-base bg-white transition-colors',
 									dietOpen
 										? 'border-accent-500 ring-1 ring-accent-500'
 										: 'border-slate-300 hover:border-slate-400'
 								].join(' ')}>
 								{fields.dietaryType ? (
 									<span className='flex items-center gap-2 text-slate-700'>
-										<span>{DIETARY_OPTIONS.find((o) => o.value === fields.dietaryType)?.emoji}</span>
+										<DietIcon type={fields.dietaryType} />
 										<span>{t(`contribute.form.dietaryTypeOptions.${fields.dietaryType}`)}</span>
 									</span>
 								) : (
@@ -323,7 +305,7 @@ export function ContributeForm() {
 							</button>
 							{dietOpen && (
 								<div className='absolute z-50 top-full mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg py-1 select-none'>
-									{DIETARY_OPTIONS.map(({ value, emoji }) => (
+									{DIETARY_OPTIONS.map(({ value }) => (
 										<button
 											key={value}
 											type='button'
@@ -331,13 +313,13 @@ export function ContributeForm() {
 												set('dietaryType', value);
 												setDietOpen(false);
 											}}
-											className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left transition-colors hover:bg-slate-50 ${
+											className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-base text-left transition-colors hover:bg-slate-50 ${
 												fields.dietaryType === value ? 'text-accent-600 font-medium' : 'text-slate-700'
 											}`}>
-											<span className='text-base leading-none'>{emoji}</span>
+											<DietIcon type={value} />
 											<span>{t(`contribute.form.dietaryTypeOptions.${value}`)}</span>
 											{fields.dietaryType === value && (
-												<span className='ml-auto text-accent-600 text-xs'>✓</span>
+												<Check className='ml-auto h-5 w-5 text-accent-600' aria-hidden />
 											)}
 										</button>
 									))}
@@ -358,10 +340,10 @@ export function ContributeForm() {
 						return (
 							<div key={field}>
 								<div className='flex justify-between items-baseline mb-1.5'>
-									<label className='block text-sm font-medium text-slate-700'>
+									<label className='block text-base font-medium text-slate-700'>
 										{t(labelKey)} <span className='text-red-400'>{t('contribute.form.required')}</span>
 									</label>
-									<span className={`text-xs ${len > PREP_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+									<span className={`text-base ${len > PREP_MAX ? 'text-red-400' : 'text-slate-400'}`}>
 										{len > 0 ? `${len}/${PREP_MAX}` : ''}
 									</span>
 								</div>
@@ -374,7 +356,7 @@ export function ContributeForm() {
 									className={`${inputClass} resize-none`}
 								/>
 								{!errors[field] && len > 0 && len < PREP_MIN ? (
-									<p className='text-xs text-amber-500 mt-1'>
+									<p className='text-base text-amber-500 mt-1'>
 										{t('contribute.form.minProgress', { min: PREP_MIN, remaining: PREP_MIN - len })}
 									</p>
 								) : (
@@ -386,14 +368,14 @@ export function ContributeForm() {
 
 					<div>
 						<div className='flex justify-between items-baseline mb-1.5'>
-							<label className='block text-sm font-medium text-slate-700'>
+							<label className='block text-base font-medium text-slate-700'>
 								{t('contribute.form.chokingWarningLabel')}{' '}
-								<span className='text-xs font-normal text-slate-400'>
+								<span className='text-base font-normal text-slate-400'>
 									{t('contribute.form.chokingOptional')}
 								</span>
 							</label>
 							<span
-								className={`text-xs ${fields.chokingHazardWarning.trim().length > HAZARD_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+								className={`text-base ${fields.chokingHazardWarning.trim().length > HAZARD_MAX ? 'text-red-400' : 'text-slate-400'}`}>
 								{fields.chokingHazardWarning.trim().length > 0
 									? `${fields.chokingHazardWarning.trim().length}/${HAZARD_MAX}`
 									: ''}
@@ -412,12 +394,12 @@ export function ContributeForm() {
 
 					<div>
 						<div className='flex justify-between items-baseline mb-1.5'>
-							<label className='block text-sm font-medium text-slate-700'>
+							<label className='block text-base font-medium text-slate-700'>
 								{t('contribute.form.notesLabel')}{' '}
-								<span className='text-xs font-normal text-slate-400'>{t('contribute.form.notesHint')}</span>
+								<span className='text-base font-normal text-slate-400'>{t('contribute.form.notesHint')}</span>
 							</label>
 							<span
-								className={`text-xs ${fields.submitterNotes.trim().length > NOTES_MAX ? 'text-red-400' : 'text-slate-400'}`}>
+								className={`text-base ${fields.submitterNotes.trim().length > NOTES_MAX ? 'text-red-400' : 'text-slate-400'}`}>
 								{fields.submitterNotes.trim().length > 0
 									? `${fields.submitterNotes.trim().length}/${NOTES_MAX}`
 									: ''}
@@ -436,7 +418,7 @@ export function ContributeForm() {
 
 					{submission.status === 'error' && (
 						<p
-							className={`text-sm rounded-lg px-4 py-3 border ${
+							className={`text-base rounded-lg px-4 py-3 border ${
 								submission.kind === 'rateLimit'
 									? 'text-amber-700 bg-amber-50 border-amber-200'
 									: 'text-red-700 bg-red-50 border-red-200'
@@ -449,7 +431,7 @@ export function ContributeForm() {
 						<button
 							type='submit'
 							disabled={submission.status === 'loading' || !!duplicateFood}
-							className='bg-seed-600 hover:bg-seed-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors text-sm'>
+							className='bg-seed-600 hover:bg-seed-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 px-7 rounded-lg transition-colors text-base'>
 							{submission.status === 'loading'
 								? t('contribute.form.submitting')
 								: t('contribute.form.submit')}

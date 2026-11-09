@@ -4,7 +4,7 @@
 	--background: #ecfdf5;
 	--foreground: #334155;
 
-	/* Green accent — containers, text, fills */
+	/* Green accent: containers, text, fills */
 	--accent-50:  #fef9e7;
 	--accent-100: #52b788;
 	--accent-300: #74c69d;
@@ -12,7 +12,7 @@
 	--accent-600: #264e36;
 	--accent-700: #1a3d27;
 
-	/* Seed (avocado pit brown) — interactive elements: buttons, active states */
+	/* Seed (avocado pit brown): interactive elements: buttons, active states */
 	--seed-400: #a07850;
 	--seed-500: #8d6a44;
 	--seed-600: #7c5c3a;
@@ -32,4 +32,54 @@
 	--color-seed-500: var(--seed-500);
 	--color-seed-600: var(--seed-600);
 	--color-seed-700: var(--seed-700);
+
+	--font-display: var(--ff-display), ui-sans-serif, system-ui, sans-serif;
+	--font-sans: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+
+	/* Near-square corners: record cards, not pills. rounded-full stays for true circles. */
+	--radius-sm: 2px;
+	--radius-md: 3px;
+	--radius-lg: 4px;
+	--radius-xl: 4px;
+	--radius-2xl: 6px;
+
+	/* Very soft, wide shadows tinted with the dark green (accent-700): no outlines, no hard edges. */
+	--shadow-sm: 0 1px 2px rgb(26 61 39 / 0.05), 0 4px 12px -4px rgb(26 61 39 / 0.08);
+	--shadow-md: 0 1px 2px rgb(26 61 39 / 0.04), 0 14px 36px -10px rgb(26 61 39 / 0.14);
+	--shadow-lg: 0 2px 4px rgb(26 61 39 / 0.05), 0 28px 64px -16px rgb(26 61 39 / 0.26);
+}
+
+@layer base {
+	body {
+		font-family: var(--font-sans);
+	}
+	h1,
+	h2,
+	h3 {
+		font-family: var(--font-display);
+		letter-spacing: -0.01em;
+	}
+}
+
+@layer components {
+	/* One gradient shared by sibling cards inside <GradientGroup>.
+	   --gw, --gh, --gx and --gy are set from JS; without them each card falls back to its own gradient. */
+	.sheet-gradient {
+		/* How solid the cards are. Lower = more of the food pattern shows through. */
+		--sheet-opacity: 60%;
+
+		/* The colour lives in the gradient only (a separate background-color would stack and look opaque). */
+		background-color: transparent;
+		/* Three original-palette stops, kept faint: warm cream (accent-50) -> white -> pale green (accent-300). */
+		background-image: linear-gradient(
+			170deg,
+			color-mix(in srgb, var(--accent-50) var(--sheet-opacity), transparent) 0%,
+			color-mix(in srgb, #ffffff var(--sheet-opacity), transparent) 48%,
+			color-mix(in srgb, color-mix(in srgb, var(--accent-300) 24%, white) var(--sheet-opacity), transparent) 100%
+		);
+		background-repeat: no-repeat;
+		background-size: var(--gw, 100%) var(--gh, 100%);
+		background-position: calc(var(--gx, 0px) * -1) calc(var(--gy, 0px) * -1);
+		box-shadow: var(--shadow-md);
+	}
 }

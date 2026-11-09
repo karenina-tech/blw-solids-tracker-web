@@ -119,7 +119,7 @@ export const CHECKLIST_TEMPLATE = `<!doctype html>
               <ol>
                 <li>World Health Organization. (2023). <em>Guideline for complementary feeding of infants and young children 6–23 months of age.</em> WHO Press, Geneva.</li>
                 <li>American Academy of Pediatrics, Eidelman A.I. et al. (2022). <em>Timing of Introduction of Complementary Foods to Breastfed and Formula-Fed Infants.</em> Pediatrics.</li>
-                <li>American Academy of Pediatrics. (2024). <em>Infant Food and Feeding.</em> HealthyChildren.org — AAP Policy Statement.</li>
+                <li>American Academy of Pediatrics. (2024). <em>Infant Food and Feeding.</em> HealthyChildren.org, AAP Policy Statement.</li>
               </ol>
             </div>
           </div>

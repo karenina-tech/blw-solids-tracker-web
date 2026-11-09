@@ -32,7 +32,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       return () => { i18n.off('initialized', handleInit); };
     }
 
-    // Apply stored language preference after mount — runs only on the client,
+    // Apply stored language preference after mount. Runs only on the client,
     // so server and client always start from 'en' (no hydration mismatch).
     const stored = getStoredLang();
     if (stored && stored !== i18n.language) {

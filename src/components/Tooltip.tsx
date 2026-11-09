@@ -5,12 +5,12 @@ interface TooltipProps {
   side?: 'left' | 'right';
 }
 
-export function Tooltip({ text, width = 'w-44', noWrap = false, side = 'left' }: TooltipProps) {
+export function Tooltip({ text, width = 'w-64', noWrap = false, side = 'left' }: TooltipProps) {
   const isRight = side === 'right';
   return (
     <div className={`absolute ${isRight ? 'left-6' : 'right-8'} top-1/2 -translate-y-1/2 ${noWrap ? 'w-auto whitespace-nowrap' : width}
-                     bg-white border border-slate-200 text-slate-600 text-[11px]
-                     rounded-lg px-2.5 py-1.5 shadow-sm leading-relaxed
+                     bg-white border border-slate-300 text-slate-800 text-base font-medium
+                     rounded-lg px-4 py-3 shadow-md leading-snug
                      opacity-0 group-hover:opacity-100 transition-opacity duration-150
                      pointer-events-none z-50 text-left`}>
       {text}

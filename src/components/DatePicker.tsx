@@ -78,7 +78,8 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         type="button"
         onClick={() => setOpen(o => !o)}
         className={[
-          'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-sm transition-colors bg-white',
+          // Same look as the other inputs in the form: see-through background, same border and padding.
+          'w-full flex items-center justify-between border rounded-lg px-4 py-2.5 text-base transition-colors',
           open
             ? 'border-accent-500 ring-1 ring-accent-500'
             : 'border-slate-300 hover:border-slate-400',
@@ -108,7 +109,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
             >
               ‹
             </button>
-            <span className="text-xs font-semibold text-slate-800 tracking-wide">
+            <span className="text-base font-semibold text-slate-800 tracking-wide">
               {months[viewMonth]} {viewYear}
             </span>
             <button
@@ -122,7 +123,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
 
           <div className="grid grid-cols-7 mb-0.5">
             {days.map(d => (
-              <div key={d} className="text-center text-[10px] font-semibold text-slate-400 tracking-wider py-0.5">
+              <div key={d} className="text-center text-base font-semibold text-slate-400 tracking-wider py-0.5">
                 {d}
               </div>
             ))}
@@ -140,7 +141,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
                   type="button"
                   onClick={() => select(iso)}
                   className={[
-                    'mx-auto flex h-7 w-7 items-center justify-center rounded-full text-xs transition-colors',
+                    'mx-auto flex h-7 w-7 items-center justify-center rounded-full text-base transition-colors',
                     isSelected
                       ? 'bg-seed-600 text-white font-semibold shadow-sm'
                       : isToday
@@ -158,14 +159,14 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
             <button
               type="button"
               onClick={() => { onChange(''); setOpen(false); }}
-              className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
+              className="text-base text-slate-400 hover:text-slate-600 transition-colors"
             >
               {t('datePicker.clear')}
             </button>
             <button
               type="button"
               onClick={goToday}
-              className="text-xs font-semibold text-accent-600 hover:text-accent-500 transition-colors"
+              className="text-base font-semibold text-accent-600 hover:text-accent-500 transition-colors"
             >
               {t('datePicker.today')}
             </button>

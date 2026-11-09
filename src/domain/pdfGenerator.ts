@@ -15,8 +15,8 @@ export function compileHtmlTemplate(
     .map((item) => {
       const isAllergen = item.category.startsWith('Allergen');
       const badgeClass = isAllergen ? 'badge-allergen' : 'badge-standard';
-      const [foodName, ...prepParts] = item.foodItem.split(' — ');
-      const preparation = prepParts.join(' — ');
+      const [foodName, ...prepParts] = item.foodItem.split(' | ');
+      const preparation = prepParts.join(' | ');
       const categoryLabel = t(`checklist.categoryLabels.${item.category}`);
       return `
       <tr>

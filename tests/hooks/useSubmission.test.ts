@@ -9,7 +9,7 @@ function mockFetch(response: Partial<Response> & { json?: () => Promise<unknown>
 
 afterEach(() => jest.resetAllMocks());
 
-describe('useSubmission — initial state', () => {
+describe('useSubmission: initial state', () => {
   it('starts idle', () => {
     const { result } = renderHook(() => useSubmission(URL));
     expect(result.current.submission.status).toBe('idle');
@@ -24,7 +24,7 @@ describe('useSubmission — initial state', () => {
   });
 });
 
-describe('useSubmission — success', () => {
+describe('useSubmission: success', () => {
   it('sets success with issueUrl on 200', async () => {
     mockFetch({ ok: true, json: async () => ({ issueUrl: 'https://github.com/issues/1' }) });
     const { result } = renderHook(() => useSubmission(URL));
@@ -33,7 +33,7 @@ describe('useSubmission — success', () => {
   });
 });
 
-describe('useSubmission — validation errors', () => {
+describe('useSubmission: validation errors', () => {
   it('sets validation error on 400 using the server message', async () => {
     mockFetch({ ok: false, status: 400, json: async () => ({ message: 'Bad input' }) });
     const { result } = renderHook(() => useSubmission(URL));
@@ -57,7 +57,7 @@ describe('useSubmission — validation errors', () => {
   });
 });
 
-describe('useSubmission — server errors', () => {
+describe('useSubmission: server errors', () => {
   it.each([500, 502, 503])('sets server error on %d', async (status) => {
     mockFetch({ ok: false, status });
     const { result } = renderHook(() => useSubmission(URL));
@@ -66,7 +66,7 @@ describe('useSubmission — server errors', () => {
   });
 });
 
-describe('useSubmission — rate limit', () => {
+describe('useSubmission: rate limit', () => {
   it('sets rateLimit error on 429', async () => {
     mockFetch({ ok: false, status: 429 });
     const { result } = renderHook(() => useSubmission(URL));
@@ -75,7 +75,7 @@ describe('useSubmission — rate limit', () => {
   });
 });
 
-describe('useSubmission — network error', () => {
+describe('useSubmission: network error', () => {
   it('sets network error when fetch throws', async () => {
     global.fetch = jest.fn().mockRejectedValue(new TypeError('Failed to fetch'));
     const { result } = renderHook(() => useSubmission(URL));

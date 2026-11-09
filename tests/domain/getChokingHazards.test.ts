@@ -5,8 +5,8 @@ function tool(input: { ageMonths: number; feedingType?: 'formula' | 'exclusive_b
   return getChokingHazardsTool(defaultFoodRepository, input) as any;
 }
 
-describe('getChokingHazardsTool — age gate', () => {
-	it('blocks a 4-month-old — preparation rules are only shared after BLW readiness is confirmed', () => {
+describe('getChokingHazardsTool: age gate', () => {
+	it('blocks a 4-month-old: preparation rules are only shared after BLW readiness is confirmed', () => {
 		const result = tool({ ageMonths: 4 });
 		expect(result.success).toBe(false);
 		expect(result.safetyStatus).toBe('BLOCKED_NOT_READY');
@@ -40,7 +40,7 @@ describe('getChokingHazardsTool — age gate', () => {
 	});
 });
 
-describe('getChokingHazardsTool — preparation rules shape', () => {
+describe('getChokingHazardsTool: preparation rules shape', () => {
 	it('every rule contains id, name, chokingHazardWarning, and safePreparation', () => {
 		const result = tool({ ageMonths: 6 });
 		result.preparationRules.forEach((rule: any) => {
