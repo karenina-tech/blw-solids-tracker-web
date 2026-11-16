@@ -12,7 +12,7 @@ export const PLUS_PLAN_LABELS: Record<PlusPlan, string> = {
 // Same checks in the browser and on the server. Messages are shown to the parent.
 export const PlusInterestSchema = z.object({
   email: z
-    .string()
+    .string('emailRequired')
     .trim()
     .min(1, 'emailRequired')
     .pipe(z.email('emailInvalid').max(254, 'emailInvalid')),

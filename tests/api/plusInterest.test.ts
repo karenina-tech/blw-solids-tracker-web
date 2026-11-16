@@ -71,6 +71,13 @@ describe('POST /api/plus-interest', () => {
     expect(sendMock).not.toHaveBeenCalled();
   });
 
+  it('gives the same error code when the email is missing altogether', async () => {
+    const { email: _omitted, ...withoutEmail } = valid;
+    const res = await call(withoutEmail);
+    expect(res.status).toBe(422);
+    expect((await res.json()).errors.email).toBe('emailRequired');
+  });
+
   it('refuses an email that is not valid', async () => {
     const res = await call({ ...valid, email: 'mom@' });
     expect(res.status).toBe(422);
