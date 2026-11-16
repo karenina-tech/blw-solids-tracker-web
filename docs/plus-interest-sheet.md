@@ -16,6 +16,11 @@ This takes about 5 minutes.
 2. Delete the code that is there and paste this:
 
 ```js
+// Opening the web app address in a browser runs this. It only proves the script is published.
+function doGet() {
+  return reply_({ ok: true, message: 'The BLW Plus list script is running.' });
+}
+
 // Receives one sign-up from the website and adds a row. Needs a script property called SECRET.
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -72,6 +77,8 @@ function reply_(obj) {
 2. Set **Execute as: Me** and **Who has access: Anyone**.
 3. Click **Deploy** and allow the permissions Google asks for.
 4. Copy the **Web app URL**. It ends with `/exec`.
+5. Test it: open that address in your browser. You should see `{"ok":true,"message":"The BLW Plus list script is running."}`.
+   If you see "Sorry, unable to open the file at present", go to **If the address does not open** below.
 
 "Anyone" only means the address can be called. Nothing is added without your secret.
 
@@ -101,3 +108,28 @@ Try the same email twice: the second time it adds a note in column F and no new 
 - To rotate the secret, change it in Script Properties and in Vercel, then redeploy.
 - To delete a parent's data, delete their row.
 - Keep the sheet private. It holds parents' email addresses.
+
+## If the address does not open
+
+"Sorry, unable to open the file at present. Please check the address and try again." means Google cannot
+open that address for you. Check these, in this order:
+
+1. **Is it the right address?** It must be the **Web app URL** from the deploy window, like
+   `https://script.google.com/macros/s/....../exec`. It is not the address of the Apps Script editor
+   (`.../projects/...`), and it must not end in `/dev`. To find it again: **Deploy > Manage deployments**,
+   then copy the Web app URL. Copy all of it, with no spaces at the end.
+2. **Who has access must be "Anyone".** Not "Only myself", and not "Anyone with Google account".
+   Fix it: **Deploy > Manage deployments**, click the pencil (Edit), set **Who has access** to **Anyone**,
+   set **Version** to **New version**, and click **Deploy**.
+3. **Did you deploy the latest script?** If you pasted or changed code after deploying, you must make a
+   new version (same steps as above). The test page in step 5 only exists in the new script.
+4. **Too many Google accounts in this browser.** Google picks the wrong account and shows this same message.
+   Open the address in a **private (incognito) window**, or sign out of the other accounts.
+5. **Was it authorized?** The first deploy asks you to allow permissions. If you closed that window,
+   open the script, pick the function `doGet` in the top bar, click **Run**, and accept the permissions.
+   Then deploy again.
+
+If your Google account belongs to a company or school, the administrator may block "Anyone". Use a personal
+Google account for the sheet in that case.
+
+The website does not need your browser to be signed in. It calls the address directly with the secret.
