@@ -22,6 +22,8 @@ function call(body: unknown, ip = `10.0.0.${++ipCounter}`) {
 const valid = { email: 'mom@example.com', plan: 'six_month', wish: 'reactions', consent: true, locale: 'en', website: '' };
 
 beforeEach(() => {
+  delete process.env.PLUS_INTEREST_SHEET_URL;
+  delete process.env.PLUS_INTEREST_SHEET_SECRET;
   jest.spyOn(console, 'error').mockImplementation(() => {});
   sendMock.mockReset();
   sendMock.mockResolvedValue({ error: null });
@@ -118,5 +120,68 @@ describe('POST /api/plus-interest', () => {
     const res = await call(valid);
     expect(res.status).toBe(500);
     expect((await res.json()).kind).toBe('server');
+  });
+});
+
+describe('POST /api/plus-interest with a Google Sheet', () => {
+  const fetchMock = jest.fn();
+
+  beforeEach(() => {
+    process.env.PLUS_INTEREST_SHEET_URL = 'https://script.google.com/macros/s/abc/exec';
+    process.env.PLUS_INTEREST_SHEET_SECRET = 'top-secret-value';
+    fetchMock.mockReset();
+    fetchMock.mockResolvedValue({ ok: true, status: 200, json: async () => ({ ok: true }) });
+    global.fetch = fetchMock as unknown as typeof fetch;
+  });
+
+  afterEach(() => {
+    delete process.env.PLUS_INTEREST_SHEET_URL;
+    delete process.env.PLUS_INTEREST_SHEET_SECRET;
+  });
+
+  it('writes one row to the sheet and sends no email', async () => {
+    const res = await call(valid);
+    expect(res.status).toBe(200);
+    expect(sendMock).not.toHaveBeenCalled();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe('https://script.google.com/macros/s/abc/exec');
+    expect(init.method).toBe('POST');
+    expect(JSON.parse(init.body)).toMatchObject({
+      secret: 'top-secret-value',
+      email: 'mom@example.com',
+      plan: '6-month pass',
+      locale: 'en',
+      wish: 'reactions',
+    });
+  });
+
+  it('never puts the secret in the web address', async () => {
+    await call(valid);
+    expect(fetchMock.mock.calls[0][0]).not.toContain('top-secret-value');
+  });
+
+  it('makes text that looks like a formula safe for the sheet', async () => {
+    await call({ ...valid, wish: '=HYPERLINK("http://evil.example","click")' });
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body).wish).toBe(`'=HYPERLINK("http://evil.example","click")`);
+  });
+
+  it('answers 500 when the sheet refuses the row', async () => {
+    fetchMock.mockResolvedValue({ ok: true, status: 200, json: async () => ({ ok: false, error: 'unauthorized' }) });
+    const res = await call(valid);
+    expect(res.status).toBe(500);
+    expect((await res.json()).kind).toBe('server');
+  });
+
+  it('answers 500 when the sheet cannot be reached', async () => {
+    fetchMock.mockRejectedValue(new Error('network down'));
+    const res = await call(valid);
+    expect(res.status).toBe(500);
+  });
+
+  it('does not call the sheet for a bot or for invalid input', async () => {
+    await call({ ...valid, website: 'spam' });
+    await call({ ...valid, email: 'nope' });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

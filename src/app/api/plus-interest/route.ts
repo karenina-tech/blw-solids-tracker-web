@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { createRateLimiter } from '@/lib/rateLimit';
+import { isSheetConfigured, saveToSheet } from '@/lib/plusInterestSheet';
 import { PLUS_PLAN_LABELS, PlusInterestSchema } from '@/types/plusInterest';
 
 // Fake-door test: we only want to know whether parents would use a paid Plus plan.
-// There is no database. Each sign-up arrives as one plain-text email to the owner.
-// Needed in Vercel: RESEND_API_KEY and PLUS_INTEREST_TO. Optional: PLUS_INTEREST_FROM.
+// There is no database. Each sign-up goes to ONE place:
+//   1. A Google Sheet, when PLUS_INTEREST_SHEET_URL and PLUS_INTEREST_SHEET_SECRET are set
+//      (setup in docs/plus-interest-sheet.md), or else
+//   2. One plain-text email to the owner, when RESEND_API_KEY and PLUS_INTEREST_TO are set
+//      (optional: PLUS_INTEREST_FROM).
 
 const checkRateLimit = createRateLimiter(15 * 60 * 1000, 5);
 
@@ -44,14 +48,25 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, kind: 'validation', errors }, { status: 422 });
   }
 
+  const { email, plan, wish, locale } = parsed.data;
+
+  if (isSheetConfigured()) {
+    try {
+      await saveToSheet({ email, plan, wish, locale });
+      return NextResponse.json({ ok: true });
+    } catch (error) {
+      console.error('[plus-interest] Sheet error:', error);
+      return NextResponse.json({ ok: false, kind: 'server' }, { status: 500 });
+    }
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.PLUS_INTEREST_TO;
   if (!apiKey || !to) {
-    console.error('[plus-interest] RESEND_API_KEY or PLUS_INTEREST_TO is not set');
+    console.error('[plus-interest] No place to save sign-ups: set the sheet or the email settings');
     return NextResponse.json({ ok: false, kind: 'server' }, { status: 503 });
   }
 
-  const { email, plan, wish, locale } = parsed.data;
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
     from: process.env.PLUS_INTEREST_FROM ?? 'BLW Solids Tracker <contact@kareninatech.com>',
