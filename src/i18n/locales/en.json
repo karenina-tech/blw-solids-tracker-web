@@ -11,7 +11,7 @@
     },
     "footer": {
       "openSource": "Open source",
-      "privacy": "Your baby's name and form data stay in your browser. Nothing is stored or sent to a server.",
+      "privacy": "Your baby's name and form data stay in your browser. Nothing is stored or sent to a server. If you join the Plus list, only your email and your answers are saved, and only to tell you when Plus is ready.",
       "privacyLabel": "Privacy",
       "builtBy": "Built by"
     }
@@ -111,6 +111,10 @@
       "planTitle": "{{name}}'s 30-Day Plan",
       "html": "HTML",
       "pdf": "Save as PDF",
+      "downloadNote": {
+        "title": "This checklist cannot be edited on screen.",
+        "body": "Download it as a PDF or HTML file, print it, and tick it by hand."
+      },
       "foodInterestNote": "Not all babies show obvious food interest before solids are introduced. This is completely normal. Food curiosity often develops naturally once they start exploring flavors and textures. The three physical markers (head control, sitting, and reach) are the most important safety signals, and your baby has passed all of them.",
       "notReady": {
         "title": "Still developing",
@@ -208,6 +212,36 @@
   "language": {
     "en": "EN",
     "es": "ES"
+  },
+  "plus": {
+    "prompt": "Want to tick foods and write notes on screen, and share them with your partner? I am thinking about a paid Plus plan.",
+    "cta": "Join the Plus list",
+    "dialogTitle": "BLW Plus: not built yet",
+    "dialogIntro": "Plus would let you tick foods, write notes and share the plan with one partner, using an account. I am checking if parents want it before I build it. Your answers help me decide.",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "you@example.com",
+    "planLabel": "How would you prefer to pay?",
+    "planMonthly": "Monthly",
+    "planSixMonth": "6-month pass (one payment)",
+    "planNotSure": "Not sure yet",
+    "wishLabel": "What would you want to track? (optional)",
+    "wishPlaceholder": "For example: reactions, favourite foods, notes for the pediatrician",
+    "consent": "I agree that my email is saved only to tell me when Plus is ready. I can ask for it to be deleted at any time.",
+    "send": "Join the list",
+    "sending": "Sending",
+    "thanksTitle": "Thank you",
+    "thanksBody": "You are on the list. I will email you once, when Plus is ready.",
+    "close": "Close",
+    "errors": {
+      "emailRequired": "Enter your email address.",
+      "emailInvalid": "That email address does not look valid.",
+      "planRequired": "Choose one option.",
+      "wishTooLong": "Please use 500 characters or fewer.",
+      "consentRequired": "Please tick the box to join the list.",
+      "rateLimit": "Too many tries. Please wait a few minutes and try again.",
+      "server": "Something went wrong. Please try again in a moment.",
+      "network": "Could not send. Check your connection and try again."
+    }
   },
   "checklist": {
     "title": "{{name}}'s 30-Day Solid Food Plan",
