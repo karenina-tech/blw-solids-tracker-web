@@ -9,6 +9,7 @@ import { defaultProfileValidator } from '@/domain/services/profileValidator';
 import { defaultPlanGenerator } from '@/domain/services/planGenerator';
 import { compileHtmlTemplate } from '@/domain/pdfGenerator';
 import type { MissingMilestone } from '@/domain/getSafeFoods';
+import { ResultNotice } from '@/components/PlusInterest';
 
 interface StepResultProps {
   formData: FormData;
@@ -131,6 +132,7 @@ export function StepResult({ formData, onReset, onBack }: StepResultProps) {
           </button>
         </div>
       </div>
+      <ResultNotice />
       {result.showFoodInterestNote && (
         <div className="px-4 py-2 bg-amber-50 border-b border-amber-100 text-base text-amber-800">
           {t('steps.result.foodInterestNote')}
