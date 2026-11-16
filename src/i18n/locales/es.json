@@ -11,7 +11,7 @@
 		},
 		"footer": {
 			"openSource": "Código abierto",
-			"privacy": "El nombre de tu bebé y los datos del formulario permanecen en tu navegador. No se almacenan ni se envían a ningún servidor.",
+			"privacy": "El nombre de tu bebé y los datos del formulario permanecen en tu navegador. No se almacenan ni se envían a ningún servidor. Si te apuntas a la lista Plus, solo se guardan tu correo y tus respuestas, y solo para avisarte cuando Plus esté listo.",
 			"privacyLabel": "Privacidad",
 			"builtBy": "Creado por"
 		}
@@ -111,6 +111,10 @@
 			"planTitle": "Plan de 30 días de {{name}}",
 			"html": "HTML",
 			"pdf": "Guardar como PDF",
+			"downloadNote": {
+				"title": "Esta lista no se puede editar en la pantalla.",
+				"body": "Descárgala como PDF o HTML, imprímela y márcala a mano."
+			},
 			"foodInterestNote": "No todos los bebés muestran interés obvio en la comida antes de introducir sólidos. Esto es completamente normal. La curiosidad alimentaria suele desarrollarse naturalmente una vez que empiezan a explorar sabores y texturas.",
 			"notReady": {
 				"title": "Aún en procesos de desarrollo",
@@ -209,6 +213,36 @@
 	"language": {
 		"en": "EN",
 		"es": "ES"
+	},
+	"plus": {
+		"prompt": "¿Quieres marcar alimentos y escribir notas en la pantalla, y compartirlas con tu pareja? Estoy pensando en un plan de pago Plus.",
+		"cta": "Apuntarme a la lista Plus",
+		"dialogTitle": "BLW Plus: aún no existe",
+		"dialogIntro": "Plus te permitiría marcar alimentos, escribir notas y compartir el plan con una pareja, usando una cuenta. Estoy comprobando si las familias lo quieren antes de construirlo. Tus respuestas me ayudan a decidir.",
+		"emailLabel": "Tu correo",
+		"emailPlaceholder": "tu@ejemplo.com",
+		"planLabel": "¿Cómo preferirías pagar?",
+		"planMonthly": "Mensual",
+		"planSixMonth": "Pase de 6 meses (un solo pago)",
+		"planNotSure": "Aún no lo sé",
+		"wishLabel": "¿Qué te gustaría registrar? (opcional)",
+		"wishPlaceholder": "Por ejemplo: reacciones, alimentos favoritos, notas para el pediatra",
+		"consent": "Acepto que mi correo se guarde solo para avisarme cuando Plus esté listo. Puedo pedir que lo borren cuando quiera.",
+		"send": "Apuntarme",
+		"sending": "Enviando",
+		"thanksTitle": "Gracias",
+		"thanksBody": "Estás en la lista. Te escribiré una sola vez, cuando Plus esté listo.",
+		"close": "Cerrar",
+		"errors": {
+			"emailRequired": "Escribe tu correo.",
+			"emailInvalid": "Ese correo no parece válido.",
+			"planRequired": "Elige una opción.",
+			"wishTooLong": "Usa 500 caracteres o menos.",
+			"consentRequired": "Marca la casilla para apuntarte a la lista.",
+			"rateLimit": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+			"server": "Algo salió mal. Inténtalo de nuevo en un momento.",
+			"network": "No se pudo enviar. Revisa tu conexión e inténtalo de nuevo."
+		}
 	},
 	"checklist": {
 		"title": "Plan de 30 Días de Alimentos Sólidos de {{name}}",
